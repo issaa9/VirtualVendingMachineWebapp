@@ -1,6 +1,7 @@
 package com.example.finalyearproject;
 
 import com.example.finalyearproject.model.Product;
+import com.example.finalyearproject.service.VendingMachineService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -14,6 +15,9 @@ public class FinalYearProjectApplication {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private VendingMachineService vendingMachineService;
+
     public static void main(String[] args) {
 
         SpringApplication.run(FinalYearProjectApplication.class, args);
@@ -21,17 +25,25 @@ public class FinalYearProjectApplication {
 
     public void addProductAndPrint() {
         // call the addProduct method from ProductService to test that it works
-        Product product = productService.addProduct("Test Product", 15.99, 50);
+        Product product = productService.addProduct("D5","Test Product", 15.99, 50);
 
         // print out the product details  to ensure they are stored correctly
         System.out.println("Product added: ");
+        System.out.println("ID: " + product.getId());
         System.out.println("Name: " + product.getName());
         System.out.println("Price: " + product.getPrice());
-        System.out.println("Stock Level: " + product.getStockLevel());
+        System.out.println("Stock Level: " + product.getStock());
+    }
+
+    public void updateStockAndPrint(){
+        vendingMachineService.updateStock("D5", 10);  // testing adding 10 to stock
+        Product product = productService.getProductById("D5");
+        System.out.println("Stock Level: " + product.getStock());
     }
 
     @PostConstruct
-    public void testAddProduct() {
-        addProductAndPrint(); // call the testing method after application is initialised
+    public void testAddAndUpdate() {
+        addProductAndPrint(); // call the testing add product method after application is initialised
+        updateStockAndPrint(); //call the testing update stock method
     }
 }
