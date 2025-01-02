@@ -13,15 +13,35 @@ public class ProductService {        //service class for Product
     @Autowired
     private ProductRepo productRepository;
 
-    // Method to add a product
-
+    //method to retrieve a product by its id
     public Product getProductById(String id) {
         Optional<Product> optionalProduct = productRepository.findById(id);
         return optionalProduct.orElse(null);  // return the product if found, or null if not found
     }
+
+    //method to add a product to the DB
     public Product addProduct(String id, String name, double price, int stockLevel) {
         Product product = new Product(id, name, price, stockLevel);
         productRepository.save(product);  // Save product to database
         return product;
+    }
+
+    //method to update stock of a product
+    public boolean updateStock(String id, int quantity) {  //method to update stock of method with id by the quantity given
+        Optional<Product> optionalProduct = productRepository.findById(id);
+        if (optionalProduct.isPresent()) {  //use built in Optional conatiner object for better handling in case product is not found
+            Product product = optionalProduct.get();
+            int updatedStock = product.getStock() + quantity;
+
+            // makes sure stock does not go negative
+            if (updatedStock < 0) {
+                throw new IllegalArgumentException("Insufficient stock to complete the purchase.");
+            }
+
+            product.setStock(updatedStock);
+            productRepository.save(product); // saves updated stock to the database
+            return true;
+        }
+        return false; // in case product isn't found
     }
 }

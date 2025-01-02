@@ -2,6 +2,8 @@ package com.example.finalyearproject.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 
 @Entity
 @Table(name = "products")
@@ -19,6 +21,8 @@ public class Product {
     @Column(nullable = false)
     private int stock;
 
+    @ManyToMany(mappedBy = "products")   //recognising the many to many relation
+    private List<Transaction> transactions;
 
     public Product() {        //default constructor
 
