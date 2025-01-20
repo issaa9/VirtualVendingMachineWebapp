@@ -12,15 +12,17 @@ public class Transaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id",nullable = false)
     private Long id;
-
+    @Column(name="total_cost",nullable = false)
     private double totalCost;
-
+    @Column(name="payment_received",nullable = false)
     private double paymentReceived;
-
+    @Column(name="change_given",nullable = false)
     private double changeGiven;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="transaction_date",nullable = false)
     private Date transactionDate;
 
     @ManyToMany   //establishes the many to many relation
@@ -29,11 +31,8 @@ public class Transaction {
             joinColumns = @JoinColumn(name = "transaction_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id")  //join by ids
     )
-    private List<Product> products;
 
-    public Transaction() {
-        this.transactionDate = new Date();  //default constructor
-    }
+    private List<Product> products;
 
     public Transaction(double totalCost, double paymentReceived, double changeGiven, List<Product> products) {
         this.totalCost = totalCost;
@@ -41,6 +40,10 @@ public class Transaction {
         this.changeGiven = changeGiven;
         this.transactionDate = new Date();
         this.products = products;
+    }
+
+    public Transaction() {
+
     }
 
     //getters and setters:

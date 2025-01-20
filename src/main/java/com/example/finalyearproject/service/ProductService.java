@@ -22,14 +22,14 @@ public class ProductService {        //service class for Product
     //method to add a product to the DB
     public Product addProduct(String id, String name, double price, int stockLevel) {
         Product product = new Product(id, name, price, stockLevel);
-        productRepository.save(product);  // Save product to database
+        productRepository.save(product);  //save product to database
         return product;
     }
 
     //method to update stock of a product
-    public boolean updateStock(String id, int quantity) {  //method to update stock of method with id by the quantity given
+    public boolean updateStock(String id, int quantity) {  //method to update stock of product with given id by the quantity given
         Optional<Product> optionalProduct = productRepository.findById(id);
-        if (optionalProduct.isPresent()) {  //use built in Optional conatiner object for better handling in case product is not found
+        if (optionalProduct.isPresent()) {  //use built in Optional container object for better handling in case product is not found
             Product product = optionalProduct.get();
             int updatedStock = product.getStock() + quantity;
 

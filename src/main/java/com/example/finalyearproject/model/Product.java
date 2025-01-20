@@ -10,15 +10,16 @@ import java.util.List;
 public class Product {
 
     @Id
+    @Column(name="id",nullable= false)
     private String id;
 
-    @Column(nullable = false)
+    @Column(name="name",nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(name="price",nullable = false)
     private double price;
 
-    @Column(nullable = false)
+    @Column(name="stock",nullable = false)
     private int stock;
 
     @ManyToMany(mappedBy = "products")   //recognising the many to many relation

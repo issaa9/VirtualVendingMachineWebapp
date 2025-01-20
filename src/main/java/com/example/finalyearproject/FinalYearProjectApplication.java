@@ -65,6 +65,7 @@ public class FinalYearProjectApplication {
         System.out.println("Total Cost: £" + String.format("%.2f", transaction.getTotalCost()));
         System.out.println("Payment Received: £" + String.format("%.2f", transaction.getPaymentReceived()));
         System.out.println("Change Given: £" + String.format("%.2f", transaction.getChangeGiven()));
+
         //print out updated stock levels
         System.out.println("Updated stock levels after transaction:");
         for (String id : productIds) {
@@ -73,7 +74,7 @@ public class FinalYearProjectApplication {
         }
     }
 
-    @PostConstruct   //runs this method for testing after project is constructed
+    //@PostConstruct   //runs this method for testing after project is constructed
     public void testAll() {
         addProductAndPrint(); // call the testing add product method after application is initialised
         updateStockAndPrint(); //call the testing update stock method
