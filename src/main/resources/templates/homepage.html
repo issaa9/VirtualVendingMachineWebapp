@@ -3,27 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/general_styles.css}">
+    <link rel="stylesheet" th:href="@{/css/homepage_styles.css}">
     <title>Home Page</title>
 </head>
-<body>
-<!-- Header Section -->
-<header>
-    Home Page
-</header>
 
-<!-- Main Content Section -->
+<body>
+<!-- Main Content -->
 <main>
-    <h1>Virtual Vending Machine Webapp</h1>
+    <!-- H1 Heading for Webapp Title -->
+    <h1 class="webapp-title">Virtual Vending Machine Webapp</h1>
+
+    <!-- H2 Heading for Welcome Message -->
+    <h2 class="welcome-heading">Welcome to the Home Page</h2>
+
+    <!-- Button Container -->
     <div class="button-container">
         <!-- Start Button -->
-        <button th:onclick="'location.href=\'/main\';'">Start</button>
+        <a th:href="@{/main}">
+            <button>Start</button>
+        </a>
 
         <!-- About Button -->
-        <button th:onclick="'location.href=\'/about\';'">About</button>
+        <a th:href="@{/about}">
+            <button>About</button>
+        </a>
 
         <!-- Instructions Button -->
-        <button th:onclick="'location.href=\'/instructions\';'">Instructions</button>
+        <a th:href="@{/instructions}">
+            <button>Instructions</button>
+        </a>
     </div>
 </main>
 </body>
 </html>
+

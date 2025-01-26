@@ -74,7 +74,7 @@ public class FinalYearProjectApplication {
         }
     }
 
-    @PostConstruct   //runs this method for testing after project is constructed
+    //@PostConstruct   //runs this method for testing after project is constructed
     public void testAll() {
         addProductAndPrint(); // call the testing add product method after application is initialised
         updateStockAndPrint(); //call the testing update stock method
