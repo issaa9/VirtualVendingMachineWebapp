@@ -8,10 +8,23 @@
 </head>
 
 <body>
-    <h1>About</h1>
-    <a th:href="@{/}">
-        <button>Home</button>
-    </a>
+
+    <!-- H1 Heading for Webapp Title -->
+    <header>
+        <h1 class="webapp-title">Virtual Vending Machine Webapp</h1>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+
+        <h2>About</h2>
+
+        <!-- Home Button -->
+        <a th:href="@{/}" class="home-button-link">
+            <button class="home-button">Home</button>
+        </a>
+
+    </main>
 
 </body>
 </html>

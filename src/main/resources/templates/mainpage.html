@@ -4,14 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/general_styles.css}">
-    <title>Home Page</title>
+    <title>Main Page</title>
 </head>
 
 <body>
-    <h1>Main</h1>
-    <a th:href="@{/}">
-        <button>Home</button>
-    </a>
+
+    <!-- H1 Heading for Webapp Title -->
+    <header>
+        <h1 class="webapp-title">Virtual Vending Machine Webapp</h1>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+
+        <h2>Main</h2>
+
+        <!-- Home Button -->
+        <a th:href="@{/}" class="home-button-link">
+            <button class="home-button">Home</button>
+        </a>
+
+    </main>
 
 </body>
 </html>

@@ -7,36 +7,15 @@ body {
     color: #ffffff;
 }
 
-/* Header Styling */
-header {
-    font-size: 1.2rem;
-    text-align: center;
-    padding: 10px 0;
-    color: #cccccc;
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
-}
 
-/* Welcome Heading Styling */
+/* Welcome Heading Styling
 .welcome-heading {
     font-size: 4rem;
     color: #00ffcc;
     text-shadow: 0 0 3px #00ffcc, 0 0 6px #00ffcc;
     text-align: center;
     margin: 20px 0;
-}
-
-
-
-/* App Title Styling */
-.webapp-title {
-    font-size: 2rem;
-    color: #00ffff;
-    text-shadow: 0 0 3px #00ffff, 0 0 6px #00ffff;
-    position: absolute;
-    top: 20px;
-    left: 20px;
-}
-
+} */
 
 
 /* Button Container */

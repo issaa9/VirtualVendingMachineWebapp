@@ -14,8 +14,14 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* Exclude .webapp-title from flexbox alignment */
+body > .webapp-title {
+    position: fixed;
 }
 
 /* Headers */
@@ -29,13 +35,41 @@ h1 {
     font-size: 2.5rem;
 }
 
+/* Welcome Heading Styling */
 h2 {
-    font-size: 2rem;
+    font-size: 4rem;
+    color: #00ffcc;
+    text-shadow: 0 0 3px #00ffcc, 0 0 6px #00ffcc;
+    text-align: center;
+    margin-top: 20px;
 }
+
 
 h3 {
     font-size: 1.5rem;
 }
+
+
+/* Webapp Title found in every page */
+.webapp-title {
+    font-size: 2rem;
+    color: #00ffea;
+    text-shadow: 0 0 5px #00ffea, 0 0 10px #00ffea;
+    position: fixed;
+    top: 10px;
+    left: 20px;
+    margin: 0;
+    z-index: 1000;
+}
+
+/* Main content  */
+main {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
 
 /* Links */
 a {
@@ -68,6 +102,35 @@ button:hover {
     transform: scale(1.05);
     box-shadow: 0px 6px 15px rgba(0, 212, 255, 0.8);
 }
+
+/* Home Button Styling */
+.home-button-link {
+    position: fixed; /* Fixes the button in a specific location on the page */
+    bottom: 20px; /* Distance from the bottom of the page */
+    left: 20px; /* Distance from the left of the page */
+    text-decoration: none; /* Removes any default underline on the link */
+}
+
+.home-button {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5rem; /* Makes the button text larger */
+    font-weight: bold;
+    background: linear-gradient(90deg, #ff4500, #ff7f50); /* Red/Orange gradient */
+    color: #ffffff; /* White text */
+    border: none;
+    border-radius: 12px;
+    padding: 15px 30px; /* Increases the size of the button */
+    cursor: pointer;
+    box-shadow: 0px 4px 10px rgba(255, 69, 0, 0.5); /* Subtle shadow */
+    transition: all 0.3s ease-in-out; /* Smooth hover animation */
+}
+
+.home-button:hover {
+    background: linear-gradient(90deg, #ff7f50, #ff4500); /* Reverse gradient on hover */
+    transform: scale(1.1); /* Slightly enlarges the button on hover */
+    box-shadow: 0px 6px 15px rgba(255, 69, 0, 0.8); /* More pronounced shadow */
+}
+
 
 /* Forms for later */
 input, textarea, select {
@@ -106,6 +169,8 @@ footer {
     font-size: 0.9rem;
     border-top: 1px solid #444;
 }
+
+
 
 /* Responsive Design */
 @media (max-width: 768px) {

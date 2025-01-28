@@ -9,32 +9,36 @@
 </head>
 
 <body>
-<!-- Main Content -->
-<main>
+
     <!-- H1 Heading for Webapp Title -->
-    <h1 class="webapp-title">Virtual Vending Machine Webapp</h1>
+    <header>
+        <h1 class="webapp-title">Virtual Vending Machine Webapp</h1>
+    </header>
 
-    <!-- H2 Heading for Welcome Message -->
-    <h2 class="welcome-heading">Welcome to the Home Page</h2>
+    <!-- Main Content -->
+    <main>
+        <!-- H2 Heading for Welcome Message -->
+        <h2 class="welcome-heading">Welcome to the Home Page</h2>
 
-    <!-- Button Container -->
-    <div class="button-container">
-        <!-- Start Button -->
-        <a th:href="@{/main}">
-            <button>Start</button>
-        </a>
+        <!-- Button Container -->
+        <div class="button-container">
+            <!-- Start Button -->
+            <a th:href="@{/main}">
+                <button>Start</button>
+            </a>
 
-        <!-- About Button -->
-        <a th:href="@{/about}">
-            <button>About</button>
-        </a>
+            <!-- About Button -->
+            <a th:href="@{/about}">
+                <button>About</button>
+            </a>
 
-        <!-- Instructions Button -->
-        <a th:href="@{/instructions}">
-            <button>Instructions</button>
-        </a>
-    </div>
-</main>
+            <!-- Instructions Button -->
+            <a th:href="@{/instructions}">
+                <button>Instructions</button>
+            </a>
+        </div>
+    </main>
+
 </body>
 </html>
 
