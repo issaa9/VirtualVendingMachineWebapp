@@ -5,6 +5,7 @@ import com.example.finalyearproject.repository.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,6 +18,11 @@ public class ProductService {        //service class for Product
     public Product getProductById(String id) {
         Optional<Product> optionalProduct = productRepository.findById(id);
         return optionalProduct.orElse(null);  // return the product if found, or null if not found
+    }
+
+    //method to return a list of all products
+    public List<Product> getAllProducts() {
+        return productRepository.findAll(); //fetches all products from the database
     }
 
     //method to add a product to the DB

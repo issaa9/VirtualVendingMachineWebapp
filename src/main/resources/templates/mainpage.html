@@ -4,27 +4,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/general_styles.css}">
+    <link rel="stylesheet" th:href="@{/css/mainpage_styles.css}">
     <title>Main Page</title>
 </head>
 
 <body>
 
-    <!-- H1 Heading for Webapp Title -->
-    <header>
-        <h1 class="webapp-title">Virtual Vending Machine Webapp</h1>
-    </header>
+<!-- H1 Heading for Webapp Title -->
+<header>
+    <h1 class="webapp-title">Virtual Vending Machine Webapp</h1>
+</header>
 
-    <!-- Main Content -->
-    <main>
+<!-- Main Content -->
+<main>
 
         <h2>Main</h2>
 
-        <!-- Home Button -->
-        <a th:href="@{/}" class="home-button-link">
-            <button class="home-button">Home</button>
-        </a>
+    <!-- Vending Machine -->
+    <div class="vending-machine">
 
-    </main>
+        <!-- Items Grid -->
+        <div class="items-grid">
+            <div th:each="product : ${products}" class="item">
+                <p class="item-name" th:text="${product.name}"></p>
+                <p class="item-price" th:text="'£' + ${product.price}"></p>
+                <p class="item-code" th:text="${product.id}"></p>
+            </div>
+        </div>
+
+        <!-- Display Screen -->
+        <div class="keypad-display">_</div>
+
+        <!-- Keypad -->
+        <div class="keypad">
+            <button>A</button>
+            <button>B</button>
+            <button>C</button>
+            <button>D</button>
+            <div class="empty"></div>
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button>4</button>
+        </div>
+
+        <!-- Keypad Controls -->
+        <div class="keypad-controls">
+            <button class="clear-btn">CLEAR</button>
+            <button class="enter-btn">ENTER</button>
+        </div>
+
+    </div>
+
+    <!-- Cart (Outside Machine) -->
+    <div class="cart-container">
+        <h3>Cart:</h3>
+        <p class="total">Total: £0.00</p>
+        <div class="cart-buttons">
+            <button>Clear Cart</button>
+            <button>Checkout</button>
+        </div>
+    </div>
+
+    <!-- Home Button -->
+    <a th:href="@{/}" class="home-button-link">
+        <button class="home-button">Home</button>
+    </a>
+
+</main>
 
 </body>
 </html>
