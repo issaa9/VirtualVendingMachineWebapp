@@ -26,9 +26,13 @@
         <!-- Items Grid -->
         <div class="items-grid">
             <div th:each="product : ${products}" class="item">
-                <p class="item-name" th:text="${product.name}"></p>
-                <p class="item-price" th:text="'£' + ${product.price}"></p>
-                <p class="item-code" th:text="${product.id}"></p>
+                <div class="item-content">
+                    <p class="item-name" th:text="${product.name}"></p>
+                </div>
+                <div class="item-footer">
+                    <p class="item-code" th:text="${product.id}"></p>
+                    <p class="item-price" th:text="'£' + ${#numbers.formatDecimal(product.price, 1, 2)}"></p>
+                </div>
             </div>
         </div>
 
