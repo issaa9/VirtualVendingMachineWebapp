@@ -2,7 +2,7 @@
 .vending-machine {
     width: 65%;
     max-width: 700px;
-    height: 85vh;
+    min-height: 85vh;
     background: linear-gradient(180deg, #222, #111);
     padding: 20px;
     border-radius: 15px;
@@ -13,6 +13,7 @@
     margin: 30px auto;
     border: 5px solid #00ffcc;
     align-items: center;
+    justify-content: flex-start;
 }
 
 /* Items Grid */
@@ -101,10 +102,18 @@
 
 /* Keypad */
 .keypad-container {
+    border: 2px solid #00d4ff;
+    border-radius: 10px;
+    padding: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-shadow: 0 0 8px #00d4ff, 0 0 15px rgba(0, 212, 255, 0.4);
+    background: rgba(0, 0, 0, 0.6);
+    width: fit-content;
+    margin-top: 20px;
 }
+
 
 /* Keypad Grid  */
 .keypad {
@@ -141,7 +150,7 @@
     background: linear-gradient(90deg, #00ffcc, #00d4ff);
     transform: scale(1.05);
     box-shadow: 0px 0px 12px #00ffcc, 0px 0px 20px #00d4ff;
-    color: black; /* Ensures text remains visible */
+    color: black;
 }
 
 
@@ -155,20 +164,20 @@
 .keypad-controls {
     display: flex;
     justify-content: center;
-    gap: 14px;
+    gap: 10px;
     margin-top: 18px;
 }
 
 /* Clear & Enter Buttons */
-.clear-btn, .enter-btn {
-    padding: 10px 20px;
+.clear-btn, .delete-btn, .enter-btn {
+    padding: 8px 15px;
     font-size: 1rem;
     font-weight: bold;
     color: white;
     border-radius: 8px;
     cursor: pointer;
     transition: 0.2s ease-in-out;
-    width: 100px;
+    width: 50px;
     text-align: center;
     display: flex;
     justify-content: center;
@@ -185,6 +194,15 @@
     background: red;
     border: 2px solid #ff2222;
     transform: scale(1.05);
+}
+
+.delete-btn {
+    background: #ff8800;
+    border: 2px solid #ffaa00;
+}
+
+.delete-btn:hover {
+    background: #ff5500;
 }
 
 /* Enter Button */
@@ -255,7 +273,7 @@
     font-size: 1rem;
     cursor: pointer;
     transition: 0.2s ease-in-out;
-    margin: 0 5px; /* SPACE RESTORED */
+    margin: 0 5px;
 }
 
 

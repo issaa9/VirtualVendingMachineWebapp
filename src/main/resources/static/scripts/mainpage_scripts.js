@@ -20,9 +20,6 @@ function updateDisplay(value) {
     }
 }
 
-
-
-
 //function to clear the keypad display
 function clearDisplay() {
     document.getElementById("keypadDisplay").innerText = "_";
@@ -43,4 +40,21 @@ function submitCode() {
     }
     clearDisplay();  //always clear the display after the code is submitted
 }
+
+//function for DEL button to remove last character
+function deleteLastCharacter() {
+    let display = document.getElementById("keypadDisplay");
+    let currentText = display.innerText;
+
+    //only delete if there is text(letter or letter+number)
+    if (currentText.length > 0 && currentText !== "_") {
+        display.innerText = currentText.slice(0, -1);
+    }
+
+    //if display becomes empty, put placeholder "_" back in
+    if (display.innerText.length === 0) {
+        display.innerText = "_";
+    }
+}
+
 
