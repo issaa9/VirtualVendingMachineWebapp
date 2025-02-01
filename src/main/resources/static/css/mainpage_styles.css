@@ -153,6 +153,13 @@
     color: black;
 }
 
+/*remove button focus*/
+.keypad button:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+
 
 /* Empty Space in Keypad Center */
 .keypad .empty {
@@ -215,6 +222,16 @@
     background: springgreen;
     border: 2px solid #00ff44;
     transform: scale(1.05);
+}
+
+/* disabled state */
+.enter-btn:disabled {
+    background: #555;
+    color: #ccc;
+    border: 2px solid #777;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
 }
 
 /* Cart Container */

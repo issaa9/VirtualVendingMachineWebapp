@@ -1,6 +1,7 @@
 //function to update the keypad display
 function updateDisplay(value) {
     let display = document.getElementById("keypadDisplay");
+    let enterBtn = document.getElementById("enterBtn");
 
     //get current display value
     let currentValue = display.innerText === "_" ? "" : display.innerText;
@@ -18,11 +19,13 @@ function updateDisplay(value) {
     else if (currentValue.length === 1 && /^[1-4]$/.test(value)) {
         display.innerText += value;
     }
+    enterBtn.disabled = !/^[A-D][1-4]$/.test(display.innerText);  //enable the CLR button if there is a valid code
 }
 
 //function to clear the keypad display
 function clearDisplay() {
-    document.getElementById("keypadDisplay").innerText = "_";
+    document.getElementById("keypadDisplay").innerText = "_";  //clear display back to default value
+    document.getElementById("enterBtn").disabled = true; //always ensure the CLR button is disabled when clearing the display
 }
 
 //function to validate and submit entered code
@@ -55,6 +58,26 @@ function deleteLastCharacter() {
     if (display.innerText.length === 0) {
         display.innerText = "_";
     }
+
+    document.getElementById("enterBtn").disabled = true; //disable CLR button
 }
+
+//function to allow user to use their keyboard keys as alternatives to ENT and DEL buttons
+document.addEventListener("keydown", function(event) {
+    let enterButton = document.getElementById("enterBtn");
+    let deleteButton = document.getElementById("deleteBtn");
+
+    //if ENTER key is pressed and the ENT button is enabled, trigger an ENT button click
+    if (event.key === "Enter" && !enterButton.disabled) {
+        enterButton.click();
+    }
+
+    //if BACKSPACE or DELETE key is pressed, trigger a DEL button click
+    if (event.key === "Backspace" || event.key === "Delete") {
+        deleteButton.click();
+    }
+});
+
+
 
 
