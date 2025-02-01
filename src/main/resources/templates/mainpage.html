@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/general_styles.css}">
     <link rel="stylesheet" th:href="@{/css/mainpage_styles.css}">
+    <script th:src="@{/scripts/mainpage_scripts.js}"></script>
+    <link rel="icon" type="image/png" th:href="@{/images/vending_machine.png}">
     <title>Main Page</title>
 </head>
 
@@ -36,27 +38,31 @@
             </div>
         </div>
 
-        <!-- Display Screen -->
-        <div class="keypad-display">_</div>
+        <!-- Keypad Container -->
+        <div class="keypad-container">
+            <!-- Display Screen -->
+            <div class="keypad-display" id="keypadDisplay">_</div>
 
-        <!-- Keypad -->
-        <div class="keypad">
-            <button>A</button>
-            <button>B</button>
-            <button>C</button>
-            <button>D</button>
-            <div class="empty"></div>
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>4</button>
+            <!-- Keypad -->
+            <div class="keypad">
+                <button onclick="updateDisplay('A')">A</button>
+                <button onclick="updateDisplay('B')">B</button>
+                <button onclick="updateDisplay('C')">C</button>
+                <button onclick="updateDisplay('D')">D</button>
+                <div class="empty"></div> <!-- Empty space in middle -->
+                <button onclick="updateDisplay('1')">1</button>
+                <button onclick="updateDisplay('2')">2</button>
+                <button onclick="updateDisplay('3')">3</button>
+                <button onclick="updateDisplay('4')">4</button>
+            </div>
+
+            <!-- Keypad Controls -->
+            <div class="keypad-controls">
+                <button class="clear-btn" onclick="clearDisplay()">CLEAR</button>
+                <button class="enter-btn" onclick="submitCode()">ENTER</button>
+            </div>
         </div>
 
-        <!-- Keypad Controls -->
-        <div class="keypad-controls">
-            <button class="clear-btn">CLEAR</button>
-            <button class="enter-btn">ENTER</button>
-        </div>
 
     </div>
 
