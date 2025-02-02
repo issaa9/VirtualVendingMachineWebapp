@@ -70,12 +70,14 @@
     <!-- Cart (Outside Machine) -->
     <div class="cart-container">
         <h3>Cart:</h3>
-        <p class="total">Total: £0.00</p>
+        <ul class="cart-list" id="cartList"></ul>
+        <p id="totalPrice" class="total">Total: £0.00</p>
         <div class="cart-buttons">
-            <button>Clear Cart</button>
+            <button onclick="clearCart()">Clear Cart</button>
             <button>Checkout</button>
         </div>
     </div>
+
 
     <!-- Home Button -->
     <a th:href="@{/}" class="home-button-link">

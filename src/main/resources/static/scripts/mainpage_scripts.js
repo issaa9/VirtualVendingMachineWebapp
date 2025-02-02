@@ -1,3 +1,5 @@
+let cartItems = {};  //global variable for cart
+
 //function to update the keypad display
 function updateDisplay(value) {
     let display = document.getElementById("keypadDisplay");
@@ -28,21 +30,6 @@ function clearDisplay() {
     document.getElementById("enterBtn").disabled = true; //always ensure the CLR button is disabled when clearing the display
 }
 
-//function to validate and submit entered code
-function submitCode() {
-    let display = document.getElementById("keypadDisplay");
-    let enteredCode = display.innerText.trim();  // Get the entered code
-
-    //validation of the code
-    if (/^[A-D][1-4]$/.test(enteredCode)) {
-        console.log("Valid code submitted:", enteredCode);
-        alert("Item "+enteredCode+" has been added to Cart successfully!");
-    } else {
-        console.error("Invalid code submitted:", enteredCode);
-        alert("Invalid item code detected :(  Please try again.");
-    }
-    clearDisplay();  //always clear the display after the code is submitted
-}
 
 //function for DEL button to remove last character
 function deleteLastCharacter() {
@@ -62,7 +49,98 @@ function deleteLastCharacter() {
     document.getElementById("enterBtn").disabled = true; //disable CLR button
 }
 
-//function to allow user to use their keyboard keys as alternatives to ENT and DEL buttons
+
+//function to validate and submit entered code
+function submitCode() {
+    let display = document.getElementById("keypadDisplay");
+    let enteredCode = display.innerText.trim();
+
+    if (!/^[A-D][1-4]$/.test(enteredCode)) {
+        alert("Invalid item code detected :(  Please try again.");
+        return;
+    }
+
+    //fetch product details using AJAX
+    fetch("/api/cart/getProduct/" + enteredCode)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Product not found");
+            }
+            return response.json();
+        })
+        .then(product => {
+            addItemToCart(product);
+            alert(`${product.id} - ${product.name} added to cart successfully!`);
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("Error fetching product. Please try again.");
+        });
+
+    clearDisplay();
+}
+
+//function to dynamically add an item to the cart
+function addItemToCart(product) {
+    let cartList = document.getElementById("cartList");
+
+    //checking if the product already exists in the cart
+    if (cartItems[product.id]) {
+        cartItems[product.id].quantity += 1; //increment its quantity if  already in the cart
+    } else {
+        cartItems[product.id] = {  //add as new item if not already in cart
+            name: product.name,
+            price: parseFloat(product.price),
+            quantity: 1
+        };
+    }
+
+    updateCartDisplay();
+}
+
+//function to update cart display
+function updateCartDisplay() {
+    let cartList = document.getElementById("cartList");
+
+    cartList.innerHTML = "";
+
+    for (let itemCode in cartItems) {
+        let item = cartItems[itemCode];
+        let itemTotalPrice = (item.price * item.quantity).toFixed(2);
+
+        let listItem = document.createElement("li");
+        listItem.textContent = `${item.quantity}x ${item.name} (${itemCode}) - £${itemTotalPrice}`;
+        cartList.appendChild(listItem);
+    }
+
+    updateTotal();
+}
+
+//function to update the total price as items are added to cart
+function updateTotal() {
+    let totalPriceElement = document.getElementById("totalPrice");
+    let total = 0;
+
+    for (let itemCode in cartItems) {
+        let item = cartItems[itemCode];
+        total += item.price * item.quantity;
+    }
+
+    totalPriceElement.textContent = `Total: £${total.toFixed(2)}`; // Format total to 2 decimal places
+}
+
+
+//function to clear the cart
+function clearCart() {
+    let cartList = document.querySelector(".cart-list");
+    let totalPriceElement = document.querySelector(".total");
+
+    cartItems = {};
+    cartList.innerHTML = "";
+    totalPriceElement.innerText = "Total: £0.00";
+}
+
+//allows user to use their keyboard keys as alternatives to ENT and DEL buttons
 document.addEventListener("keydown", function(event) {
     let enterButton = document.getElementById("enterBtn");
     let deleteButton = document.getElementById("deleteBtn");

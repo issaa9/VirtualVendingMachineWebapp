@@ -4,11 +4,15 @@ package com.example.finalyearproject.controller;
 import com.example.finalyearproject.model.Product;
 import com.example.finalyearproject.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class MainController {
@@ -21,6 +25,21 @@ public class MainController {
         List<Product> products = productService.getAllProducts();  //fetch all products from DB
         model.addAttribute("products", products);  //add products to model attribute
         return "mainpage";
+    }
+
+
+    //controller method for handling AJAX request to fetch products by their IDs
+    @GetMapping("/api/cart/getProduct/{id}")
+    @ResponseBody  //allows JSON response instead of rendering a view
+    public ResponseEntity<?> getProductById(@PathVariable String id) {
+        Optional<Product> product = Optional.ofNullable(productService.getProductById(id));
+
+        if (product.isPresent()) {
+            return ResponseEntity.ok(product.get());  //return product data as JSON
+        }
+        else {
+            return ResponseEntity.badRequest().body("Product not found or invalid code."); //error handling
+        }
     }
 }
 
