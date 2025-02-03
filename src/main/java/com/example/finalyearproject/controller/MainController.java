@@ -41,5 +41,19 @@ public class MainController {
             return ResponseEntity.badRequest().body("Product not found or invalid code."); //error handling
         }
     }
+
+    @GetMapping("/api/cart/checkStock/{id}") //define API endpoint to fetch an item's stock by its ID
+    @ResponseBody  //allow JSON response
+    public ResponseEntity<?> checkProductStock(@PathVariable String id) {
+        Optional<Product> product = Optional.ofNullable(productService.getProductById(id));
+
+        if (product.isPresent()) {  //check if product exists
+            int stock = product.get().getStock();  //call getter method for stock attribute
+            return ResponseEntity.ok(stock);  //return product stock as a JSON response
+        } else {
+            return ResponseEntity.badRequest().body("Product not found"); //else return an error message
+        }
+    }
+
 }
 

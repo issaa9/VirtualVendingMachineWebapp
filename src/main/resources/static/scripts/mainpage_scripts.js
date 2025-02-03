@@ -51,7 +51,7 @@ function deleteLastCharacter() {
 
 
 //function to validate and submit entered code
-function submitCode() {
+async function submitCode() {
     let display = document.getElementById("keypadDisplay");
     let enteredCode = display.innerText.trim();  //extract entered code from display
 
@@ -60,32 +60,33 @@ function submitCode() {
         return;
     }
 
-    //fetch product details using an AJAX request
-    fetch("/api/cart/getProduct/" + enteredCode)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Product not found"); //throw an error for a 'not ok' response
-            }
-            return response.json(); //else parse the response as JSON
-        })
-        .then(product => { //processing product data
-            addItemToCart(product);  //call function to add item to cart
-            alert(`${product.id} - ${product.name} added to cart successfully!`); //successful alert
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            alert("Error fetching product. Please try again."); //error handling alert
-        });
+    try {
+        //fetch product details using an AJAX request
+        let response = await fetch("/api/cart/getProduct/" + enteredCode);
+        if (!response.ok) {
+            return; //return from the function a 'not ok' response
+        }
+
+        let product = await response.json(); //else parse the response as JSON
+        await addItemToCart(product);  //call function to add item to cart and await it
+
+    } catch (error) {
+        console.error("Error:", error);  //log error in console
+        alert("Error fetching product. Please try again."); //error handling alert
+    }
 
     clearDisplay(); //always clear keypad display after submitting a code
 }
 
-//function to dynamically add an item to the cart
-function addItemToCart(product) {
-    let cartList = document.getElementById("cartList");
 
-    //checking if the product already exists in the cart
-    if (cartItems[product.id]) {
+//function to dynamically add an item to the cart
+async function addItemToCart(product) {
+    let enoughStock = await checkStock(product);  //call stock check function and await it
+
+    if (!enoughStock) return;  //if not enough stock return from function, the alert will already be sent by the checkStock function
+
+    //if enough stock proceed with adding item to cart (or updating quantity)
+    if (cartItems[product.id]) {  //checking if the product already exists in the cart
         cartItems[product.id].quantity += 1; //increment its quantity if  already in the cart
     } else {
         cartItems[product.id] = {  //add as new item if not already in cart
@@ -94,9 +95,29 @@ function addItemToCart(product) {
             quantity: 1
         };
     }
-
+    alert(`${product.id} - ${product.name} added to cart successfully!`); //successful alert
     updateCartDisplay();  //calling function to update the cart display after adding an item
 }
+
+async function checkStock(product) {
+    let response = await fetch(`/api/cart/checkStock/${product.id}`);
+
+    if (!response.ok) {
+        return false;  //return false if stock check fails
+    }
+
+    let stock = await response.json();  //await the response
+    let currentQuantity = cartItems[product.id] ? cartItems[product.id].quantity : 0;
+
+    if (currentQuantity + 1 > stock) {  //check if there's not enough stock
+        alert(`Not enough stock available for ${product.name}. Only ${stock} left.`); //alert message
+        return false;  //if not enough return false to prevent item being added to cart
+    }
+
+    return true;  //if enough stock, proceed with adding to cart
+}
+
+
 
 //function to update cart display
 function updateCartDisplay() {
@@ -153,6 +174,7 @@ function updateTotal() {
 }
 
 
+
 //function to completely remove an item from the cart
 function removeItem(itemCode) {
     delete cartItems[itemCode];  //remove the item from cart object
@@ -171,6 +193,21 @@ function reduceItem(itemCode) {
 
 
 
+//function to check if the cart is not already empty and then clear it if the user confirms
+function checkClearCart() {
+    //if cart is already empty do nothing
+    if (Object.keys(cartItems).length === 0) {
+        return;
+    }
+
+    //confirm with user that they want to clear the cart
+    let confirmClear = window.confirm("Are you sure you want to clear the cart?");
+
+    if (confirmClear) {  //if they confirm then clear the cart
+        clearCart();
+    }
+}
+
 //function to clear the cart
 function clearCart() {
     let cartList = document.querySelector(".cart-list");
@@ -180,6 +217,7 @@ function clearCart() {
     cartList.innerHTML = "";
     totalPriceElement.innerText = "Total: £0.00";
 }
+
 
 //allows user to use their keyboard keys as alternatives to ENT and DEL buttons
 document.addEventListener("keydown", function(event) {
