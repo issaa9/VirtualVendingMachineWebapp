@@ -29,10 +29,10 @@ public class MainController {
 
 
     //controller method for handling AJAX request to fetch products by their IDs
-    @GetMapping("/api/cart/getProduct/{id}")
-    @ResponseBody  //allows JSON response instead of rendering a view
-    public ResponseEntity<?> getProductById(@PathVariable String id) {
-        Optional<Product> product = Optional.ofNullable(productService.getProductById(id));
+    @GetMapping("/api/cart/getProduct/{id}")  //define API endpoint to allow fetching items by their ID
+    @ResponseBody  //allows JSON response instead of rendering a HTML view
+    public ResponseEntity<?> getProductById(@PathVariable String id) { //extracts th ID from the URL to be used as a variable
+        Optional<Product> product = Optional.ofNullable(productService.getProductById(id)); //fetches product details from DB
 
         if (product.isPresent()) {
             return ResponseEntity.ok(product.get());  //return product data as JSON

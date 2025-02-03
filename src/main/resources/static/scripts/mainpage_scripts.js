@@ -1,4 +1,4 @@
-let cartItems = {};  //global variable for cart
+let cartItems = {};  //global object for cart to store items dynamically
 
 //function to update the keypad display
 function updateDisplay(value) {
@@ -53,31 +53,31 @@ function deleteLastCharacter() {
 //function to validate and submit entered code
 function submitCode() {
     let display = document.getElementById("keypadDisplay");
-    let enteredCode = display.innerText.trim();
+    let enteredCode = display.innerText.trim();  //extract entered code from display
 
-    if (!/^[A-D][1-4]$/.test(enteredCode)) {
+    if (!/^[A-D][1-4]$/.test(enteredCode)) {  //validation of entered code
         alert("Invalid item code detected :(  Please try again.");
         return;
     }
 
-    //fetch product details using AJAX
+    //fetch product details using an AJAX request
     fetch("/api/cart/getProduct/" + enteredCode)
         .then(response => {
             if (!response.ok) {
-                throw new Error("Product not found");
+                throw new Error("Product not found"); //throw an error for a 'not ok' response
             }
-            return response.json();
+            return response.json(); //else parse the response as JSON
         })
-        .then(product => {
-            addItemToCart(product);
-            alert(`${product.id} - ${product.name} added to cart successfully!`);
+        .then(product => { //processing product data
+            addItemToCart(product);  //call function to add item to cart
+            alert(`${product.id} - ${product.name} added to cart successfully!`); //successful alert
         })
         .catch(error => {
             console.error("Error:", error);
-            alert("Error fetching product. Please try again.");
+            alert("Error fetching product. Please try again."); //error handling alert
         });
 
-    clearDisplay();
+    clearDisplay(); //always clear keypad display after submitting a code
 }
 
 //function to dynamically add an item to the cart
@@ -90,44 +90,85 @@ function addItemToCart(product) {
     } else {
         cartItems[product.id] = {  //add as new item if not already in cart
             name: product.name,
-            price: parseFloat(product.price),
+            price: parseFloat(product.price), //parse the price as a float
             quantity: 1
         };
     }
 
-    updateCartDisplay();
+    updateCartDisplay();  //calling function to update the cart display after adding an item
 }
 
 //function to update cart display
 function updateCartDisplay() {
     let cartList = document.getElementById("cartList");
 
-    cartList.innerHTML = "";
+    cartList.innerHTML = "";  //clears cart to avoid duplication
 
-    for (let itemCode in cartItems) {
+    for (let itemCode in cartItems) { //iterate through cart items
         let item = cartItems[itemCode];
-        let itemTotalPrice = (item.price * item.quantity).toFixed(2);
+        let itemTotalPrice = (item.price * item.quantity).toFixed(2); //handle item(s) price
 
-        let listItem = document.createElement("li");
-        listItem.textContent = `${item.quantity}x ${item.name} (${itemCode}) - £${itemTotalPrice}`;
-        cartList.appendChild(listItem);
+        let listItem = document.createElement("li"); //create new html list tag
+        listItem.classList.add("cart-item");
+
+        listItem.textContent = `${item.quantity}x ${item.name} (${itemCode}) - £${itemTotalPrice}`; //formats text
+
+        //create reduce button
+        let reduceBtn = document.createElement("button");
+        reduceBtn.innerText = "-";
+        reduceBtn.classList.add("reduce-btn");
+        reduceBtn.onclick = function() {
+            reduceItem(itemCode); //call function to reduce item
+        };
+
+        //create remove button
+        let removeBtn = document.createElement("button");
+        removeBtn.innerText = "X";
+        removeBtn.classList.add("remove-btn");
+        removeBtn.onclick = function() {
+            removeItem(itemCode); //call function to remove item
+        };
+
+        //append buttons to list item
+        listItem.appendChild(reduceBtn);
+        listItem.appendChild(removeBtn);
+
+        cartList.appendChild(listItem); //append list item to cart list
     }
 
-    updateTotal();
+    updateTotal();  //call function to update total price
 }
 
 //function to update the total price as items are added to cart
 function updateTotal() {
     let totalPriceElement = document.getElementById("totalPrice");
-    let total = 0;
+    let total = 0; //start at 0
 
-    for (let itemCode in cartItems) {
+    for (let itemCode in cartItems) { //iterate through each item code cart items
         let item = cartItems[itemCode];
-        total += item.price * item.quantity;
+        total += item.price * item.quantity; //update total based on each item's price and quantity
     }
 
-    totalPriceElement.textContent = `Total: £${total.toFixed(2)}`; // Format total to 2 decimal places
+    totalPriceElement.textContent = `Total: £${total.toFixed(2)}`; //format total to 2 decimal places and display it
 }
+
+
+//function to completely remove an item from the cart
+function removeItem(itemCode) {
+    delete cartItems[itemCode];  //remove the item from cart object
+    updateCartDisplay();  //update the cart view
+}
+
+//function to reduce quantity by 1 (removes item if quantity is 0)
+function reduceItem(itemCode) {
+    if (cartItems[itemCode].quantity > 1) {
+        cartItems[itemCode].quantity--;  //reduce quantity by 1, if greater than 1
+    } else {
+        delete cartItems[itemCode];  //remove item if quantity is 1
+    }
+    updateCartDisplay();  //update the cart view
+}
+
 
 
 //function to clear the cart
