@@ -150,9 +150,18 @@ function updateCartDisplay() {
             removeItem(itemCode); //call function to remove item
         };
 
+        //create Increase button
+        let increaseBtn = document.createElement("button");
+        increaseBtn.innerText = "+";
+        increaseBtn.classList.add("increase-btn");
+        increaseBtn.onclick = function() {
+            increaseItem(itemCode);
+        };
+
         //append buttons to list item
         listItem.appendChild(reduceBtn);
         listItem.appendChild(removeBtn);
+        listItem.appendChild(increaseBtn);
 
         cartList.appendChild(listItem); //append list item to cart list
     }
@@ -190,6 +199,18 @@ function reduceItem(itemCode) {
     }
     updateCartDisplay();  //update the cart view
 }
+
+//function to increase the quantity of an item in the cart
+async function increaseItem(itemCode) {
+    let enoughStock = await checkStock({ id: itemCode }); //check stock availability first
+
+    if (!enoughStock) {
+        return; //prevent increasing quantity if not enough stock
+    }
+    cartItems[itemCode].quantity += 1; //increment the quantity if enough stock
+    updateCartDisplay(); //update the cart view
+}
+
 
 
 
