@@ -289,9 +289,9 @@
 .cart-item {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Ensures the text and buttons fit */
-    white-space: nowrap; /* Prevents text wrapping */
-    width: 100%; /* Ensures the item does not overflow */
+    justify-content: space-between;
+    white-space: nowrap;
+    width: 100%;
     padding: 5px 0;
     overflow: hidden;
 }
@@ -312,7 +312,7 @@
     position: relative;
 }
 
-/* 🔵 Reduce Button - Electric Cyan */
+
 .reduce-btn {
     background: linear-gradient(45deg, #00e5ff, #0099cc);
     color: white;
@@ -325,7 +325,7 @@
     box-shadow: 0 0 15px rgba(0, 255, 255, 1);
 }
 
-/* 🟣 Remove Button - Neon Magenta */
+
 .remove-btn {
     background: linear-gradient(45deg, #ff00ff, #cc00cc);
     color: white;
@@ -338,7 +338,7 @@
     box-shadow: 0 0 15px rgba(255, 0, 255, 1);
 }
 
-/* 🟡 Increase Button - Neon Yellow */
+
 .increase-btn {
     background: linear-gradient(45deg, #ffff00, #ffcc00);
     color: black;
@@ -350,7 +350,6 @@
     transform: scale(1.1);
     box-shadow: 0 0 15px rgba(255, 255, 0, 1);
 }
-
 
 
 /* Cart Total */
@@ -391,7 +390,103 @@
 .cart-container .cart-buttons button:hover {
     background: linear-gradient(90deg, #0066cc, #002288);
     transform: scale(1.05);
-    box-shadow: 0px 0px 10px rgba(0, 153, 255, 0.8);
+    box-shadow: 0 0 10px rgba(0, 153, 255, 0.8);
 }
+
+/* Payment Modal */
+.modal {
+    width: 500px;
+    height: 600px;
+    position: absolute;
+    top: 20%;
+    right: 40px;
+    background-color: black;
+    border: 2px solid cyan;
+    box-shadow: 0 0 15px cyan;
+    padding: 10px;
+    z-index: 1001;
+    display: none;
+}
+
+
+.modal h2 {
+    font-size: 2.8rem; /* Larger */
+    text-align: center;
+    margin-top: 10px;
+    color: palegreen;
+    text-shadow: 0px 0px 12px lime;
+}
+
+
+.coin {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: gold;
+    border: 3px solid black;
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin: 5px;
+    box-shadow: 0px 0px 10px yellow;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+
+.coin:hover {
+    background-color: orange;
+    transform: scale(1.1);
+}
+
+
+.coins {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 15px 0;
+}
+
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: white;
+    font-size: 30px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.close-btn:hover {
+    color: red;
+    transform: scale(1.2);
+}
+
+
+.payment-info {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: cyan;
+    text-shadow: 0px 0px 8px cyan;
+    text-align: center;
+    margin: 10px 0;
+}
+
+
+.inserted-amount {
+    color: lime;
+    font-weight: bold;
+    font-size: 1.6rem;
+    text-shadow: 0px 0px 5px lime;
+}
+
+
+
 
 

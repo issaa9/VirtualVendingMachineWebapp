@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/general_styles.css}">
     <link rel="stylesheet" th:href="@{/css/mainpage_styles.css}">
-    <script th:src="@{/scripts/mainpage_scripts.js}"></script>
+    <script th:src="@{/scripts/mainpage_script.js}"></script>
     <link rel="icon" type="image/png" th:href="@{/images/vending_machine.png}">
     <title>Main Page</title>
 </head>
@@ -20,11 +20,10 @@
 <!-- Main Content -->
 <main>
 
-        <h2>Main</h2>
+    <h2>Main</h2>
 
     <!-- Vending Machine -->
     <div class="vending-machine">
-
         <!-- Items Grid -->
         <div class="items-grid">
             <div th:each="product : ${products}" class="item">
@@ -63,8 +62,6 @@
                 <button class="enter-btn" id="enterBtn" onclick="submitCode()" disabled>ENT</button>
             </div>
         </div>
-
-
     </div>
 
     <!-- Cart (Outside Machine) -->
@@ -74,7 +71,25 @@
         <p id="totalPrice" class="total">Total: £0.00</p>
         <div class="cart-buttons">
             <button onclick="checkClearCart()">Clear Cart</button>
-            <button>Checkout</button>
+            <button onclick="openModal()">Checkout</button>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            <h2>Payment</h2>
+            <p class="payment-info">Total Remaining: <strong id="remainingAmount" class="remaining-total">£3.00</strong></p>
+
+            <!-- Coins Section -->
+            <div class="coins">
+                <div class="coin" onclick="insertCoin(0.50)">50p</div>
+                <div class="coin" onclick="insertCoin(1.00)">£1</div>
+                <div class="coin" onclick="insertCoin(2.00)">£2</div>
+            </div>
+
+            <p class="payment-info">Inserted: <span id="insertedAmount" class="inserted-amount">£0.00</span></p>
         </div>
     </div>
 
@@ -86,5 +101,6 @@
 
 </main>
 
+<script th:src="@{/scripts/payment_script.js}"></script>
 </body>
 </html>
