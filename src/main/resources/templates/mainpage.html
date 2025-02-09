@@ -90,6 +90,14 @@
             </div>
 
             <p class="payment-info">Inserted: <span id="insertedAmount" class="inserted-amount">£0.00</span></p>
+
+            <!-- Change Display (Initially Hidden) -->
+            <div id="changeContainer" class="change-container" style="display: none;">
+                <p class="payment-info">Change: <strong id="changeAmount" class="change-amount">£0.00</strong></p>
+            </div>
+
+            <!-- Confirm Payment Button (Initially Hidden) -->
+            <button id="confirmPayment" class="confirm-btn" onclick="confirmPayment()" style="display: none;">Confirm Payment</button>
         </div>
     </div>
 
