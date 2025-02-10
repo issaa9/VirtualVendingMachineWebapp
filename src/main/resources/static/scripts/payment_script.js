@@ -56,14 +56,50 @@ function confirmPayment() {
         let paymentConfirmed = window.confirm(`Confirm payment? Total Paid: £${insertedAmount.toFixed(2)} Your change: £${changeAmount.toFixed(2)}.`);
 
         if (paymentConfirmed) {
-            window.alert(`Your payment has been completed successfully! Your change: £${changeAmount.toFixed(2)}. Here are your items:`);
-
-            resetModal();
-            closeModal();
-            clearCart();
+            processTransaction(); //process the transaction when payment is confirmed
         }
     }
 }
+
+//function to store the transaction in DB, alert the user and reset the page
+async function processTransaction() {
+    let productQuantities = {};
+
+    //extract product quantities
+    for (let productId in cartItems) {
+        productQuantities[productId] = cartItems[productId].quantity;
+    }
+
+    //ensure paymentReceived is separate and formatted correctly
+    let transactionData = {
+        productQuantities: productQuantities,  //nested under a separate key
+        paymentReceived: insertedAmount
+    };
+
+    try {
+        let response = await fetch("/api/transactions/create", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(transactionData)  //ensure JSON structure is correct
+        });
+
+        let result = await response.text();
+
+        if (response.ok) {
+            alert(`${result}`);
+            resetModal();
+            closeModal();
+            clearCart();
+        } else {
+            alert(`Transaction Failed: ${result}`);
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        alert("Payment error. Please try again.");
+    }
+}
+
+
 //function to reset required elements when payment is made, or modal is closed
 function resetModal() {
     //hide extra elements (change display and confirm button), everything else is reset when new modal opens

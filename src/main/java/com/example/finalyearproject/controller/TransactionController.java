@@ -1,11 +1,12 @@
 package com.example.finalyearproject.controller;
 
+import com.example.finalyearproject.model.Transaction;
 import com.example.finalyearproject.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/transactions")
@@ -13,6 +14,31 @@ public class TransactionController {
 
     @Autowired
     private TransactionService transactionService;
+
+    //endpoint to create and store the transaction from frontend
+    @PostMapping("/create")
+    public ResponseEntity<String> createTransaction(@RequestBody Map<String, Object> requestBody) {
+        try {
+            //extract item quantities
+            Map<String, Integer> productQuantities = (Map<String, Integer>) requestBody.get("productQuantities");
+
+            //extract paymentReceived and store as a double
+            double paymentReceived = ((Number) requestBody.get("paymentReceived")).doubleValue();
+
+            //call service method to create the transaction
+            Transaction transaction = transactionService.createTransaction(productQuantities, paymentReceived);
+
+            //format the change as a 2.d.p string
+            String formattedChange = String.format("%.2f", transaction.getChangeGiven());
+
+            //return success response
+            return ResponseEntity.ok("Transaction successful! Change given: £" + formattedChange);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Transaction failed: " + e.getMessage()); //return failure response
+        }
+    }
+
+
 
 
     //endpoint to test generating a receipt

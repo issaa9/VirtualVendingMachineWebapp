@@ -10,7 +10,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.example.finalyearproject.service.ProductService;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @SpringBootApplication
@@ -51,33 +53,43 @@ public class FinalYearProjectApplication {
     }
 
     //test creating a transaction
-    public void createTransaction() {
+// Test creating a transaction with quantities
+    public void createTransactionTest() {
+        // Create a test transaction with product IDs and their quantities
+        Map<String, Integer> productQuantities = new HashMap<>();
+        productQuantities.put("A1", 2); // Buy 2 of A1
+        productQuantities.put("A2", 1); // Buy 1 of A2
+        productQuantities.put("B1", 3); // Buy 3 of B1
 
-        //test transaction with products A1, A2, and B1
-        List<String> productIds = Arrays.asList("A1", "A2", "B1");
-        double paymentReceived = 10.00;
+        double paymentReceived = 20.00; // Simulated payment
 
-        //create the transaction
-        Transaction transaction = transactionService.createTransaction(productIds, paymentReceived);
+        try {
+            // Create the transaction
+            Transaction transaction = transactionService.createTransaction(productQuantities, paymentReceived);
 
-        //print out transaction details
-        System.out.println("Transaction created:");
-        System.out.println("Total Cost: £" + String.format("%.2f", transaction.getTotalCost()));
-        System.out.println("Payment Received: £" + String.format("%.2f", transaction.getPaymentReceived()));
-        System.out.println("Change Given: £" + String.format("%.2f", transaction.getChangeGiven()));
+            // Print out transaction details
+            System.out.println("Transaction created successfully:");
+            System.out.println("Total Cost: £" + String.format("%.2f", transaction.getTotalCost()));
+            System.out.println("Payment Received: £" + String.format("%.2f", transaction.getPaymentReceived()));
+            System.out.println("Change Given: £" + String.format("%.2f", transaction.getChangeGiven()));
 
-        //print out updated stock levels
-        System.out.println("Updated stock levels after transaction:");
-        for (String id : productIds) {
-            Product product = productService.getProductById(id);
-            System.out.println("ID: " + product.getId() + ", Stock Level: " + product.getStock());
+            // Print out updated stock levels
+            System.out.println("\n Updated Stock Levels After Transaction:");
+            for (Map.Entry<String, Integer> entry : productQuantities.entrySet()) {
+                String productId = entry.getKey();
+                Product product = productService.getProductById(productId);
+                System.out.println("ID: " + product.getId() + " | New Stock Level: " + product.getStock());
+            }
+        } catch (Exception e) {
+            System.err.println("Transaction failed: " + e.getMessage());
         }
     }
 
+
     //@PostConstruct   //runs this method for testing after project is constructed
     public void testAll() {
-        addProductAndPrint(); // call the testing add product method after application is initialised
-        updateStockAndPrint(); //call the testing update stock method
-        createTransaction(); //call the testing creating transaction method
+        //addProductAndPrint(); // call the testing add product method after application is initialised
+        //updateStockAndPrint(); //call the testing update stock method
+        createTransactionTest(); //call the testing creating transaction method
     }
 }

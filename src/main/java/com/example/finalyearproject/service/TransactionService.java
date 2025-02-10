@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class TransactionService {
@@ -25,29 +26,36 @@ public class TransactionService {
 
     //method to create a transaction
     @Transactional
-    public Transaction createTransaction(List<String> productIds, double paymentReceived) {
-        List<Product> products = fetchProducts(productIds);
-        double totalCost = calculateTotalCost(products);
+    public Transaction createTransaction(Map<String, Integer> productQuantities, double paymentReceived) {
+        List<Product> products = fetchProducts(productQuantities);
+        double totalCost = calculateTotalCost(productQuantities);
         validatePayment(totalCost, paymentReceived);
-        deductStock(products);
-        return saveTransaction(products, totalCost, paymentReceived);
+        deductStock(productQuantities);
+        return saveTransaction(products, totalCost, paymentReceived, productQuantities);
     }
 
     //fetches the products based on the list of product ids
-    private List<Product> fetchProducts(List<String> productIds) {
-        List<Product> products = productRepo.findAllById(productIds);
+    private List<Product> fetchProducts(Map<String, Integer> productQuantities) {
+        List<Product> products = productRepo.findAllById(productQuantities.keySet());
+
         for (Product product : products) {
-            if (product.getStock() <= 0) {
-                throw new RuntimeException("Product out of stock: " + product.getName());
+            int requestedQuantity = productQuantities.get(product.getId());
+
+            if (product.getStock() < requestedQuantity) {
+                throw new RuntimeException("Not enough stock for " + product.getName() + ". Available: " + product.getStock());
             }
         }
         return products;
     }
 
     //method to calculate total cost of all products
-    private double calculateTotalCost(List<Product> products) {
-        return products.stream().mapToDouble(Product::getPrice).sum();
-        //converts product list to  a stream then maps the products into their prices then totals up the prices
+    private double calculateTotalCost(Map<String, Integer> productQuantities) {
+        return productQuantities.entrySet().stream()
+                .mapToDouble(entry -> {
+                    Product product = productRepo.findById(entry.getKey()).orElseThrow();
+                    return product.getPrice() * entry.getValue();
+                })
+                .sum();
     }
 
     //method to validate payment
@@ -59,18 +67,23 @@ public class TransactionService {
     }
 
     //method to deduct stock using updateStock method from ProductService
-    private void deductStock(List<Product> products) {
-        for (Product product : products) {
-            productService.updateStock(product.getId(), -1); //pass -1 to reduce stock by 1
+    private void deductStock(Map<String, Integer> productQuantities) {
+        for (Map.Entry<String, Integer> entry : productQuantities.entrySet()) {
+            productService.updateStock(entry.getKey(), -entry.getValue());
+            System.out.println("Deducted "+entry.getValue()+" of stock for "+entry.getKey());
         }
     }
 
 
     //method to save transaction into DB
-    private Transaction saveTransaction(List<Product> products, double totalCost, double paymentReceived) {
-        Transaction transaction = new Transaction(totalCost,paymentReceived,paymentReceived-totalCost,
-        products);
-        return transactionRepo.save(transaction);
+    private Transaction saveTransaction(List<Product> products, double totalCost, double paymentReceived, Map<String, Integer> productQuantities) {
+        Transaction transaction = new Transaction(totalCost, paymentReceived, paymentReceived - totalCost, products);
+
+        //save the transaction to repository
+        transaction = transactionRepo.save(transaction);
+        System.out.println("New Transaction "+transaction+" saved.");
+
+        return transaction;
     }
 
     //method to create a receipt for a transaction
