@@ -85,17 +85,17 @@ async function processTransaction() {
 
         let result = await response.text();
 
-        if (response.ok) {
-            alert(`${result}`);
-            resetModal();
-            closeModal();
-            clearCart();
+        if (response.ok) {  //if response is ok
+            alert(`${result}`);  //display the alert
+            resetModal();  //reset the payment modal
+            closeModal();  //close the modal
+            clearCart();   //clear the cart
         } else {
-            alert(`Transaction Failed: ${result}`);
+            alert(`Transaction Failed: ${result}`);  //error message
         }
     } catch (error) {
         console.error("Error:", error);
-        alert("Payment error. Please try again.");
+        alert("Payment error. Please try again.");  //error handling
     }
 }
 

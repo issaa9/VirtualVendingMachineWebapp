@@ -122,6 +122,8 @@ async function checkStock(product) {
 //function to update cart display
 function updateCartDisplay() {
     let cartList = document.getElementById("cartList");
+    let checkoutButton = document.getElementById("checkoutBtn");
+    let clearCartButton = document.getElementById("clearCartBtn");
 
     cartList.innerHTML = "";  //clears cart to avoid duplication
 
@@ -167,6 +169,14 @@ function updateCartDisplay() {
     }
 
     updateTotal();  //call function to update total price
+
+    if (Object.keys(cartItems).length === 0) {  //if cart is empty
+        checkoutButton.disabled = true;   //disable checkout button
+        clearCartButton.disabled = true;  //disable clear cart button
+    } else {                          //if cart is not empty
+        checkoutButton.disabled = false;  //enable checkout button
+        clearCartButton.disabled = false; //enable clear cart button
+    }
 }
 
 //function to update the total price as items are added to cart
@@ -237,6 +247,8 @@ function clearCart() {
     cartItems = {};
     cartList.innerHTML = "";
     totalPriceElement.innerText = "Total: £0.00";
+    document.getElementById("checkoutBtn").disabled = true;  //disable checkout button again
+    document.getElementById("clearCartBtn").disabled = true; //disable clear cart button again
 }
 
 

@@ -20,7 +20,8 @@ public class TransactionController {
     public ResponseEntity<String> createTransaction(@RequestBody Map<String, Object> requestBody) {
         try {
             //extract item quantities
-            Map<String, Integer> productQuantities = (Map<String, Integer>) requestBody.get("productQuantities");
+            @SuppressWarnings("unchecked")  //suppress the warning
+            Map<String, Integer> productQuantities = (Map<String, Integer>) (Object) requestBody.get("productQuantities");
 
             //extract paymentReceived and store as a double
             double paymentReceived = ((Number) requestBody.get("paymentReceived")).doubleValue();
@@ -28,8 +29,11 @@ public class TransactionController {
             //call service method to create the transaction
             Transaction transaction = transactionService.createTransaction(productQuantities, paymentReceived);
 
+            //extract change and round (to prevent floating point error)
+            double change = transactionService.roundTwoDP(transaction.getChangeGiven());
+
             //format the change as a 2.d.p string
-            String formattedChange = String.format("%.2f", transaction.getChangeGiven());
+            String formattedChange = String.format("%.2f", change);
 
             //return success response
             return ResponseEntity.ok("Transaction successful! Change given: £" + formattedChange);

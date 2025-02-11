@@ -395,26 +395,41 @@
 }
 
 
+/* Glowing Blue & Magenta Buttons */
 .cart-container .cart-buttons button {
-    background: linear-gradient(90deg, #0099ff, #0044cc);
+    background: linear-gradient(90deg, #0099ff, #ff00ff); /* Blue to Magenta Gradient */
     color: white;
     font-weight: bold;
+    border: none;
     border-radius: 8px;
     padding: 12px 20px;
-    width: 110px;
+    width: 120px;
+    height: 60px;
     text-align: center;
     font-size: 1rem;
     cursor: pointer;
-    transition: 0.2s ease-in-out;
+    transition: 0.3s ease-in-out;
     margin: 0 5px;
+    box-shadow: 0 0 12px rgba(0, 153, 255, 0.8), 0 0 15px rgba(255, 0, 255, 0.8);
 }
 
 
 .cart-container .cart-buttons button:hover {
-    background: linear-gradient(90deg, #0066cc, #002288);
-    transform: scale(1.05);
-    box-shadow: 0 0 10px rgba(0, 153, 255, 0.8);
+    background: linear-gradient(90deg, #ff00ff, #0099ff);
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(255, 0, 255, 1), 0 0 20px rgba(0, 153, 255, 1);
 }
+
+
+.cart-container .cart-buttons button:disabled {
+    background: linear-gradient(90deg, #555, #444);
+    cursor: not-allowed;
+    box-shadow: none;
+    opacity: 0.6;
+}
+
+
+
 
 /* Payment Modal */
 .modal {

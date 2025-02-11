@@ -8,6 +8,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
@@ -27,21 +28,26 @@ public class TransactionService {
     //method to create a transaction
     @Transactional
     public Transaction createTransaction(Map<String, Integer> productQuantities, double paymentReceived) {
-        List<Product> products = fetchProducts(productQuantities);
+        List<Product> products = fetchProducts(productQuantities); //list of products
+
+        //call method to calculate total cost based on products and their quantities bought
         double totalCost = calculateTotalCost(productQuantities);
-        validatePayment(totalCost, paymentReceived);
-        deductStock(productQuantities);
-        return saveTransaction(products, totalCost, paymentReceived, productQuantities);
+
+
+
+        validatePayment(totalCost, paymentReceived);  //validate payment first
+        deductStock(productQuantities);   //deduct stock using the quantities of each product purchased
+        return saveTransaction(products, totalCost, paymentReceived, productQuantities); //save transaction into DB
     }
 
-    //fetches the products based on the list of product ids
+    //fetches the products based on the list of product ids and quantities
     private List<Product> fetchProducts(Map<String, Integer> productQuantities) {
         List<Product> products = productRepo.findAllById(productQuantities.keySet());
 
         for (Product product : products) {
             int requestedQuantity = productQuantities.get(product.getId());
 
-            if (product.getStock() < requestedQuantity) {
+            if (product.getStock() < requestedQuantity) {  //if not enough stock for chosen quantity of products
                 throw new RuntimeException("Not enough stock for " + product.getName() + ". Available: " + product.getStock());
             }
         }
@@ -50,12 +56,13 @@ public class TransactionService {
 
     //method to calculate total cost of all products
     private double calculateTotalCost(Map<String, Integer> productQuantities) {
-        return productQuantities.entrySet().stream()
-                .mapToDouble(entry -> {
-                    Product product = productRepo.findById(entry.getKey()).orElseThrow();
-                    return product.getPrice() * entry.getValue();
-                })
-                .sum();
+        return
+                productQuantities.entrySet().stream()
+                        .mapToDouble(entry -> {
+                            Product product = productRepo.findById(entry.getKey()).orElseThrow();
+                            return product.getPrice() * entry.getValue();
+                        })
+                        .sum();  //return sum of all product prices multiplied by the quantity bought, for total price
     }
 
     //method to validate payment
@@ -77,7 +84,13 @@ public class TransactionService {
 
     //method to save transaction into DB
     private Transaction saveTransaction(List<Product> products, double totalCost, double paymentReceived, Map<String, Integer> productQuantities) {
-        Transaction transaction = new Transaction(totalCost, paymentReceived, paymentReceived - totalCost, products);
+
+        //round all money values before saving to DB to prevent floating point errors
+        double roundedTotalCost = roundTwoDP(totalCost);
+        double roundedPaymentReceived = roundTwoDP(paymentReceived);
+        double roundedChangeGiven = roundTwoDP(roundedPaymentReceived - roundedTotalCost); // Correct rounding
+
+        Transaction transaction = new Transaction(roundedTotalCost, roundedPaymentReceived, roundedChangeGiven, products);
 
         //save the transaction to repository
         transaction = transactionRepo.save(transaction);
@@ -122,6 +135,11 @@ public class TransactionService {
         receipt.append("===================\n");
 
         return receipt.toString();
+    }
+
+    public double roundTwoDP(double value) {
+        DecimalFormat df = new DecimalFormat("#.##"); //ensures only 2 decimal places
+        return Double.parseDouble(df.format(value));  //formats and converts back to double
     }
 
 }

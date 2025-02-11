@@ -52,6 +52,7 @@ public class Transaction {
     }
 
     public void setId(Long id) {
+
         this.id = id;
     }
 
@@ -60,38 +61,47 @@ public class Transaction {
     }
 
     public void setTotalCost(double totalCost) {
+
         this.totalCost = totalCost;
     }
 
     public double getPaymentReceived() {
+
         return paymentReceived;
     }
 
     public void setPaymentReceived(double paymentReceived) {
+
         this.paymentReceived = paymentReceived;
     }
 
     public double getChangeGiven() {
+
         return changeGiven;
     }
 
     public void setChangeGiven(double changeGiven) {
+
         this.changeGiven = changeGiven;
     }
 
     public Date getTransactionDate() {
+
         return transactionDate;
     }
 
     public void setTransactionDate(Date transactionDate) {
+
         this.transactionDate = transactionDate;
     }
 
     public List<Product> getProducts() {
+
         return products;
     }
 
     public void setProducts(List<Product> products) {
+
         this.products = products;
     }
 
