@@ -534,7 +534,7 @@
     font-size: 1.8rem;
     font-weight: bold;
     color: lime;
-    text-shadow: 0px 0px 5px lime;
+    text-shadow: 0 0 5px lime;
 }
 
 /* Confirm Payment Button */
@@ -557,6 +557,84 @@
     color: white;
     transform: scale(1.05);
 }
+
+
+
+/* Payment Success Modal */
+.success-modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 450px;
+    max-width: 90%;
+    background: black;
+    border: 2px solid cyan;
+    box-shadow: 0 0 20px cyan;
+    padding: 30px;
+    text-align: center;
+    z-index: 1002;
+    border-radius: 12px;
+}
+
+/* Overlay to Darken Rest of Page */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1001;
+}
+
+
+.success-modal .modal-content {
+    color: white;
+    font-size: 1.5rem;
+}
+
+.success-modal h2 {
+    font-size: 2.5rem;
+    color: powderblue;
+    text-shadow: 0 0 10px cyan;
+    margin-bottom: 20px;
+    white-space: nowrap;
+}
+
+.success-modal .payment-message {
+    font-size: 1.4rem;
+    color: lime;
+    text-shadow: 0 0 6px lime;
+    margin-bottom: 25px;
+    white-space: nowrap;
+}
+
+.success-modal .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: orangered;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 8px;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, background 0.3s ease-in-out;
+}
+
+.success-modal .close-btn:hover {
+    background: red;
+    transform: scale(1.1);
+}
+
+
+
 
 
 

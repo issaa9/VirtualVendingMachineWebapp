@@ -86,7 +86,7 @@ async function processTransaction() {
         let result = await response.text();
 
         if (response.ok) {  //if response is ok
-            alert(`${result}`);  //display the alert
+            showSuccessModal(result);  //display the custom payment success modal
             resetModal();  //reset the payment modal
             closeModal();  //close the modal
             clearCart();   //clear the cart
@@ -111,6 +111,19 @@ function resetModal() {
 function closeModal() {
     resetModal();
     document.getElementById("paymentModal").style.display = "none";
+}
+
+//function to display the payment success modal
+function showSuccessModal(message) {
+    document.getElementById("modalOverlay").style.display = "block";
+    document.getElementById("successMessage").innerText = message;
+    document.getElementById("successModal").style.display = "block";
+}
+
+//function to close the payment success modal
+function closeSuccessModal() {
+    document.getElementById("modalOverlay").style.display = "none";
+    document.getElementById("successModal").style.display = "none";
 }
 
 

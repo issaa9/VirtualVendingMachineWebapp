@@ -104,14 +104,34 @@
         </div>
     </div>
 
+    <!-- Payment Success Modal -->
+    <div id="successModal" class="success-modal">
+        <div class="modal-content">
+            <h2>Payment Successful!</h2>
+            <p id="successMessage"></p>
+
+            <!-- Space for Images (to be added later) -->
+            <div id="purchasedItemsDisplay"></div>
+
+
+            <button class="close-btn" onclick="closeSuccessModal()">Close</button>
+
+        </div>
+    </div>
+
+
 
     <!-- Home Button -->
     <a th:href="@{/}" class="home-button-link">
         <button class="home-button">Home</button>
     </a>
 
+    <!-- Overlay to cover entire page (and darken) when success modal is shown -->
+    <div id="modalOverlay" class="modal-overlay"></div>
+
 </main>
 
 <script th:src="@{/scripts/payment_script.js}"></script>
+
 </body>
 </html>
