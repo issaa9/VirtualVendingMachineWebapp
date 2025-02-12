@@ -2,6 +2,7 @@
 let insertedAmount = 0.00;
 let remainingAmount = 0.00;
 let changeAmount = 0.00;
+let latestTransactionId = null;
 
 //function to display the payment modal
 function openModal() {
@@ -83,15 +84,20 @@ async function processTransaction() {
             body: JSON.stringify(transactionData)  //ensure JSON structure is correct
         });
 
-        let result = await response.text();
 
         if (response.ok) {  //if response is ok
-            showSuccessModal(result);  //display the custom payment success modal
+            let result = await response.json();  //await response properly
+
+            //store transaction ID for receipt viewing
+            latestTransactionId = result.transactionId;
+
+            showSuccessModal(result.message);  //display the custom payment success modal
             resetModal();  //reset the payment modal
             closeModal();  //close the modal
             clearCart();   //clear the cart
         } else {
-            alert(`Transaction Failed: ${result}`);  //error message
+            let errorResponse = await response.json();
+            alert(`Transaction Failed: ${errorResponse}`);  //error message
         }
     } catch (error) {
         console.error("Error:", error);
@@ -124,6 +130,21 @@ function showSuccessModal(message) {
 function closeSuccessModal() {
     document.getElementById("modalOverlay").style.display = "none";
     document.getElementById("successModal").style.display = "none";
+}
+
+//function to view the receipt in new tab
+function viewReceipt() {
+    if (!latestTransactionId) {
+        alert("No recent transaction found!");
+        return;
+    }
+    let receiptUrl = `/api/transactions/${latestTransactionId}/receipt`;
+    window.open(receiptUrl, "_blank"); //opens receipt endpoint in a new tab
+}
+
+//function to exit to homepage
+function exitToHome() {
+    window.location.href = "/"; //endpoint redirects to the home page
 }
 
 

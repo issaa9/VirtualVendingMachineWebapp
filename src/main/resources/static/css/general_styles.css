@@ -28,7 +28,7 @@ body > .webapp-title {
 h1, h2, h3 {
     font-weight: bold;
     color: #00d4ff;
-    text-shadow: 0px 0px 10px rgba(0, 212, 255, 0.8);
+    text-shadow: 0 0 10px rgba(0, 212, 255, 0.8);
 }
 
 h1 {
@@ -93,14 +93,14 @@ button {
     border-radius: 10px;
     padding: 10px 20px;
     cursor: pointer;
-    box-shadow: 0px 4px 10px rgba(0, 212, 255, 0.5);
+    box-shadow: 0 4px 10px rgba(0, 212, 255, 0.5);
     transition: all 0.3s ease-in-out;
 }
 
 button:hover {
     background: linear-gradient(90deg, #00ffab, #00d4ff);
     transform: scale(1.05);
-    box-shadow: 0px 6px 15px rgba(0, 212, 255, 0.8);
+    box-shadow: 0 6px 15px rgba(0, 212, 255, 0.8);
 }
 
 /* Home Button Styling */
@@ -121,14 +121,14 @@ button:hover {
     border-radius: 12px;
     padding: 15px 30px; /* Increases the size of the button */
     cursor: pointer;
-    box-shadow: 0px 4px 10px rgba(255, 69, 0, 0.5); /* Subtle shadow */
+    box-shadow: 0 4px 10px rgba(255, 69, 0, 0.5); /* Subtle shadow */
     transition: all 0.3s ease-in-out; /* Smooth hover animation */
 }
 
 .home-button:hover {
     background: linear-gradient(90deg, #ff7f50, #ff4500); /* Reverse gradient on hover */
     transform: scale(1.1); /* Slightly enlarges the button on hover */
-    box-shadow: 0px 6px 15px rgba(255, 69, 0, 0.8); /* More pronounced shadow */
+    box-shadow: 0 6px 15px rgba(255, 69, 0, 0.8); /* More pronounced shadow */
 }
 
 
@@ -147,7 +147,7 @@ input, textarea, select {
 input:focus, textarea:focus, select:focus {
     outline: none;
     border-color: #00ffab;
-    box-shadow: 0px 0px 5px rgba(0, 255, 171, 0.8);
+    box-shadow: 0 0 5px rgba(0, 255, 171, 0.8);
 }
 
 /* Containers */
@@ -157,7 +157,7 @@ input:focus, textarea:focus, select:focus {
     padding: 20px;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 15px;
-    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
 }
 
 

@@ -34,7 +34,6 @@ public class TransactionService {
         double totalCost = calculateTotalCost(productQuantities);
 
 
-
         validatePayment(totalCost, paymentReceived);  //validate payment first
         deductStock(productQuantities);   //deduct stock using the quantities of each product purchased
         return saveTransaction(products, totalCost, paymentReceived, productQuantities); //save transaction into DB

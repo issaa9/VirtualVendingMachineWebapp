@@ -108,11 +108,16 @@
     <div id="successModal" class="success-modal">
         <div class="modal-content">
             <h2>Payment Successful!</h2>
-            <p id="successMessage"></p>
+            <p id="successMessage">Payment Complete! Here are your items: </p>
 
             <!-- Space for Images (to be added later) -->
-            <div id="purchasedItemsDisplay"></div>
+            <div id="purchasedItemsDisplay">
+            </div>
 
+            <div class="success-modal-buttons">
+                <button class="exit-btn" onclick="exitToHome()">Exit to Home</button>
+                <button class="receipt-btn" onclick="viewReceipt()">View Receipt</button>
+            </div>
 
             <button class="close-btn" onclick="closeSuccessModal()">Close</button>
 
