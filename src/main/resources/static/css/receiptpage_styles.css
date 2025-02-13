@@ -1,0 +1,107 @@
+/* Receipt Page Styles */
+
+
+/* General Page Styling */
+body {
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding-top: 20px;
+}
+
+/* Main Heading */
+h2 {
+    font-size: 4rem;
+    color: cyan;
+    text-shadow: 0 0 15px cyan;
+    margin-bottom: 120px;
+    text-align: center;
+}
+
+/* Main Receipt Box */
+.receipt-box {
+    width: 650px;
+    min-height: 550px;
+    background: white;
+    color: black;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.9);
+    text-align: left;
+    font-family: "Courier New", monospace;
+    font-size: 2.8rem;
+    line-height: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+.receipt-box p,
+.receipt-box ul {
+    font-size: 1.2rem;
+    line-height: 1.8;
+}
+
+.receipt-box ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.receipt-box ul li {
+    font-size: 1.2rem;
+    padding: 6px 0;
+}
+
+
+.receipt-divider {
+    border-bottom: 2px dashed black;
+    margin: 12px 0;
+}
+
+
+.receipt-box h3 {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: black;
+    text-shadow: none;
+}
+
+
+.receipt-buttons {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+
+.btn {
+    padding: 12px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+
+.home-btn {
+    background: linear-gradient(90deg, #ff9900, #ff3300);
+    color: white;
+    border: none;
+}
+
+
+.home-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+

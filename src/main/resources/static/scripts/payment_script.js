@@ -132,14 +132,13 @@ function closeSuccessModal() {
     document.getElementById("successModal").style.display = "none";
 }
 
-//function to view the receipt in new tab
+//function to move to receipt page to view the receipt after payment
 function viewReceipt() {
     if (!latestTransactionId) {
         alert("No recent transaction found!");
         return;
     }
-    let receiptUrl = `/api/transactions/${latestTransactionId}/receipt`;
-    window.open(receiptUrl, "_blank"); //opens receipt endpoint in a new tab
+    window.location.href = `/receipts/${latestTransactionId}`;
 }
 
 //function to exit to homepage

@@ -39,6 +39,13 @@ public class TransactionService {
         return saveTransaction(products, totalCost, paymentReceived, productQuantities); //save transaction into DB
     }
 
+    //method to fetch a transaction from the DB by its ID
+    public Transaction getTransactionById(Long transactionId) {
+        return transactionRepo.findById(transactionId)
+                .orElseThrow(() -> new RuntimeException("Transaction not found"));
+    }
+
+
     //fetches the products based on the list of product ids and quantities
     private List<Product> fetchProducts(Map<String, Integer> productQuantities) {
         List<Product> products = productRepo.findAllById(productQuantities.keySet());

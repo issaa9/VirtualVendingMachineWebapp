@@ -4,6 +4,7 @@ import com.example.finalyearproject.model.Transaction;
 import com.example.finalyearproject.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -18,7 +19,7 @@ public class TransactionController {
 
     //endpoint to create and store the transaction from frontend
     @PostMapping("/create")
-    public ResponseEntity <Map<String,String>> createTransaction(@RequestBody Map<String, Object> requestBody) {
+    public ResponseEntity<Map<String, String>> createTransaction(@RequestBody Map<String, Object> requestBody) {
         try {
             //extract item quantities
             @SuppressWarnings("unchecked")  //suppress the warning
@@ -50,14 +51,4 @@ public class TransactionController {
         }
     }
 
-
-
-
-    //endpoint to test generating a receipt
-    @GetMapping("/{transactionId}/receipt")
-    public String getReceipt(@PathVariable Long transactionId) {  //retrieve id from url
-        String receipt = transactionService.generateReceipt(transactionId);
-        return "<pre style='font-size:30px;'>" + receipt + "</pre>";
-        //pre tags used to display the receipt formatted and allow the size to be changed
-    }
 }
