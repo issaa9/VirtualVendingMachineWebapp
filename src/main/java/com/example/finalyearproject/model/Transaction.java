@@ -3,6 +3,7 @@ package com.example.finalyearproject.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -25,25 +26,20 @@ public class Transaction {
     @Column(name="transaction_date",nullable = false)
     private Date transactionDate;
 
-    @ManyToMany   //establishes the many to many relation
-    @JoinTable(   //join the tables
-            name = "transaction_products",  //third table for many to many relation
-            joinColumns = @JoinColumn(name = "transaction_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")  //join by ids
-    )
+    @OneToMany(mappedBy = "transactionId", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TransactionProduct> transactionProducts = new ArrayList<>();
 
-    private List<Product> products;
+    public Transaction(){
 
-    public Transaction(double totalCost, double paymentReceived, double changeGiven, List<Product> products) {
-        this.totalCost = totalCost;
-        this.paymentReceived = paymentReceived;   //constructor
-        this.changeGiven = changeGiven;
-        this.transactionDate = new Date();
-        this.products = products;
     }
 
-    public Transaction() {
-
+    public Transaction(Long id, double totalCost, double paymentReceived, double changeGiven, Date transactionDate, List<TransactionProduct> transactionProducts) {
+        this.id = id;
+        this.totalCost = totalCost;
+        this.paymentReceived = paymentReceived;
+        this.changeGiven = changeGiven;
+        this.transactionDate = transactionDate;
+        this.transactionProducts = transactionProducts;
     }
 
     //getters and setters:
@@ -95,14 +91,12 @@ public class Transaction {
         this.transactionDate = transactionDate;
     }
 
-    public List<Product> getProducts() {
-
-        return products;
+    public List<TransactionProduct> getTransactionProducts() {
+        return transactionProducts;
     }
 
-    public void setProducts(List<Product> products) {
-
-        this.products = products;
+    public void setTransactionProducts(List<TransactionProduct> transactionProducts) {
+        this.transactionProducts = transactionProducts;
     }
 
     @Override
@@ -113,7 +107,7 @@ public class Transaction {
                 ", paymentReceived=" + paymentReceived +
                 ", changeGiven=" + changeGiven +
                 ", transactionDate=" + transactionDate +
-                ", products=" + products +
+                ", transactionProducts=" + transactionProducts +
                 '}';
     }
 }

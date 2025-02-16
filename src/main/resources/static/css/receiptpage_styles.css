@@ -15,38 +15,43 @@ body {
     padding-top: 20px;
 }
 
-/* Main Heading */
-h2 {
+
+.receipt-heading {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
     font-size: 4rem;
+    font-weight: bold;
     color: cyan;
-    text-shadow: 0 0 15px cyan;
-    margin-bottom: 120px;
-    text-align: center;
+    text-shadow: 0 0 20px cyan;
 }
 
-/* Main Receipt Box */
+
+
 .receipt-box {
-    width: 650px;
-    min-height: 550px;
+    width: 500px;
+    min-height: 600px;
     background: white;
     color: black;
-    padding: 40px;
+    padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 0 25px rgba(0, 255, 255, 0.9);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.9);
     text-align: left;
     font-family: "Courier New", monospace;
-    font-size: 2.8rem;
-    line-height: 2.5rem;
+    font-size: 1.6rem;
+    line-height: 2.4rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    margin-top: 120px;
 }
 
 
-.receipt-box p,
-.receipt-box ul {
-    font-size: 1.2rem;
-    line-height: 1.8;
+.receipt-box p {
+    font-size: 1.3rem;
+    line-height: 2rem;
+    font-weight: bold;
 }
 
 .receipt-box ul {
@@ -54,8 +59,9 @@ h2 {
     padding: 0;
 }
 
+/* Receipt List Items */
 .receipt-box ul li {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     padding: 6px 0;
 }
 
@@ -71,6 +77,7 @@ h2 {
     font-weight: bold;
     color: black;
     text-shadow: none;
+    margin-top: 15px;
 }
 
 
@@ -80,7 +87,6 @@ h2 {
     justify-content: center;
     gap: 15px;
 }
-
 
 .btn {
     padding: 12px 20px;
@@ -97,11 +103,22 @@ h2 {
     background: linear-gradient(90deg, #ff9900, #ff3300);
     color: white;
     border: none;
+    padding: 15px 25px;
+    font-size: 1.2rem;
 }
-
 
 .home-btn:hover {
     transform: scale(1.05);
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+
+.error-text {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: red;
+    text-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+    text-align: center;
+    margin-top: 30px;
 }
 

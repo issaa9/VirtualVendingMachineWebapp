@@ -78,6 +78,7 @@ async function processTransaction() {
     };
 
     try {
+        console.log("Transaction Data Sent:", JSON.stringify(transactionData)); //logging
         let response = await fetch("/api/transactions/create", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -97,7 +98,8 @@ async function processTransaction() {
             clearCart();   //clear the cart
         } else {
             let errorResponse = await response.json();
-            alert(`Transaction Failed: ${errorResponse}`);  //error message
+            console.error("Transaction Error:", errorResponse);
+            alert(`Transaction Failed: ${errorResponse.error || "An unknown error occurred."}`);    //error message
         }
     } catch (error) {
         console.error("Error:", error);

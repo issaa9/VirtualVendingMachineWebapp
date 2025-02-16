@@ -13,11 +13,15 @@
     <h1 class="webapp-title">Virtual Vending Machine Webapp</h1>
 </header>
 
-<!-- Receipt Page Title -->
-<h2>Transaction Receipt</h2>
+<h2 class="receipt-heading">Transaction Receipt</h2>
 
-<!-- Receipt Box -->
-<div class="receipt-box">
+<!-- Show error message if transaction is missing -->
+<p th:if="${error}" class="error-text">
+    Error: <span th:text="${error}"></span>
+</p>
+
+<!-- Receipt Box Shown if No Errors -->
+<div class="receipt-box" th:if="${transaction}">
     <p><strong>Transaction ID:</strong> <span th:text="${transaction.id}"></span></p>
     <p><strong>Date:</strong> <span th:text="${#dates.format(transaction.transactionDate, 'dd/MM/yyyy')}"></span></p>
     <p><strong>Time:</strong> <span th:text="${#dates.format(transaction.transactionDate, 'HH:mm:ss')}"></span></p>
@@ -26,8 +30,8 @@
 
     <h3>Purchased Products:</h3>
     <ul>
-        <li th:each="product : ${transaction.products}">
-            <span th:text="${product.name}"></span> - £<span th:text="${#numbers.formatDecimal(product.price, 1, 2)}"></span>
+        <li th:each="transactionProduct : ${transaction.transactionProducts}">
+            <span th:text="${transactionProduct.quantity} + ' x ' + ${productNames[transactionProduct.productId]}"></span>
         </li>
     </ul>
 

@@ -33,7 +33,7 @@ public class ProductService {        //service class for Product
     }
 
     //method to update stock of a product
-    public boolean updateStock(String id, int quantity) {  //method to update stock of product with given id by the quantity given
+    public void updateStock(String id, int quantity) {  //method to update stock of product with given id by the quantity given
         Optional<Product> optionalProduct = productRepository.findById(id);
         if (optionalProduct.isPresent()) {  //use built in Optional container object for better handling in case product is not found
             Product product = optionalProduct.get();
@@ -46,8 +46,6 @@ public class ProductService {        //service class for Product
 
             product.setStock(updatedStock);
             productRepository.save(product); // saves updated stock to the database
-            return true;
         }
-        return false; // in case product isn't found
     }
 }

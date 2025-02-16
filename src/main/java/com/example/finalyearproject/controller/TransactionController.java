@@ -21,6 +21,7 @@ public class TransactionController {
     @PostMapping("/create")
     public ResponseEntity<Map<String, String>> createTransaction(@RequestBody Map<String, Object> requestBody) {
         try {
+            System.out.println("Received request body: " + requestBody);
             //extract item quantities
             @SuppressWarnings("unchecked")  //suppress the warning
             Map<String, Integer> productQuantities = (Map<String, Integer>) (Object) requestBody.get("productQuantities");
@@ -47,7 +48,7 @@ public class TransactionController {
             return ResponseEntity.ok(response);
 
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(Map.of("error", "Transaction failed: " + e.getMessage())); //return failure response
+            return ResponseEntity.badRequest().body(Map.of("error", "Transaction failed: " + e.getMessage()));  //return failure response
         }
     }
 

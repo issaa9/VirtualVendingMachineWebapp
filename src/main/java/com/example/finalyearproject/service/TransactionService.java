@@ -2,7 +2,9 @@ package com.example.finalyearproject.service;
 
 import com.example.finalyearproject.model.Product;
 import com.example.finalyearproject.model.Transaction;
+import com.example.finalyearproject.model.TransactionProduct;
 import com.example.finalyearproject.repository.ProductRepo;
+import com.example.finalyearproject.repository.TransactionProductRepo;
 import com.example.finalyearproject.repository.TransactionRepo;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +28,9 @@ public class TransactionService {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private TransactionProductRepo transactionProductRepo;
 
     //method to create a transaction
     @Transactional
@@ -41,9 +48,17 @@ public class TransactionService {
 
     //method to fetch a transaction from the DB by its ID
     public Transaction getTransactionById(Long transactionId) {
-        return transactionRepo.findById(transactionId)
-                .orElseThrow(() -> new RuntimeException("Transaction not found"));
+        Transaction transaction = transactionRepo.findById(transactionId).orElse(null);
+
+        if (transaction == null) {
+            System.out.println("ERROR: Transaction with ID " + transactionId + " not found in database!"); //logging
+        } else {
+            System.out.println("Transaction found: " + transaction); //logging
+        }
+
+        return transaction;
     }
+
 
 
     //fetches the products based on the list of product ids and quantities
@@ -94,53 +109,40 @@ public class TransactionService {
         //round all money values before saving to DB to prevent floating point errors
         double roundedTotalCost = roundTwoDP(totalCost);
         double roundedPaymentReceived = roundTwoDP(paymentReceived);
-        double roundedChangeGiven = roundTwoDP(roundedPaymentReceived - roundedTotalCost); // Correct rounding
+        double roundedChangeGiven = roundTwoDP(roundedPaymentReceived - roundedTotalCost); //correct rounding
 
-        Transaction transaction = new Transaction(roundedTotalCost, roundedPaymentReceived, roundedChangeGiven, products);
+        //create new transaction
+        Transaction transaction = new Transaction();
+        transaction.setTotalCost(roundedTotalCost);  //set the values
+        transaction.setPaymentReceived(roundedPaymentReceived);
+        transaction.setChangeGiven(roundedChangeGiven);
+        transaction.setTransactionDate(new Date());
 
-        //save the transaction to repository
-        transaction = transactionRepo.save(transaction);
-        System.out.println("New Transaction "+transaction+" saved.");
+        //save the transaction first to generate its ID (needed for transaction_products)
+        transactionRepo.save(transaction);
 
-        return transaction;
-    }
+        //create the transaction-product list
+        List<TransactionProduct> transactionProducts = new ArrayList<>();
 
-    //method to create a receipt for a transaction
-    public String generateReceipt(Long transactionId) {
-        //fetch the transaction from DB by the ID
-        Transaction transaction = transactionRepo.findById(transactionId)
-                .orElseThrow(() -> new RuntimeException("Transaction not found"));
+        for (Product product : products) {
+            String productId = product.getId();
+            int quantity = productQuantities.getOrDefault(productId, 1); //retrieve quantities, default is 1 incase missing
 
-        //formatting date and time
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss"); //capital HH specifies 24 hour time
-        String formattedDate = dateFormatter.format(transaction.getTransactionDate());
-        String formattedTime = timeFormatter.format(transaction.getTransactionDate());
-
-
-        //building receipt and displaying id, date and time
-        StringBuilder receipt = new StringBuilder();  //use StringBuilder to format the receipt
-        receipt.append("===== RECEIPT =====\n");
-        receipt.append("Transaction ID: ").append(transaction.getId()).append("\n\n");
-        receipt.append("Date: ").append(formattedDate).append("\n");
-        receipt.append("Time: ").append(formattedTime).append("\n\n");
-
-
-        //displaying products
-        receipt.append("Purchased Products:\n");
-
-        for (Product product : transaction.getProducts()) { //listing all products in the transaction
-            receipt.append("- ").append(product.getName())
-                    .append(" (£").append(String.format("%.2f", product.getPrice())).append(")\n");
+            //create transaction-product entry
+            TransactionProduct transactionProduct = new TransactionProduct(transaction.getId(), productId, quantity);
+            transactionProducts.add(transactionProduct);
         }
 
-        // displaying the cost, payment and change
-        receipt.append("\nTotal Cost: £").append(String.format("%.2f", transaction.getTotalCost())).append("\n");
-        receipt.append("Payment Received: £").append(String.format("%.2f", transaction.getPaymentReceived())).append("\n");
-        receipt.append("Change Given: £").append(String.format("%.2f", transaction.getChangeGiven())).append("\n");
-        receipt.append("===================\n");
+        //save all transaction-product entries to database
+        transactionProductRepo.saveAll(transactionProducts);
 
-        return receipt.toString();
+        //set transactionproducts attribute for transaction entity
+        transaction.setTransactionProducts(transactionProducts);
+
+        //print transaction for easy viewing and logging
+        System.out.println("New Transaction " + transaction.getId() + " saved with " + transactionProducts.size() + " product entries.");
+
+        return transaction;
     }
 
     public double roundTwoDP(double value) {
