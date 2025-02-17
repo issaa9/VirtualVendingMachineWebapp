@@ -65,12 +65,12 @@ body {
     padding: 6px 0;
 }
 
-
+/*
 .receipt-divider {
     border-bottom: 2px dashed black;
     margin: 12px 0;
 }
-
+*/
 
 .receipt-box h3 {
     font-size: 1.4rem;
@@ -121,4 +121,35 @@ body {
     text-align: center;
     margin-top: 30px;
 }
+
+
+
+.download-btn {
+    background: linear-gradient(90deg, #228B22, #006400);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 10px rgba(34, 139, 34, 0.6);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+
+.download-btn:hover {
+    background: linear-gradient(90deg, #006400, #228B22);
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(34, 139, 34, 0.9);
+}
+
+
+.download-icon {
+    font-size: 1.5rem;
+}
+
 

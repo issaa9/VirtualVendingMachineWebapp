@@ -62,7 +62,7 @@ function confirmPayment() {
     }
 }
 
-//function to store the transaction in DB, alert the user and reset the page
+//function to handle the transaction, by storing the transaction in DB, alerting the user and resetting the page
 async function processTransaction() {
     let productQuantities = {};
 
@@ -147,5 +147,37 @@ function viewReceipt() {
 function exitToHome() {
     window.location.href = "/"; //endpoint redirects to the home page
 }
+
+//function to download the receipt
+function downloadReceipt() {
+
+    //extract transaction ID from URL
+    let transactionId = window.location.pathname.split("/").pop();
+
+    //select all the content from the receipt box
+    let receiptBox = document.querySelector(".receipt-box");
+
+    if (!receiptBox) {
+        alert("Receipt content not found!"); //in case not found
+        return;
+    }
+
+    //extract exact text content from receipt box contents
+    let receiptText = receiptBox.innerText.trim();
+
+    //create a blob containing the receipt text
+    let blob = new Blob([receiptText], { type: "text/plain" });
+
+    //create downloadable a-link
+    let a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = `Transaction_${transactionId}_Receipt.txt`; //set file name using the transaction ID
+
+    //trigger the download
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+}
+
 
 

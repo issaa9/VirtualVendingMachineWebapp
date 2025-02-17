@@ -30,10 +30,9 @@ public class ReceiptController {
     public String showReceiptPage(@PathVariable Long transactionId, Model model) {
         try {
 
-            System.out.println("Fetching Transaction ID: " + transactionId);//logging
+            System.out.println("Fetching Transaction ID: " + transactionId);  //logging
 
             Transaction transaction = transactionService.getTransactionById(transactionId);
-
 
             if (transaction == null) {
                 System.out.println("ERROR: Transaction " + transactionId + " NOT FOUND in database!"); //logging
@@ -42,22 +41,32 @@ public class ReceiptController {
             }
             System.out.println("Transaction Retrieved: " + transaction);  //logging
 
-            Map<String, String> productNames = new HashMap<>();  //mapping of product IDs to product names
+
+            Map<String, String> productNames = new HashMap<>();  //map of product IDs to product names
+            Map<String, Double> productPrices = new HashMap<>(); //new map of product IDs to product price
+
             for (TransactionProduct tp : transaction.getTransactionProducts()) {
                 String productId = tp.getProductId();  //product ID stored as a String
+
                 String productName = productRepo.findById(productId)
-                        .map(Product::getName)  //fetch product name if exists
+                        .map(Product::getName) //get name
                         .orElse("Unknown Product");  //handle missing product
 
-                productNames.put(productId, productName); //add to hash map
+                double productPrice = productRepo.findById(productId)
+                        .map(Product::getPrice)  //get price
+                        .orElse(0.00);  //set default price to £0.00 if product not found
+
+                productNames.put(productId, productName); //add name to hash map
+                productPrices.put(productId, productPrice); //add price to hash map
             }
 
-            //add transaction and product names hash map to model
+            //add transaction and product names and prices hash maps to model
             model.addAttribute("transaction", transaction);
             model.addAttribute("productNames", productNames);
+            model.addAttribute("productPrices", productPrices); //add to model
 
         } catch (Exception e) {
-            model.addAttribute("error", "Unexpected Error with Transaction"); //error message
+            model.addAttribute("error", "Unexpected Error with Transaction"); //error message added to model
         }
         return "receiptpage";  //renders receipt page
     }
