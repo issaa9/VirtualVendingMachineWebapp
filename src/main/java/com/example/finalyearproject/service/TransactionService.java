@@ -11,11 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class TransactionService {
@@ -42,7 +38,7 @@ public class TransactionService {
 
 
         validatePayment(totalCost, paymentReceived);  //validate payment first
-        deductStock(productQuantities);   //deduct stock using the quantities of each product purchased
+//        deductStock(productQuantities);   //deduct stock using the quantities of each product purchased
         return saveTransaction(products, totalCost, paymentReceived, productQuantities); //save transaction into DB
     }
 
@@ -95,11 +91,33 @@ public class TransactionService {
     }
 
     //method to deduct stock using updateStock method from ProductService
-    private void deductStock(Map<String, Integer> productQuantities) {
+    public List<String> deductStock(Map<String, Integer> productQuantities) {
+        List<String> restockedProducts = new ArrayList<>(); //store all items that get restocked
+
+        //set variables for auto restocking here to be easily changed
+        int stockThreshold = 5;
+        int stockUpdate = 10;
+
+        //iterate through every item in productQuantities
         for (Map.Entry<String, Integer> entry : productQuantities.entrySet()) {
-            productService.updateStock(entry.getKey(), -entry.getValue());
-            System.out.println("Deducted "+entry.getValue()+" of stock for "+entry.getKey());
+
+            //set the values for easier usage
+            String productId = entry.getKey();
+            int quantityBought = entry.getValue();
+
+            productService.updateStock(productId, -quantityBought); //update stock with negative values of the quantities to deduct it
+            System.out.println("Deducted "+entry.getValue()+" of stock for "+entry.getKey()); //logging
+
+            Product product = productService.getProductById(productId); //retrieve product object
+
+            if (product.getStock() < stockThreshold) {  //if product stock drops below threshold
+                productService.updateStock(productId,stockUpdate); //update the stock by the set update value
+                System.out.println("LOW STOCK for: "+ product.getName() + ". Stock auto updated to " + product.getStock()); //logging
+                restockedProducts.add(product.getName());
+            }
+
         }
+        return restockedProducts; //return list of products that have been auto restocked
     }
 
 

@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -32,6 +33,9 @@ public class TransactionController {
             //call service method to create the transaction
             Transaction transaction = transactionService.createTransaction(productQuantities, paymentReceived);
 
+            //deduct stock and track restocked items
+            List<String> restockedItems = transactionService.deductStock(productQuantities);
+
             //extract change and round (to prevent floating point error)
             double change = transactionService.roundTwoDP(transaction.getChangeGiven());
 
@@ -43,6 +47,13 @@ public class TransactionController {
             response.put("transactionId", String.valueOf(transaction.getId()));
             response.put("changeGiven", String.format("%.2f", transaction.getChangeGiven()));
             response.put("message", "Transaction successful! Change given: £" + String.format("%.2f", transaction.getChangeGiven()));
+
+
+            //if restocked items list is not empty, add it to the response
+            if (!restockedItems.isEmpty()) {
+                String alertMessage = "Low Stock for: " + String.join(", ", restockedItems) + " has been detected and auto-restocked!";
+                response.put("restockAlert", alertMessage);
+            }
 
             //return JSON success response
             return ResponseEntity.ok(response);

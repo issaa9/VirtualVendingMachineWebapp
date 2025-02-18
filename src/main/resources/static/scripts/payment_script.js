@@ -96,6 +96,11 @@ async function processTransaction() {
             resetModal();  //reset the payment modal
             closeModal();  //close the modal
             clearCart();   //clear the cart
+
+            //if restock alert exists, display it
+            if (result.hasOwnProperty("restockAlert")) {
+                alert(result.restockAlert);
+            }
         } else {
             let errorResponse = await response.json();
             console.error("Transaction Error:", errorResponse);
