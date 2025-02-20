@@ -22,6 +22,42 @@
 
     <h2>Main</h2>
 
+    <!-- General Instructions Panel (Default) -->
+    <div id="generalInstructions" class="instructions-panel">
+        <h3>Using the Vending Machine</h3>
+        <ul>
+            <li>— Use the Keypad to enter an item code.</li>
+            <li>— Click <span class="highlight-green">ENT</span> on the Keypad or press ENTER on your keyboard to add the item to your Cart (only works when a valid code has been entered).</li>
+            <li>— Click <span class="highlight-orange">DEL</span> or press DELETE/BACKSPACE on your keyboard to delete the last character from the Keypad Display.</li>
+            <li>— Click <span class="highlight-red">CLR</span> to clear the Keypad Display.</li>
+            <li class="space"></li>
+            <li>— Remove an item from the Cart by clicking the “x” button next to it.</li>
+            <li>— Increase an Item’s Quantity by clicking the “+” button next to it.</li>
+            <li>— Decrease an Item’s Quantity by clicking the “-” button next to it.</li>
+            <li class="space"></li>
+            <li>— Click “Clear Cart” to clear the entire cart.</li>
+            <li>— Click “Checkout” to proceed to Payment.</li>
+        </ul>
+    </div>
+
+    <!-- Payment Instructions Panel (Hidden by Default) -->
+    <div id="paymentInstructions" class="instructions-panel" style="display: none;">
+        <h3>Making a Payment</h3>
+        <ul>
+            <li>— Use the “X” button to exit the payment screen and go back to the cart.</li>
+            <li>— Click a coin to insert it.</li>
+            <li>— The “Inserted Amount” and “Total Remaining” fields will automatically update as coins get inserted.</li>
+            <li class="space"></li>
+            <li>— Once enough has been inserted, the Change Label and “Confirm Payment” button will appear.</li>
+            <li>— Click “Confirm Payment” then press “OK” on the alert to process the Transaction.</li>
+            <li class="space"></li>
+            <li>— On the Payment Success Popup, use <span class="highlight-red">Close</span> to close the Popup and use the Vending Machine again.</li>
+            <li>— Click <span class="highlight-darkorange">Exit to Home</span> to go back to the Home Page.</li>
+            <li>— Or click <span class="highlight-blue">View Receipt</span> to see your receipt for the transaction (and have the option to download it).</li>
+        </ul>
+    </div>
+
+
     <!-- Vending Machine -->
     <div class="vending-machine">
         <!-- Items Grid -->

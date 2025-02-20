@@ -55,7 +55,7 @@ h3 {
     font-size: 2rem;
     color: #00ffea;
     text-shadow: 0 0 5px #00ffea, 0 0 10px #00ffea;
-    position: fixed;
+    position: absolute;
     top: 10px;
     left: 20px;
     margin: 0;
@@ -105,30 +105,30 @@ button:hover {
 
 /* Home Button Styling */
 .home-button-link {
-    position: fixed; /* Fixes the button in a specific location on the page */
-    bottom: 20px; /* Distance from the bottom of the page */
-    left: 20px; /* Distance from the left of the page */
-    text-decoration: none; /* Removes any default underline on the link */
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    text-decoration: none;
 }
 
 .home-button {
     font-family: 'Roboto', sans-serif;
-    font-size: 1.5rem; /* Makes the button text larger */
+    font-size: 1.5rem;
     font-weight: bold;
-    background: linear-gradient(90deg, #ff4500, #ff7f50); /* Red/Orange gradient */
-    color: #ffffff; /* White text */
+    background: linear-gradient(90deg, #ff4500, #ff7f50);
+    color: #ffffff;
     border: none;
     border-radius: 12px;
-    padding: 15px 30px; /* Increases the size of the button */
+    padding: 15px 30px;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(255, 69, 0, 0.5); /* Subtle shadow */
-    transition: all 0.3s ease-in-out; /* Smooth hover animation */
+    box-shadow: 0 4px 10px rgba(255, 69, 0, 0.5);
+    transition: all 0.3s ease-in-out;
 }
 
 .home-button:hover {
-    background: linear-gradient(90deg, #ff7f50, #ff4500); /* Reverse gradient on hover */
-    transform: scale(1.1); /* Slightly enlarges the button on hover */
-    box-shadow: 0 6px 15px rgba(255, 69, 0, 0.8); /* More pronounced shadow */
+    background: linear-gradient(90deg, #ff7f50, #ff4500);
+    transform: scale(1.1);
+    box-shadow: 0 6px 15px rgba(255, 69, 0, 0.8);
 }
 
 

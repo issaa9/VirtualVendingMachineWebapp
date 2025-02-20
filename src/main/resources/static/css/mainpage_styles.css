@@ -802,6 +802,80 @@
 
 
 
+/* Instructions Panel */
+.instructions-panel {
+    position: absolute;
+    left: 40px;
+    top: 150px;
+    width: 500px;
+    padding: 15px 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 255, 255, 0.5);
+    color: white;
+    font-size: 1.3rem;
+    text-align: left;
+}
+
+/* Instructions Title */
+.instructions-panel h3 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: cyan;
+    text-align: center;
+}
+
+/* Instructions List */
+.instructions-panel ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.instructions-panel li {
+    margin-bottom: 12px;
+}
+
+
+/* Highlighted Text Colors */
+.highlight-green {
+    color: lime;
+    font-weight: bold;
+}
+
+.highlight-orange {
+    color: orange;
+    font-weight: bold;
+}
+
+.highlight-red {
+    color: red;
+    font-weight: bold;
+}
+
+.highlight-darkorange {
+    color: darkorange;
+    font-weight: bold;
+}
+
+.highlight-blue {
+    color: deepskyblue;
+    font-weight: bold;
+}
+
+.space {
+    display: block;
+    height: 20px;
+}
+
+/* Specific Styling Changes to Make Everything Fit */
+
+#paymentInstructions.space {
+    height:15px;
+}
+
+
+
 
 
 

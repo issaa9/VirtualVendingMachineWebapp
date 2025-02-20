@@ -21,6 +21,10 @@ function openModal() {
 
     //display the modal
     document.getElementById("paymentModal").style.display = "block";
+
+    //hide general instructions and show payment instructions
+    document.getElementById("generalInstructions").style.display = "none";
+    document.getElementById("paymentInstructions").style.display = "block";
 }
 
 //function to insert coins into machine for payment
@@ -124,6 +128,10 @@ function resetModal() {
 function closeModal() {
     resetModal();
     document.getElementById("paymentModal").style.display = "none";
+
+    //hide payment instructions and show general instructions
+    document.getElementById("paymentInstructions").style.display = "none";
+    document.getElementById("generalInstructions").style.display = "block";
 }
 
 //function to display the payment success modal
@@ -178,6 +186,7 @@ function viewReceipt() {
         return;
     }
     window.location.href = `/receipts/${latestTransactionId}`;
+    closeSuccessModal();
 }
 
 //function to exit to homepage
