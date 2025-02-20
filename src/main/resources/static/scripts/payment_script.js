@@ -131,6 +131,7 @@ function showSuccessModal(message) {
     document.getElementById("modalOverlay").style.display = "block";
     document.getElementById("successMessage").innerText = message;
     document.getElementById("successModal").style.display = "block";
+    displayPurchasedItems();
 }
 
 //function to close the payment success modal
@@ -139,6 +140,37 @@ function closeSuccessModal() {
     document.getElementById("successModal").style.display = "none";
 }
 
+//function to display purchased item images in the success modal
+function displayPurchasedItems() {
+    let purchasedItemsDiv = document.querySelector(".purchased-items-display");
+    purchasedItemsDiv.innerHTML = ""; //clear display ready to re-use
+
+    for (let itemCode in cartItems) {
+        let item = cartItems[itemCode];
+
+        //create container for the item
+        let itemContainer = document.createElement("div");
+        itemContainer.classList.add("purchased-item");
+
+        //create image element
+        let itemImage = document.createElement("img");
+        itemImage.src = cartItems[itemCode].imageUrl;
+        itemImage.alt = item.name;
+        itemImage.classList.add("purchased-item-image");
+
+        //create p element
+        let itemText = document.createElement("p");
+        itemText.textContent = `${item.quantity}x ${item.name}`;
+        itemText.classList.add("purchased-item-text");
+
+        //add elements to the container
+        itemContainer.appendChild(itemImage);
+        itemContainer.appendChild(itemText);
+
+        //append container to purchased-items-display div
+        purchasedItemsDiv.appendChild(itemContainer);
+    }
+}
 //function to move to receipt page to view the receipt after payment
 function viewReceipt() {
     if (!latestTransactionId) {

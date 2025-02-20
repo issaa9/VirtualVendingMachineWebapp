@@ -92,7 +92,8 @@ async function addItemToCart(product) {
         cartItems[product.id] = {  //add as new item if not already in cart
             name: product.name,
             price: parseFloat(product.price), //parse the price as a float
-            quantity: 1
+            quantity: 1,
+            imageUrl: product.imageUrl  //now also store image url
         };
     }
     alert(`${product.id} - ${product.name} added to cart successfully!`); //successful alert
@@ -107,10 +108,15 @@ async function checkStock(product) {
     }
 
     let stock = await response.json();  //await the response
+
+    //retrieve product quantity from cartItems
     let currentQuantity = cartItems[product.id] ? cartItems[product.id].quantity : 0;
 
+    //retrieve product name from cartItems
+    let productName = cartItems[product.id] ? cartItems[product.id].name : "this item";
+
     if (currentQuantity + 1 > stock) {  //check if there's not enough stock
-        alert(`Not enough stock available for ${product.name}. Only ${stock} left.`); //alert message
+        alert(`Not enough stock available for ${productName}. Only ${stock} left.`); //alert message
         return false;  //if not enough return false to prevent item being added to cart
     }
 
@@ -134,7 +140,14 @@ function updateCartDisplay() {
         let listItem = document.createElement("li"); //create new html list tag
         listItem.classList.add("cart-item");
 
-        listItem.textContent = `${item.quantity}x ${item.name} (${itemCode}) - £${itemTotalPrice}`; //formats text
+        //create text container for product name & price
+        let itemText = document.createElement("span");
+        itemText.classList.add("cart-item-text");
+        itemText.textContent = `${item.quantity}x ${item.name} (${itemCode}) - £${itemTotalPrice}`;
+
+        //create button container
+        let buttonContainer = document.createElement("div");
+        buttonContainer.classList.add("cart-item-buttons");
 
         //create reduce button
         let reduceBtn = document.createElement("button");
@@ -160,10 +173,14 @@ function updateCartDisplay() {
             increaseItem(itemCode);
         };
 
-        //append buttons to list item
-        listItem.appendChild(reduceBtn);
-        listItem.appendChild(removeBtn);
-        listItem.appendChild(increaseBtn);
+        //append buttons to button container
+        buttonContainer.appendChild(reduceBtn);
+        buttonContainer.appendChild(removeBtn);
+        buttonContainer.appendChild(increaseBtn);
+
+        //append text and button container to list item
+        listItem.appendChild(itemText);
+        listItem.appendChild(buttonContainer);
 
         cartList.appendChild(listItem); //append list item to cart list
     }

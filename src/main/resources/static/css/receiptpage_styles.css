@@ -13,6 +13,11 @@ body {
     justify-content: center;
     height: 100vh;
     padding-top: 20px;
+    overflow-y: auto;
+}
+
+p {
+    align-items: center;
 }
 
 
@@ -30,8 +35,9 @@ body {
 
 
 .receipt-box {
-    width: 500px;
+    width: 700px;
     min-height: 600px;
+    max-height: 85vh;
     background: white;
     color: black;
     padding: 30px;
@@ -43,8 +49,9 @@ body {
     line-height: 2.4rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     margin-top: 120px;
+    justify-content: flex-start;
+    overflow-y: auto;
 }
 
 
@@ -52,6 +59,7 @@ body {
     font-size: 1.3rem;
     line-height: 2rem;
     font-weight: bold;
+    text-align: center;
 }
 
 .receipt-box ul {

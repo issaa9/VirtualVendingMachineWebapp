@@ -28,7 +28,8 @@
         <div class="items-grid">
             <div th:each="product : ${products}" class="item">
                 <div class="item-content">
-                    <p class="item-name" th:text="${product.name}"></p>
+                    <img th:src="@{${product.imageUrl}}" alt="Product Image" class="product-image">
+                    <!-- <p class="item-name" th:text="${product.name}"></p> -->
                 </div>
                 <div class="item-footer">
                     <p class="item-code" th:text="${product.id}"></p>
@@ -110,8 +111,12 @@
             <h2>Payment Successful!</h2>
             <p id="successMessage">Payment Complete! Here are your items: </p>
 
-            <!-- Space for Images (to be added later) -->
-            <div id="purchasedItemsDisplay">
+            <!-- Purchased Items Display Section -->
+            <div class="purchased-items-container">
+                <p class="purchased-items-title">Here are your purchased items:</p>
+                <div class="purchased-items-display">
+                    <!-- Purchased item images, names and quantities will be dynamically added here from JS -->
+                </div>
             </div>
 
             <div class="success-modal-buttons">

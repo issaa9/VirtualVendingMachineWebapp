@@ -23,6 +23,9 @@ public class Product {
     @Column(name="stock",nullable = false)
     private int stock;
 
+    @Column(name="image_url")
+    private String imageUrl; // New field to store product image URL
+
     @OneToMany(mappedBy = "productId", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TransactionProduct> transactionProducts = new ArrayList<>();
 
@@ -83,6 +86,13 @@ public class Product {
         this.transactionProducts = transactionProducts;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     @Override
     public String toString() {
@@ -90,7 +100,9 @@ public class Product {
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", price=" + price +
-                ", stockLevel=" + stock +
+                ", stock=" + stock +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", transactionProducts=" + transactionProducts +
                 '}';
     }
 }

@@ -34,14 +34,15 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
-    background: #f0f0f0;
+    padding: 2px;
+    /*background: #f0f0f0;*/
+    background: transparent;
     border-radius: 8px;
     border: 2px solid #00ffcc;
     color: #222;
     font-size: 1rem;
     position: relative;
-    height: 100px;
+    height: 120px;
 }
 
 
@@ -54,16 +55,28 @@
 
 /* Separate footer for code & price at the bottom */
 .item-footer {
+    height: 22px;
     width: 100%;
     background: #888;
     color: white;
     text-align: center;
-    padding: 5px;
+    padding: 1px 5px;
     border-radius: 0 0 8px 8px;
     display: flex;
     justify-content: space-between;
     font-size: 0.9rem;
     font-weight: bold;
+}
+
+/* Product Image */
+.product-image {
+    max-width: 100%;
+    max-height: 80px;
+    object-fit: contain;
+    display: block;
+    margin: auto;
+    filter: brightness(1.2) contrast(1.2);
+   /* mix-blend-mode: multiply; */
 }
 
 
@@ -81,9 +94,11 @@
 
 
 .item:hover {
-    transform: scale(1.05);
-    background: #e0e0e0;
+    transform: scale(1.15);
+    /* background: #e0e0e0; */
 }
+
+
 
 /* Keypad Display Screen */
 .keypad-display {
@@ -153,7 +168,6 @@
     color: black;
 }
 
-/*remove button focus*/
 .keypad button:focus {
     outline: none;
     box-shadow: none;
@@ -224,7 +238,6 @@
     transform: scale(1.05);
 }
 
-/* disabled state */
 .enter-btn:disabled {
     background: #555;
     color: #ccc;
@@ -240,14 +253,14 @@
 /* Cart Container */
 .cart-container {
     position: absolute;
-    right: 100px;
-    top: 20%;
-    width: 400px;
+    right: 20px;
+    top: 15%;
+    width: 550px;
     min-height: 40vh;
     max-height: 85vh;
     background: rgba(0, 0, 0, 0.7);
     border-radius: 10px;
-    padding: 20px;
+    padding: 10px;
     color: #fff;
     box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
     display: flex;
@@ -259,7 +272,7 @@
 /* Cart List */
 .cart-list {
     width: 100%;
-    max-height: 150px;
+    max-height: 450px;
     overflow-y: auto;
     overflow-x: hidden;
     padding: 0;
@@ -317,6 +330,22 @@
     width: 100%;
     padding: 5px 0;
     overflow: hidden;
+    position: relative;
+}
+
+.cart-item-text {
+    flex-grow: 1;
+    min-width: 200px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.cart-item-buttons {
+    display: flex;
+    gap: 10px;
+    position: absolute;
+    right: 20px;
 }
 
 /* Reduce, Remove, Increase buttons */
@@ -327,12 +356,15 @@
     font-size: 1rem;
     cursor: pointer;
     transition: 0.3s ease-in-out;
-    flex-shrink: 0;
     width: 30px;
     height: 30px;
     text-align: center;
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
     position: relative;
+    flex: 0 0 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center
 }
 
 
@@ -433,11 +465,11 @@
 
 /* Payment Modal */
 .modal {
-    width: 500px;
-    height: 600px;
+    width: 550px;
+    height: 85vh;
     position: absolute;
-    top: 20%;
-    right: 40px;
+    top: 15%;
+    right: 20px;
     background-color: black;
     border: 2px solid cyan;
     box-shadow: 0 0 15px cyan;
@@ -448,7 +480,7 @@
 
 
 .modal h2 {
-    font-size: 2.8rem; /* Larger */
+    font-size: 2.8rem;
     text-align: center;
     margin-top: 10px;
     color: palegreen;
@@ -567,7 +599,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 600px;
+    width: 900px;
     min-height: 450px;
     max-width: 90%;
     max-height: 700px;
@@ -671,7 +703,6 @@
 
 
 
-
 /* Overlay to Darken Rest of Page */
 .modal-overlay {
     display: none;
@@ -683,6 +714,91 @@
     background: rgba(0, 0, 0, 0.7);
     z-index: 1001;
 }
+
+
+/* Purchased Items Container */
+.purchased-items-container {
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    align-items: center;
+}
+
+
+.purchased-items-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 10px;
+}
+
+/* Purchased Items Display */
+.purchased-items-display {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 30px;
+    padding: 10px 5px;
+    white-space: nowrap;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+}
+
+/* When there are 8 or more items, switch to flex-start to prevent fitting issues */
+.purchased-items-display:has(.purchased-item:nth-child(8)) {
+    justify-content: flex-start;
+}
+
+/* Scrollbar Styling */
+.purchased-items-display::-webkit-scrollbar {
+    height: 8px;
+}
+
+.purchased-items-display::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 5px;
+}
+
+.purchased-items-display::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+.purchased-items-display::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Individual Purchased Item */
+.purchased-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100px;
+}
+
+/* Purchased Item Image */
+.purchased-item-image {
+    max-width: 100px;
+    max-height: 80px;
+    object-fit: contain;
+    filter: brightness(1.2) contrast(1.2);
+}
+
+/* Purchased Item Text */
+.purchased-item-text {
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    color: black;
+    margin-top: 5px;
+    white-space: normal;
+    word-wrap: break-word;
+    max-width: 100%;
+}
+
 
 
 

@@ -26,7 +26,7 @@
     <p><strong>Date:</strong> <span th:text="${#dates.format(transaction.transactionDate, 'dd/MM/yyyy')}"></span></p>
     <p><strong>Time:</strong> <span th:text="${#dates.format(transaction.transactionDate, 'HH:mm:ss')}"></span></p>
 
-    <div class="receipt-divider">----------------------------</div>
+    <div class="receipt-divider">----------------------------------------</div>
 
     <h3>Purchased Products:</h3>
     <ul>
@@ -39,7 +39,7 @@
     </ul>
 
 
-    <div class="receipt-divider">----------------------------</div>
+    <div class="receipt-divider">----------------------------------------</div>
 
     <p><strong>Total Cost:</strong> £<span th:text="${#numbers.formatDecimal(transaction.totalCost, 1, 2)}"></span></p>
     <p><strong>Payment Received:</strong> £<span th:text="${#numbers.formatDecimal(transaction.paymentReceived, 1, 2)}"></span></p>
