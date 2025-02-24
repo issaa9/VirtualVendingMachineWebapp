@@ -191,7 +191,7 @@ function viewReceipt() {
 
 //function to exit to homepage
 function exitToHome() {
-    window.location.href = "/"; //endpoint redirects to the home page
+    window.location.href = "/home"; //endpoint redirects to the home page
 }
 
 //function to download the receipt

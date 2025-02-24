@@ -3,6 +3,7 @@ package com.example.finalyearproject.controller;
 import com.example.finalyearproject.model.User;
 import com.example.finalyearproject.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,23 +18,27 @@ public class RegisterController {
     @Autowired
     private UserRepo userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @GetMapping("/register")
     public String showRegisterPage() {
-        return "register"; //show register page
+        return "registerpage"; //show register page
     }
 
     @PostMapping("/register")
-    public String registerUser(@RequestParam String username, @RequestParam String email, @RequestParam String password, Model model) {
-        //check if user already exists
-        if (userRepository.findByEmail(email).isPresent() || userRepository.findByUsername(username).isPresent()) {
-            model.addAttribute("error", "Username or email already exists.");  //error message for already existing user
-            return "register";  //redirect to register page
+    public String registerUser(@RequestParam String username,
+                               @RequestParam String email,
+                               @RequestParam String password,
+                               Model model) {
+        if (userRepository.findByEmail(email).isPresent() || userRepository.findByUsername(username).isPresent()) { // check if username or email already exists
+            model.addAttribute("error", "Username or email already exists."); //display error message
+            return "registerpage";  //redisplay register page
         }
 
-        String defaultRole = "user";
-        User newUser = new User(username, email, password, defaultRole);
-        userRepository.save(newUser); //save new user to database
+        String hashedPassword = passwordEncoder.encode(password);  //encrypt password
+        User newUser = new User(username, email, hashedPassword, "USER");  //create user entry
+        userRepository.save(newUser);  //save in DB
 
-        return "redirect:/login"; //redirect to login page
+        return "redirect:/login";  //display login page after successfully registering
     }
 }

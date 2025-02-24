@@ -19,6 +19,7 @@ body {
     position: relative;
 }
 
+
 /* Exclude .webapp-title from flexbox alignment */
 body > .webapp-title {
     position: fixed;
@@ -70,6 +71,17 @@ main {
     text-align: center;
 }
 
+/* User Info Styling */
+.user-info {
+    position: absolute;
+    top: 20px;
+    right: 120px;
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #00ffea;
+    text-shadow: 0 0 5px #00ffea, 0 0 10px #00ffea;
+}
+
 
 /* Links */
 a {
@@ -106,7 +118,7 @@ button:hover {
 /* Home Button Styling */
 .home-button-link {
     position: absolute;
-    bottom: 20px;
+    bottom: 80px;
     left: 20px;
     text-decoration: none;
 }
@@ -123,6 +135,7 @@ button:hover {
     cursor: pointer;
     box-shadow: 0 4px 10px rgba(255, 69, 0, 0.5);
     transition: all 0.3s ease-in-out;
+    position: absolute;
 }
 
 .home-button:hover {

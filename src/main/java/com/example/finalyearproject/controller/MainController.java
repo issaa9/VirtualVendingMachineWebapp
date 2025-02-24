@@ -22,11 +22,13 @@ public class MainController {
     private ProductService productService;
 
     @GetMapping("/main")
-    public String vendingMachine(HttpSession session) {
-        if (session.getAttribute("user") == null) {
-            return "redirect:/login"; // Redirect to login page if not authenticated
-        }
-        return "mainpage";
+    public String showMainPage(HttpSession session, Model model) {
+//        if (session.getAttribute("user") == null) {
+//            return "redirect:/"; //redirect to login page if not logged in
+//        }
+        List<Product> products = productService.getAllProducts();  //fetch all products from DB
+        model.addAttribute("products", products);  //add products to model attribute
+        return "mainpage";  //display mainpage
     }
 
 
