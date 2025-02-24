@@ -81,7 +81,9 @@ public class Product {
         this.stock = stockLevel;
     }
 
-    public List<TransactionProduct> getTransactionProducts() { return transactionProducts; }
+    public List<TransactionProduct> getTransactionProducts() {
+        return transactionProducts; }
+
     public void setTransactionProducts(List<TransactionProduct> transactionProducts) {
         this.transactionProducts = transactionProducts;
     }

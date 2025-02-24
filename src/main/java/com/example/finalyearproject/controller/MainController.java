@@ -3,6 +3,7 @@ package com.example.finalyearproject.controller;
 
 import com.example.finalyearproject.model.Product;
 import com.example.finalyearproject.service.ProductService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -21,9 +22,10 @@ public class MainController {
     private ProductService productService;
 
     @GetMapping("/main")
-    public String showMainPage(Model model) {
-        List<Product> products = productService.getAllProducts();  //fetch all products from DB
-        model.addAttribute("products", products);  //add products to model attribute
+    public String vendingMachine(HttpSession session) {
+        if (session.getAttribute("user") == null) {
+            return "redirect:/login"; // Redirect to login page if not authenticated
+        }
         return "mainpage";
     }
 

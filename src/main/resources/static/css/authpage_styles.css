@@ -1,0 +1,91 @@
+/* Login/Register container */
+.auth-container {
+    width: 500px;
+    padding: 40px;
+    background: rgba(0, 0, 0, 0.9);
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
+    text-align: center;
+    font-size: 1.8rem;
+}
+
+
+.auth-container h2 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+/* Form inputs */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-size: 1.5rem;
+    display: block;
+    text-align: left;
+    color: cyan;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.5rem;
+    border: 2px solid cyan;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+/* Prevent white background when using autofill */
+.form-group input:-webkit-autofill,
+.form-group input:-webkit-autofill:hover,
+.form-group input:-webkit-autofill:focus,
+.form-group input:-webkit-autofill:active {
+    -webkit-text-fill-color: white;
+    -webkit-box-shadow: 0 0 0px 1000px rgba(0, 0, 0, 0.8) inset !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+
+.auth-button {
+    width: 100%;
+    padding: 18px;
+    font-size: 1.6rem;
+    font-weight: bold;
+    background: linear-gradient(90deg, cyan, #00ffea);
+    color: black;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.auth-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+}
+
+/* Error message styling */
+.error-message {
+    color: red;
+    font-size: 1.4rem;
+    margin-top: 10px;
+}
+
+/* Register/Login Links */
+.auth-container p {
+    font-size: 1.3rem;
+}
+
+.auth-container a {
+    color: cyan;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.auth-container a:hover {
+    text-decoration: underline;
+}

@@ -144,7 +144,7 @@ public class TransactionService {
 
         for (Product product : products) {
             String productId = product.getId();
-            int quantity = productQuantities.getOrDefault(productId, 1); //retrieve quantities, default is 1 incase missing
+            int quantity = productQuantities.getOrDefault(productId, 1); //retrieve quantities, default is 1 in case missing
 
             //create transaction-product entry
             TransactionProduct transactionProduct = new TransactionProduct(transaction.getId(), productId, quantity);

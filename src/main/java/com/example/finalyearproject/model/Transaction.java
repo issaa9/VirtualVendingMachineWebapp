@@ -2,7 +2,6 @@ package com.example.finalyearproject.model;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -44,6 +43,7 @@ public class Transaction {
 
     //getters and setters:
     public Long getId() {
+
         return id;
     }
 
@@ -53,6 +53,7 @@ public class Transaction {
     }
 
     public double getTotalCost() {
+
         return totalCost;
     }
 
