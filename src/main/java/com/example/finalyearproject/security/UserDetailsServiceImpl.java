@@ -13,18 +13,19 @@ import java.util.Collections;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
+
     @Autowired
     private UserRepo userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String identifier) throws UsernameNotFoundException {
-        User user = userRepository.findByEmailOrUsername(identifier, identifier)
+        User user = userRepository.findByEmailOrUsername(identifier, identifier)  //find by email OR username
                 .orElseThrow(() -> new UsernameNotFoundException("User not found: " + identifier));
 
         return org.springframework.security.core.userdetails.User
-                .withUsername(user.getUsername())  // ✅ Correct username field
-                .password(user.getPassword())  // ✅ Hashed password from DB (Spring Security will compare it)
-                .roles(user.getRole())  // ✅ Assign roles
+                .withUsername(user.getUsername())  //correct username field
+                .password(user.getPassword())  //hashed password from DB
+                .roles(user.getRole())  //user role
                 .build();
     }
 }

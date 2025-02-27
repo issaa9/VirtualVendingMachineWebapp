@@ -286,5 +286,61 @@ document.addEventListener("keydown", function(event) {
 });
 
 
+//event listener to allow enhanced product view when double-clicking an item in the VM
+document.addEventListener("DOMContentLoaded", function () {
+    const items = document.querySelectorAll(".item");
+    const modal = document.getElementById("productModal");
+    const closeButton = document.querySelector(".close-button");
+
+    let selectedProduct = null;  //store the currently selected product
+
+    //function to open the modal and add in the product data
+    items.forEach(item => {
+        item.addEventListener("dblclick", function () {
+            const product = {  //create product object
+                id: this.getAttribute("data-code"),   //retrieving all product attributes
+                name: this.getAttribute("data-name"),
+                price: this.getAttribute("data-price"),
+                stock: this.getAttribute("data-stock"),
+                imageUrl: this.getAttribute("data-image")
+            };
+
+            //store selected product object for adding to cart later
+            selectedProduct = product;
+
+            //populate modal with product details
+            document.getElementById("modalProductImage").src = product.imageUrl;
+            document.getElementById("modalProductName").innerText = product.name;
+            document.getElementById("modalProductCode").innerText = product.id;
+            document.getElementById("modalProductPrice").textContent = parseFloat(product.price).toFixed(2);
+            document.getElementById("modalProductStock").innerText = product.stock;
+
+            modal.style.display = "block";  //display the modal
+        });
+    });
+
+    //function to add the selected item to the cart
+    window.addItemToCartFromModal = function () {
+        if (selectedProduct) {   //only if the selected product exists
+            addItemToCart(selectedProduct);  //call existing function and pass in currently selected product
+            modal.style.display = "none";  //close the modal after adding to cart
+        }
+    };
+
+    //close the modal when clicking the close button
+    closeButton.addEventListener("click", function () {
+        modal.style.display = "none";
+    });
+
+    //close the modal when clicking outside the modal
+    window.addEventListener("click", function (event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+});
+
+
+
 
 

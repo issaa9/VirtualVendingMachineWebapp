@@ -62,7 +62,15 @@
     <div class="vending-machine">
         <!-- Items Grid -->
         <div class="items-grid">
-            <div th:each="product : ${products}" class="item">
+            <!-- Set the Product Attributes -->
+            <div th:each="product : ${products}" class="item"
+                 th:attr="data-name=${product.name},
+                      data-code=${product.id},
+                      data-price=${product.price},
+                      data-stock=${product.stock},
+                      data-image=${product.imageUrl}">
+
+                <!-- Display the Item Content -->
                 <div class="item-content">
                     <img th:src="@{${product.imageUrl}}" alt="Product Image" class="product-image">
                     <!-- <p class="item-name" th:text="${product.name}"></p> -->
@@ -164,6 +172,20 @@
 
         </div>
     </div>
+
+    <!-- Detailed Product View Modal (Hidden Initially) -->
+    <div id="productModal" class="product-modal">
+        <div class="product-modal-content">
+            <span class="close-button">&times;</span>
+            <h3 id="modalProductName"></h3>
+            <img id="modalProductImage" src="" alt="Product Image">
+            <p><strong>Item Code:</strong> <span id="modalProductCode"></span></p>
+            <p><strong>Price:</strong> £<span id="modalProductPrice"></span></p>
+            <p><strong>Amount In Stock:</strong> <span id="modalProductStock"></span></p>
+            <button class="add-to-cart-btn" id="addToCartBtn" onclick="addItemToCartFromModal()">Add to Cart</button>
+        </div>
+    </div>
+
 
 
 
