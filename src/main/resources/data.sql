@@ -3,8 +3,8 @@ VALUES ('A1', 'Cheese & Onion Crisps', 1.50, 10, 'images/crisp_cheese_onion.webp
     ON DUPLICATE KEY UPDATE image_url = VALUES(image_url);
 
 INSERT INTO products (id, name, price, stock, image_url)
-VALUES ('A2', 'Salt & Vinegar Crisps', 2.00, 8, 'images/crisp_salt_vinegar.webp')
-    ON DUPLICATE KEY UPDATE image_url = VALUES(image_url);
+VALUES ('A2', 'Salt & Vinegar Crisps', 2.00, 0, 'images/crisp_salt_vinegar.webp')
+    ON DUPLICATE KEY UPDATE stock = VALUES(stock);
 
 INSERT INTO products (id, name, price, stock, image_url)
 VALUES ('A3', 'Ready Salted Crisps', 1.25, 15, 'images/crisp_ready_salted.webp')

@@ -46,7 +46,7 @@ function deleteLastCharacter() {
         display.innerText = "_";
     }
 
-    document.getElementById("enterBtn").disabled = true; //disable CLR button
+    document.getElementById("enterBtn").disabled = true; //disable ENT button
 }
 
 
@@ -64,7 +64,7 @@ async function submitCode() {
         //fetch product details using an AJAX request
         let response = await fetch("/api/cart/getProduct/" + enteredCode);
         if (!response.ok) {
-            return; //return from the function a 'not ok' response
+            return; //return from the function if there's a 'not ok' response
         }
 
         let product = await response.json(); //else parse the response as JSON
@@ -292,11 +292,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const modal = document.getElementById("productModal");
     const closeButton = document.querySelector(".close-button");
 
-    let selectedProduct = null;  //store the currently selected product
+    let selectedProduct = null;  //define product object
 
     //function to open the modal and add in the product data
     items.forEach(item => {
         item.addEventListener("dblclick", function () {
+
+            //first check if there is no stock (if there isn't the modal won't be displayed)
+            let stock = parseInt(this.getAttribute("data-stock"), 10);
+            if (stock === 0) {
+                return;
+            }
+
             const product = {  //create product object
                 id: this.getAttribute("data-code"),   //retrieving all product attributes
                 name: this.getAttribute("data-name"),

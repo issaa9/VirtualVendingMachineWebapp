@@ -96,6 +96,7 @@ async function processTransaction() {
             //store transaction ID for receipt viewing
             latestTransactionId = result.transactionId;
 
+            await updateStockForPurchasedItems();  //call method to handle proper stock updates and await it
             showSuccessModal(result.message);  //display the custom payment success modal
             resetModal();  //reset the payment modal
             closeModal();  //close the modal
@@ -115,6 +116,42 @@ async function processTransaction() {
         alert("Payment error. Please try again.");  //error handling
     }
 }
+
+//function to ensure stock display is updated for every item in the cart
+async function updateStockForPurchasedItems() {
+    for (let productId in cartItems) {  //for each item in the cart
+        await updateStockDisplay(productId);  //call function to update the display and await it
+    }
+}
+
+//function to handle the stock display updates, including making an item unavailable if there is no stock
+async function updateStockDisplay(productId) {
+    try {
+        const response = await fetch(`/api/cart/checkStock/${productId}`);
+        const stock = await response.json();
+        const itemElement = document.getElementById(`product-${productId}`);
+
+        //update stock data attribute in HTML page
+        itemElement.setAttribute('data-stock', stock);
+
+        //select the overlay element (the X to cover items)
+        const overlay = itemElement.querySelector('.out-of-stock-overlay');
+
+        //update the visual display
+        if (stock === 0) { //if stock is now 0
+            itemElement.classList.add('out-of-stock');  //add out of stock class to block the item from being accessed
+            overlay.classList.remove('hidden'); //make sure overlay is not in hidden state
+            overlay.classList.add('visible'); //make sure overlay is visible
+        } else {
+            itemElement.classList.remove('out-of-stock');//ensure out of stock class is not present
+            overlay.classList.remove('visible'); //prevent visible state
+            overlay.classList.add('hidden'); //hide the overlay
+        }
+    } catch (error) {
+        console.error('Error updating stock for product:', productId, error); //error handling
+    }
+}
+
 
 
 //function to reset required elements when payment is made, or modal is closed

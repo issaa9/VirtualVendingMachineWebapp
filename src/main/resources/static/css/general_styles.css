@@ -53,9 +53,9 @@ h3 {
 
 /* Webapp Title found in every page */
 .webapp-title {
-    font-size: 2rem;
+    font-size: 2.2rem;
     color: #00ffea;
-    text-shadow: 0 0 5px #00ffea, 0 0 10px #00ffea;
+    text-shadow: 0 0 3px #00ffea, 0 0 3px #00ffea;
     position: absolute;
     top: 10px;
     left: 20px;
@@ -131,7 +131,7 @@ button:hover {
     color: #ffffff;
     border: none;
     border-radius: 12px;
-    padding: 15px 30px;
+    padding: 17px 30px;
     cursor: pointer;
     box-shadow: 0 4px 10px rgba(255, 69, 0, 0.5);
     transition: all 0.3s ease-in-out;

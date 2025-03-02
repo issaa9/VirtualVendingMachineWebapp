@@ -20,12 +20,15 @@
 <!-- Main Content -->
 <main>
 
+    <!-- Page Heading -->
     <h2>Main</h2>
+
 
     <!-- General Instructions Panel (Default) -->
     <div id="generalInstructions" class="instructions-panel">
         <h3>Using the Vending Machine</h3>
         <ul>
+            <li>— Double-click an item to view it. </li>
             <li>— Use the Keypad to enter an item code.</li>
             <li>— Click <span class="highlight-green">ENT</span> on the Keypad or press ENTER on your keyboard to add the item to your Cart (only works when a valid code has been entered).</li>
             <li>— Click <span class="highlight-orange">DEL</span> or press DELETE/BACKSPACE on your keyboard to delete the last character from the Keypad Display.</li>
@@ -62,8 +65,10 @@
     <div class="vending-machine">
         <!-- Items Grid -->
         <div class="items-grid">
-            <!-- Set the Product Attributes -->
+            <!-- Set the Product Attributes, create a new class if a product as 0 stock -->
             <div th:each="product : ${products}" class="item"
+                 th:classappend="${product.stock == 0} ? 'out-of-stock'"
+                 th:id="${'product-' + product.id}"
                  th:attr="data-name=${product.name},
                       data-code=${product.id},
                       data-price=${product.price},
@@ -75,10 +80,15 @@
                     <img th:src="@{${product.imageUrl}}" alt="Product Image" class="product-image">
                     <!-- <p class="item-name" th:text="${product.name}"></p> -->
                 </div>
+
                 <div class="item-footer">
                     <p class="item-code" th:text="${product.id}"></p>
                     <p class="item-price" th:text="'£' + ${#numbers.formatDecimal(product.price, 1, 2)}"></p>
                 </div>
+
+                <!-- Red Cross Overlay (Only Shows When Stock is 0) -->
+                <div class="out-of-stock-overlay" th:classappend="${product.stock == 0} ? 'visible' : 'hidden'">✖</div>
+
             </div>
         </div>
 

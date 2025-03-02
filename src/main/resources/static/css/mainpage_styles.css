@@ -944,8 +944,6 @@
 }
 
 
-
-
 .add-to-cart-btn {
     background: linear-gradient(90deg, #00ff00, #00cc00);
     color: white;
@@ -965,6 +963,75 @@
     box-shadow: 0 0 15px #00ff00, 0 0 30px #00cc00;
     transform: scale(1.05);
 }
+
+
+
+
+
+/* Out-of-stock Item Styling */
+.out-of-stock {
+    position: relative;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.item.out-of-stock:hover {
+    transform: none;
+}
+
+
+
+/* Overlay to add a big red X over out-of-stock items */
+.out-of-stock-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 9.3rem;
+    color: red;
+    font-weight: bold;
+    text-shadow: 0 0 10px red, 0 0 20px red;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.hidden {
+    display: none;   /* Hidden State Removes The Overlay */
+}
+
+.visible {
+    display: block;  /* Visible State Displays The Overlay */
+}
+
+/* Out-of-stock message pseudo-element styling */
+.out-of-stock::after {
+    content: "Sorry, this product is temporarily out of stock.";
+    visibility: hidden;
+    opacity: 0;
+    width: 140px;
+    background-color: black;
+    color: white;
+    font-size: 0.9rem;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 20;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+.out-of-stock:hover::after {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+
+
+
 
 
 

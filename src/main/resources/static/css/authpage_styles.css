@@ -1,6 +1,6 @@
 /* Login/Register container */
 .auth-container {
-    width: 500px;
+    width: 570px;
     padding: 40px;
     background: rgba(0, 0, 0, 0.9);
     border-radius: 12px;
@@ -11,8 +11,9 @@
 
 
 .auth-container h2 {
-    font-size: 3rem;
-    margin-bottom: 20px;
+    font-size: 3.2rem;
+    margin-bottom: 25px;
+    text-shadow: 0 0 3px #00ffea, 0 0 4px #00ffea;
 }
 
 /* Form inputs */
@@ -21,7 +22,7 @@
 }
 
 .form-group label {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     display: block;
     text-align: left;
     color: cyan;
@@ -29,8 +30,8 @@
 
 .form-group input {
     width: 100%;
-    padding: 15px;
-    font-size: 1.5rem;
+    padding: 20px;
+    font-size: 2rem;
     border: 2px solid cyan;
     background: rgba(0, 0, 0, 0.8);
     color: white;
@@ -38,21 +39,32 @@
     transition: all 0.3s;
 }
 
+.form-group input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+    font-style: italic;
+    opacity: 0.5;
+}
+
+.form-group input:focus::placeholder {
+    color: transparent;
+}
+
+
 /* Prevent white background when using autofill */
 .form-group input:-webkit-autofill,
 .form-group input:-webkit-autofill:hover,
 .form-group input:-webkit-autofill:focus,
 .form-group input:-webkit-autofill:active {
     -webkit-text-fill-color: white;
-    -webkit-box-shadow: 0 0 0px 1000px rgba(0, 0, 0, 0.8) inset !important;
+    -webkit-box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.8) inset !important;
     transition: background-color 5000s ease-in-out 0s;
 }
 
 
 .auth-button {
     width: 100%;
-    padding: 18px;
-    font-size: 1.6rem;
+    padding: 18px 20px;
+    font-size: 2rem;
     font-weight: bold;
     background: linear-gradient(90deg, cyan, #00ffea);
     color: black;
@@ -60,11 +72,13 @@
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
+    margin-bottom: 15px;
 }
 
 .auth-button:hover {
     transform: scale(1.05);
     box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+    color: white;
 }
 
 /* Error message styling */
@@ -76,7 +90,7 @@
 
 /* Register/Login Links */
 .auth-container p {
-    font-size: 1.3rem;
+    font-size: 1.6rem;
 }
 
 .auth-container a {
@@ -88,4 +102,8 @@
 
 .auth-container a:hover {
     text-decoration: underline;
+    color: #00aaff;
 }
+
+
+
