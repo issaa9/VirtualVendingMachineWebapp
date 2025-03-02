@@ -13,6 +13,11 @@
     <h1 class="webapp-title">Virtual Vending Machine Webapp</h1>
 </header>
 
+<!-- Display Logged-In User -->
+<div class="user-info">
+    <p>Logged In As: <span th:text="${username}">Guest</span></p>
+</div>
+
 <h2 class="receipt-heading">Transaction Receipt</h2>
 
 <!-- Show error message if transaction is missing -->

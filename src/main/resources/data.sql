@@ -4,7 +4,7 @@ VALUES ('A1', 'Cheese & Onion Crisps', 1.50, 10, 'images/crisp_cheese_onion.webp
 
 INSERT INTO products (id, name, price, stock, image_url)
 VALUES ('A2', 'Salt & Vinegar Crisps', 2.00, 0, 'images/crisp_salt_vinegar.webp')
-    ON DUPLICATE KEY UPDATE stock = VALUES(stock);
+    ON DUPLICATE KEY UPDATE image_url = VALUES(image_url), stock = VALUES(stock);
 
 INSERT INTO products (id, name, price, stock, image_url)
 VALUES ('A3', 'Ready Salted Crisps', 1.25, 15, 'images/crisp_ready_salted.webp')
@@ -48,16 +48,16 @@ VALUES ('C4', 'Apple Juice 330ml', 1.00, 30, 'images/apple_juice.webp')
 
 INSERT INTO products (id, name, price, stock, image_url)
 VALUES ('D1', 'Cola 330ml', 2.50, 12, 'images/cola_can.webp')
-    ON DUPLICATE KEY UPDATE image_url = VALUES(image_url);;
+    ON DUPLICATE KEY UPDATE image_url = VALUES(image_url);
 
 INSERT INTO products (id, name, price, stock, image_url)
 VALUES ('D2', 'Lemonade 330ml', 3.00, 9, 'images/lemonade_can.webp')
-    ON DUPLICATE KEY UPDATE image_url = VALUES(image_url);;
+    ON DUPLICATE KEY UPDATE image_url = VALUES(image_url);
 
 INSERT INTO products (id, name, price, stock, image_url)
 VALUES ('D3', 'Energy Drink 250ml', 2.25, 11, 'images/energy_drink_can.webp')
-    ON DUPLICATE KEY UPDATE image_url = VALUES(image_url);;
+    ON DUPLICATE KEY UPDATE image_url = VALUES(image_url);
 
 INSERT INTO products (id, name, price, stock, image_url)
 VALUES ('D4', 'Lemon Iced Tea', 1.75, 25, 'images/lemon_iced_tea.webp')
-    ON DUPLICATE KEY UPDATE image_url = VALUES(image_url);;
+    ON DUPLICATE KEY UPDATE image_url = VALUES(image_url);

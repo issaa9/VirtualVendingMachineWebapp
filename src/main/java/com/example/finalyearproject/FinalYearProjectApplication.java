@@ -90,6 +90,6 @@ public class FinalYearProjectApplication {
     public void testAll() {
         //addProductAndPrint(); // call the testing add product method after application is initialised
         //updateStockAndPrint(); //call the testing update stock method
-        createTransactionTest(); //call the testing creating transaction method
+        //createTransactionTest(); //call the testing creating transaction method
     }
 }
