@@ -66,36 +66,59 @@
     </div>
 
 
+    <!-- Category Filter Dropdown -->
+    <div class="category-filter">
+        <label for="categorySelect">Filter by Category:</label>
+        <select id="categorySelect" class="category-select">
+            <option value="all">All Items</option>
+            <option th:each="category : ${categories}" th:value="${category}" th:text="${category}"></option>
+        </select>
+    </div>
+
     <!-- Vending Machine -->
     <div class="vending-machine">
+
         <!-- Items Grid -->
         <div class="items-grid">
-            <!-- Set the Product Attributes, create a new class if a product as 0 stock -->
-            <div th:each="product : ${products}" class="item"
-                 th:classappend="${product.stock == 0} ? 'out-of-stock'"
-                 th:id="${'product-' + product.id}"
-                 th:attr="data-name=${product.name},
-                      data-code=${product.id},
-                      data-price=${product.price},
-                      data-stock=${product.stock},
-                      data-image=${product.imageUrl}">
+            <th:block th:each="rowStart : ${#numbers.sequence(0, products.size()-1, 4)}">
 
-                <!-- Display the Item Content -->
-                <div class="item-content">
-                    <img th:src="@{${product.imageUrl}}" alt="Product Image" class="product-image">
-                    <!-- <p class="item-name" th:text="${product.name}"></p> -->
+                <!-- Display category heading using the first product in this row -->
+                <div class="category-heading-container" th:data-category="${products[rowStart].category}">
+                    <h3 class="category-heading" th:text="${products[rowStart].category}"></h3>
                 </div>
 
-                <div class="item-footer">
-                    <p class="item-code" th:text="${product.id}"></p>
-                    <p class="item-price" th:text="'£' + ${#numbers.formatDecimal(product.price, 1, 2)}"></p>
+                <!-- Display a row of 4 products -->
+                <div class="product-row" th:data-category="${products[rowStart].category}">
+                    <th:block th:each="i : ${#numbers.sequence(rowStart, rowStart + 3)}" th:if="${i < products.size()}">
+                        <div class="item"
+                             th:classappend="${products[i].stock == 0} ? 'out-of-stock'"
+                             th:id="${'product-' + products[i].id}"
+                             th:attr="data-name=${products[i].name},
+                          data-code=${products[i].id},
+                          data-price=${products[i].price},
+                          data-stock=${products[i].stock},
+                          data-image=${products[i].imageUrl}">
+
+                            <div class="item-content">
+                                <img th:src="@{${products[i].imageUrl}}" alt="Product Image" class="product-image">
+                            </div>
+
+                            <div class="item-footer">
+                                <p class="item-code" th:text="${products[i].id}"></p>
+                                <p class="item-price" th:text="'£' + ${#numbers.formatDecimal(products[i].price, 1, 2)}"></p>
+                            </div>
+
+                            <div class="out-of-stock-overlay" th:classappend="${products[i].stock == 0} ? 'visible' : 'hidden'">✖</div>
+                        </div>
+                    </th:block>
                 </div>
 
-                <!-- Red Cross Overlay (Only Shows When Stock is 0) -->
-                <div class="out-of-stock-overlay" th:classappend="${product.stock == 0} ? 'visible' : 'hidden'">✖</div>
-
-            </div>
+            </th:block>
         </div>
+
+
+
+
 
         <!-- Keypad Container -->
         <div class="keypad-container">

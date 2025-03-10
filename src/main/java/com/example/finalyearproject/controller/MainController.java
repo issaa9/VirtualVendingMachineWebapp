@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 public class MainController {
@@ -28,6 +29,14 @@ public class MainController {
 //        }
         List<Product> products = productService.getAllProducts();  //fetch all products from DB
         model.addAttribute("products", products);  //add products to model attribute
+
+        //extract unique categories
+        List<String> categories = products.stream()
+                .map(Product::getCategory)
+                .distinct()
+                .collect(Collectors.toList());
+
+        model.addAttribute("categories", categories); //add categories list to model (required for category filtering in the mainpage)
         return "mainpage";  //display mainpage
     }
 

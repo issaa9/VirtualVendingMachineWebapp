@@ -1,5 +1,7 @@
 package com.example.finalyearproject.controller;
 
+import com.example.finalyearproject.service.TransactionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -9,8 +11,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class NavigationController {
 
+    @Autowired
+    private TransactionService transactionService;
+
     @GetMapping("/home")
-    public String showHomePage() {
+    public String showHomePage(Model model) {
+        double totalTakings = transactionService.getTotalTakings();
+        model.addAttribute("totalTakings", totalTakings);
         return "homepage"; //render the homepage
     }
 

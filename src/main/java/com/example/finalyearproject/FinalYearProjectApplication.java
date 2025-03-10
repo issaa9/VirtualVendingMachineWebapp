@@ -9,10 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.example.finalyearproject.service.ProductService;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @SpringBootApplication
@@ -30,13 +27,20 @@ public class FinalYearProjectApplication {
     }
     //testing adding a product to the DB
     public void addProductAndPrint() {
+
+        //get category from user
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a category for the product: ");
+        String category = scanner.nextLine();
+
         // call the addProduct method from ProductService to test that it works
-        Product product = productService.addProduct("D5","Test Product", 15.99, 50);
+        Product product = productService.addProduct("D5","Test Product", category, 15.99, 50);
 
         // print out the product details  to ensure they are stored correctly
         System.out.println("Product added: ");
         System.out.println("ID: " + product.getId());
         System.out.println("Name: " + product.getName());
+        System.out.println("Category: " + product.getCategory());
         System.out.println("Price: £" + String.format("%.2f", product.getPrice()));
         System.out.println("Stock Level: " + product.getStock());
     }

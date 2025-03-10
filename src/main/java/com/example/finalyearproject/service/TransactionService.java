@@ -28,6 +28,11 @@ public class TransactionService {
     @Autowired
     private TransactionProductRepo transactionProductRepo;
 
+    //method to retrieve the total takings of the vending machine
+    public double getTotalTakings() {
+        return transactionRepo.sumAllTransactions(); //call repository method
+    }
+
     //method to create a transaction
     @Transactional
     public Transaction createTransaction(Map<String, Integer> productQuantities, double paymentReceived) {

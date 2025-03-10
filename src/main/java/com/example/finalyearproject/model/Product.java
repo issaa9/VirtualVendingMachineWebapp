@@ -23,6 +23,9 @@ public class Product {
     @Column(name="stock",nullable = false)
     private int stock;
 
+    @Column(name="category",nullable = false)
+    private String category;
+
     @Column(name="image_url")
     private String imageUrl; // New field to store product image URL
 
@@ -33,9 +36,10 @@ public class Product {
 
     }
 
-    public Product(String id, String name, double price, int stock) {   //constructor
+    public Product(String id, String name, String category, double price, int stock) {   //constructor
         this.id = id;
         this.name = name;
+        this.category = category;
         this.price = price;
         this.stock = stock;
     }
@@ -86,6 +90,14 @@ public class Product {
 
     public void setTransactionProducts(List<TransactionProduct> transactionProducts) {
         this.transactionProducts = transactionProducts;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getImageUrl() {

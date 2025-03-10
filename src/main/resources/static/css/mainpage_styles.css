@@ -2,7 +2,7 @@
 .vending-machine {
     width: 65%;
     max-width: 700px;
-    min-height: 85vh;
+    min-height: auto;
     background: linear-gradient(180deg, #222, #111);
     padding: 20px;
     border-radius: 15px;
@@ -10,7 +10,7 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    margin: 30px auto;
+    margin: 5px auto;
     border: 5px solid #00ffcc;
     align-items: center;
     justify-content: flex-start;
@@ -20,7 +20,7 @@
 .items-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
+    gap: 5px;
     width: 95%;
     background: white;
     padding: 10px;
@@ -30,6 +30,8 @@
 
 /* Individual Item Styling */
 .item {
+    width: 140px;
+    height: 160px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -42,7 +44,6 @@
     color: #222;
     font-size: 1rem;
     position: relative;
-    height: 120px;
 }
 
 
@@ -100,6 +101,88 @@
 
 
 
+
+/* Category Heading Container */
+.category-heading-container {
+    width: 100%;
+    text-align: center;
+    margin: 10px 0 2px 0;
+    grid-column: span 4;
+}
+
+
+.category-heading {
+    font-size: 1.4rem;
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px;
+    border-radius: 8px;
+    display: inline-block;
+    width: auto;
+}
+
+/* Ensures products are now properly aligned in rows */
+.product-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: nowrap;
+    width: 100%;
+    max-width: 95%;
+    margin: 5px auto;
+}
+
+
+
+/* Category Filter */
+.category-filter {
+    text-align: center;
+    margin-bottom: 5px;
+    max-width: 700px;
+    margin-left: 250px;
+    margin-top: 15px;
+}
+
+.category-filter label {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-right: 10px;
+    color: white;
+}
+
+.category-select {
+    font-size: 1rem;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #222;
+    color: white;
+    border: 2px solid #00ffcc;
+    cursor: pointer;
+}
+
+
+.category-heading-container, .product-row {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+
+.hidden {
+    opacity: 0;
+    transform: scaleY(0);
+    height: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+
+
+
+
+
+
+
+
 /* Keypad Display Screen */
 .keypad-display {
     width: 160px;
@@ -126,7 +209,7 @@
     box-shadow: 0 0 8px #00d4ff, 0 0 15px rgba(0, 212, 255, 0.4);
     background: rgba(0, 0, 0, 0.6);
     width: fit-content;
-    margin-top: 20px;
+    margin: 20px auto 0 auto;
 }
 
 

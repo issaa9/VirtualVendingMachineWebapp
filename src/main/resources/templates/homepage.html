@@ -30,7 +30,12 @@
     <!-- Main Content -->
     <main>
 
+        <!-- Page Heading -->
         <h2 class="welcome-heading">Home Page</h2>
+
+        <!-- Display of Total Takings from the Vending Machine -->
+        <p class="total-takings">Vending Machine Total Takings: £<span th:text="${#numbers.formatDecimal(totalTakings, 1, 2)}">0.00</span></p>
+
 
         <!-- Button Container -->
         <div class="button-container">

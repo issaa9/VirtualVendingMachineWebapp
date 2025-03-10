@@ -26,8 +26,8 @@ public class ProductService {        //service class for Product
     }
 
     //method to add a product to the DB
-    public Product addProduct(String id, String name, double price, int stockLevel) {
-        Product product = new Product(id, name, price, stockLevel);
+    public Product addProduct(String id, String name,String category, double price, int stockLevel) {
+        Product product = new Product(id, name,category, price, stockLevel);
         productRepository.save(product);  //save product to database
         return product;
     }

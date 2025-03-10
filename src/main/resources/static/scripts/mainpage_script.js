@@ -349,5 +349,39 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+document.addEventListener("DOMContentLoaded", function () {
+    const categorySelect = document.getElementById("categorySelect");
+
+    categorySelect.addEventListener("change", function () {
+        const selectedCategory = categorySelect.value;
+        const productRows = document.querySelectorAll(".product-row");
+        const categoryHeadings = document.querySelectorAll(".category-heading-container");
+
+        productRows.forEach(row => {
+            const rowCategory = row.getAttribute("data-category").trim().toLowerCase();
+
+            if (selectedCategory === "all" || rowCategory === selectedCategory.toLowerCase()) {
+                row.classList.remove("hidden");
+            } else {
+                row.classList.add("hidden");
+            }
+        });
+
+        categoryHeadings.forEach(heading => {
+            const headingCategory = heading.getAttribute("data-category").trim().toLowerCase();
+            const matchingRow = document.querySelector(`.product-row[data-category="${headingCategory}"]`);
+
+            if (selectedCategory === "all" || headingCategory === selectedCategory.toLowerCase()) {
+                heading.classList.remove("hidden");
+            } else {
+                heading.classList.add("hidden");
+            }
+        });
+    });
+});
+
+
+
+
 
 
