@@ -2,10 +2,10 @@
 INSERT INTO products (id, name, price, stock, category, image_url)
 VALUES
     ('A1', 'Ready Salted Crisps', 1.20, 10, 'Crisps', '/images/crisp_ready_salted.webp'),
-    ('A2', 'Salt & Vinegar Crisps', 1.20, 12, 'Crisps', '/images/crisp_salt_vinegar.webp'),
-    ('A3', 'Cheese & Onion Crisps', 1.20, 8, 'Crisps', '/images/crisp_cheese_onion.webp'),
+    ('A2', 'Salt & Vinegar Crisps', 1.20, 0, 'Crisps', '/images/crisp_salt_vinegar.webp'),
+    ('A3', 'Cheese & Onion Crisps', 1.20, 12, 'Crisps', '/images/crisp_cheese_onion.webp'),
     ('A4', 'Prawn Cocktail Crisps', 1.20, 10, 'Crisps', '/images/crisp_prawn_cocktail.webp')
-    ON DUPLICATE KEY UPDATE image_url = VALUES(image_url);
+    ON DUPLICATE KEY UPDATE image_url = VALUES(image_url), stock = VALUES(stock);
 
 -- Sweet Snacks (Row 2)
 INSERT INTO products (id, name, price, stock, category, image_url)

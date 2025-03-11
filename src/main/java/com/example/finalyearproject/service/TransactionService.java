@@ -115,11 +115,11 @@ public class TransactionService {
 
             Product product = productService.getProductById(productId); //retrieve product object
 
-            if (product.getStock() < stockThreshold) {  //if product stock drops below threshold
-                productService.updateStock(productId,stockUpdate); //update the stock by the set update value
-                System.out.println("LOW STOCK for: "+ product.getName() + ". Stock auto updated to " + product.getStock()); //logging
-                restockedProducts.add(product.getName());
-            }
+//            if (product.getStock() < stockThreshold) {  //if product stock drops below threshold
+//                productService.updateStock(productId,stockUpdate); //update the stock by the set update value
+//                System.out.println("LOW STOCK for: "+ product.getName() + ". Stock auto updated to " + product.getStock()); //logging
+//                restockedProducts.add(product.getName());
+//            }
             //temporarily disabled auto-stock updates to work on out-of-stock functionality
         }
         return restockedProducts; //return list of products that have been auto restocked

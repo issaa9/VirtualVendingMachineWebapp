@@ -2,7 +2,7 @@
 .vending-machine {
     width: 65%;
     max-width: 700px;
-    min-height: auto;
+    min-height: 850px;
     background: linear-gradient(180deg, #222, #111);
     padding: 20px;
     border-radius: 15px;
@@ -13,33 +13,33 @@
     margin: 5px auto;
     border: 5px solid #00ffcc;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
 }
 
 /* Items Grid */
 .items-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 5px;
+    gap: 6px;
     width: 95%;
     background: white;
     padding: 10px;
     border-radius: 10px;
-    margin: 0 auto;
+    margin: 0 auto 15px auto;
 }
 
 /* Individual Item Styling */
 .item {
-    width: 140px;
+    width: 145px;
     height: 160px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding: 2px;
+    padding: 1px;
     /*background: #f0f0f0;*/
     background: transparent;
-    border-radius: 8px;
+    border-radius: 6px;
     border: 2px solid #00ffcc;
     color: #222;
     font-size: 1rem;
@@ -72,7 +72,7 @@
 /* Product Image */
 .product-image {
     max-width: 100%;
-    max-height: 80px;
+    max-height: 90px;
     object-fit: contain;
     display: block;
     margin: auto;
@@ -106,18 +106,17 @@
 .category-heading-container {
     width: 100%;
     text-align: center;
-    margin: 10px 0 2px 0;
+    margin-bottom: 5px;
     grid-column: span 4;
+    padding-bottom: 2px;
 }
 
 
 .category-heading {
-    font-size: 1.4rem;
+    font-size: 1.8rem;
     font-weight: bold;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    padding: 5px;
-    border-radius: 8px;
+    color: #008f7a;
+    padding: 2px;
     display: inline-block;
     width: auto;
 }
@@ -126,44 +125,87 @@
 .product-row {
     display: flex;
     justify-content: space-between;
-    gap: 8px;
+    gap: 6px;
     flex-wrap: nowrap;
     width: 100%;
     max-width: 95%;
-    margin: 5px auto;
+    margin: 0 auto;
+    padding-top: 0;
 }
 
 
 
-/* Category Filter */
-.category-filter {
-    text-align: center;
-    margin-bottom: 5px;
-    max-width: 700px;
-    margin-left: 250px;
-    margin-top: 15px;
-}
-
-.category-filter label {
-    font-size: 1.8rem;
+/* Category Filtering Dropdown Menu */
+.category-filter label{
+    font-size: 1.4rem;
     font-weight: bold;
-    margin-right: 10px;
-    color: white;
 }
 
-.category-select {
-    font-size: 1rem;
-    padding: 5px;
-    border-radius: 5px;
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-button {
     background-color: #222;
     color: white;
+    font-size: 1.2rem;
+    padding: 8px 15px;
+    border-radius: 5px;
     border: 2px solid #00ffcc;
     cursor: pointer;
+    text-align: center;
+    width: 250px;
+}
+
+.dropdown-button:hover {
+    background-color: #00ffcc;
+    color: black;
 }
 
 
-.category-heading-container, .product-row {
-    transition: opacity 0.3s ease, transform 0.3s ease;
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #00ffcc;
+    min-width: 250px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
+    padding: 10px;
+    z-index: 100;
+    text-align: left;
+}
+
+.dropdown-content label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    color: white;
+    cursor: pointer;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    width: 100%;
+}
+
+
+.dropdown-content label:hover {
+    background: rgba(0, 255, 204, 0.3);
+}
+
+
+.category-checkbox {
+    width: 20px;
+    height: 20px;
+    accent-color: #00ffcc;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+
+.dropdown.active .dropdown-content {
+    display: block;
 }
 
 
@@ -178,10 +220,20 @@
 
 
 
-
-
-
-
+/* Keypad Container */
+.keypad-container {
+    border: 2px solid #00d4ff;
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 0 8px #00d4ff, 0 0 15px rgba(0, 212, 255, 0.4);
+    background: rgba(0, 0, 0, 0.6);
+    width: fit-content;
+    margin-top: auto;
+    margin-bottom: 10px;
+}
 
 /* Keypad Display Screen */
 .keypad-display {
@@ -198,19 +250,6 @@
     margin-top: 20px;
 }
 
-/* Keypad */
-.keypad-container {
-    border: 2px solid #00d4ff;
-    border-radius: 10px;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: 0 0 8px #00d4ff, 0 0 15px rgba(0, 212, 255, 0.4);
-    background: rgba(0, 0, 0, 0.6);
-    width: fit-content;
-    margin: 20px auto 0 auto;
-}
 
 
 /* Keypad Grid  */
@@ -269,7 +308,7 @@
     display: flex;
     justify-content: center;
     gap: 10px;
-    margin-top: 18px;
+    margin-top: 70px;
 }
 
 /* Clear & Enter Buttons */
@@ -1019,6 +1058,7 @@
     margin-bottom: 10px;
     border-radius: 5px;
     background-color: transparent;
+    filter: brightness(1.2) contrast(1.2);
 }
 
 

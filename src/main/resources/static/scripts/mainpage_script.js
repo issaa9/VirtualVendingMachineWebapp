@@ -14,14 +14,14 @@ function updateDisplay(value) {
     }
 
     //RegEx to check first character is a letter (A-D)
-    if (currentValue.length === 0 && /^[A-D]$/.test(value)) {
+    if (currentValue.length === 0 && /^[A-F]$/.test(value)) {
         display.innerText = value;
     }
     //RegEx to check second character is a number (1-4)
     else if (currentValue.length === 1 && /^[1-4]$/.test(value)) {
         display.innerText += value;
     }
-    enterBtn.disabled = !/^[A-D][1-4]$/.test(display.innerText);  //enable the CLR button if there is a valid code
+    enterBtn.disabled = !/^[A-F][1-4]$/.test(display.innerText);  //enable the CLR button if there is a valid code
 }
 
 //function to clear the keypad display
@@ -55,7 +55,7 @@ async function submitCode() {
     let display = document.getElementById("keypadDisplay");
     let enteredCode = display.innerText.trim();  //extract entered code from display
 
-    if (!/^[A-D][1-4]$/.test(enteredCode)) {  //validation of entered code
+    if (!/^[A-F][1-4]$/.test(enteredCode)) {  //validation of entered code
         alert("Invalid item code detected :(  Please try again.");
         return;
     }
@@ -350,35 +350,80 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 document.addEventListener("DOMContentLoaded", function () {
-    const categorySelect = document.getElementById("categorySelect");
+    const dropdownButton = document.querySelector(".dropdown-button");
+    const dropdown = document.querySelector(".dropdown");
+    const checkboxes = document.querySelectorAll(".category-checkbox");
+    const allItemsCheckbox = document.querySelector('input[value="all"]');
 
-    categorySelect.addEventListener("change", function () {
-        const selectedCategory = categorySelect.value;
+    // Toggle dropdown visibility
+    dropdownButton.addEventListener("click", function () {
+        dropdown.classList.toggle("active");
+    });
+
+    // Hide dropdown when clicking outside
+    document.addEventListener("click", function (event) {
+        if (!dropdown.contains(event.target)) {
+            dropdown.classList.remove("active");
+        }
+    });
+
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener("change", function () {
+            handleCheckboxSelection(this);
+        });
+    });
+
+    function handleCheckboxSelection(selectedCheckbox) {
+        let selectedCategories = Array.from(document.querySelectorAll(".category-checkbox:checked"))
+            .map(cb => cb.value.toLowerCase());
+
+        // If "All Items" is selected, uncheck everything else and show all categories
+        if (selectedCheckbox.value === "all" && selectedCheckbox.checked) {
+            checkboxes.forEach(cb => {
+                if (cb.value !== "all") cb.checked = false;
+            });
+            showAllCategories();
+            return;
+        } else {
+            allItemsCheckbox.checked = false; // Uncheck "All Items" when another category is selected
+        }
+
+        // If no categories are selected, re-check "All Items"
+        if (selectedCategories.length === 0) {
+            allItemsCheckbox.checked = true;
+            showAllCategories();
+            return;
+        }
+
+        updateCategoryFilter(selectedCategories);
+    }
+
+    function showAllCategories() {
+        const productRows = document.querySelectorAll(".product-row");
+        const categoryHeadings = document.querySelectorAll(".category-heading-container");
+
+        productRows.forEach(row => row.classList.remove("hidden"));
+        categoryHeadings.forEach(heading => heading.classList.remove("hidden"));
+    }
+
+    function updateCategoryFilter(selectedCategories) {
         const productRows = document.querySelectorAll(".product-row");
         const categoryHeadings = document.querySelectorAll(".category-heading-container");
 
         productRows.forEach(row => {
             const rowCategory = row.getAttribute("data-category").trim().toLowerCase();
-
-            if (selectedCategory === "all" || rowCategory === selectedCategory.toLowerCase()) {
-                row.classList.remove("hidden");
-            } else {
-                row.classList.add("hidden");
-            }
+            row.classList.toggle("hidden", !selectedCategories.includes(rowCategory));
         });
 
         categoryHeadings.forEach(heading => {
             const headingCategory = heading.getAttribute("data-category").trim().toLowerCase();
-            const matchingRow = document.querySelector(`.product-row[data-category="${headingCategory}"]`);
-
-            if (selectedCategory === "all" || headingCategory === selectedCategory.toLowerCase()) {
-                heading.classList.remove("hidden");
-            } else {
-                heading.classList.add("hidden");
-            }
+            heading.classList.toggle("hidden", !selectedCategories.includes(headingCategory));
         });
-    });
+    }
 });
+
+
+
 
 
 

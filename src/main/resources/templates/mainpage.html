@@ -66,13 +66,20 @@
     </div>
 
 
-    <!-- Category Filter Dropdown -->
+    <!-- Category Filter Section -->
     <div class="category-filter">
-        <label for="categorySelect">Filter by Category:</label>
-        <select id="categorySelect" class="category-select">
-            <option value="all">All Items</option>
-            <option th:each="category : ${categories}" th:value="${category}" th:text="${category}"></option>
-        </select>
+        <label>Filter by Category:</label>
+        <div class="dropdown">
+            <button class="dropdown-button">Select Categories ▼</button>
+            <div class="dropdown-content" id="categoryCheckboxContainer">
+                <label>
+                    <input type="checkbox" value="all" class="category-checkbox" checked> All Items (Default)
+                </label>
+                <label th:each="category : ${categories}">
+                    <input type="checkbox" th:value="${category}" class="category-checkbox"> <span th:text="${category}"></span>
+                </label>
+            </div>
+        </div>
     </div>
 
     <!-- Vending Machine -->
@@ -117,9 +124,6 @@
         </div>
 
 
-
-
-
         <!-- Keypad Container -->
         <div class="keypad-container">
             <!-- Display Screen -->
@@ -131,10 +135,12 @@
                 <button onclick="updateDisplay('B')">B</button>
                 <button onclick="updateDisplay('C')">C</button>
                 <button onclick="updateDisplay('D')">D</button>
-                <div class="empty"></div> <!-- Empty space in middle -->
+                <button onclick="updateDisplay('E')">E</button>
+                <button onclick="updateDisplay('F')">F</button>
                 <button onclick="updateDisplay('1')">1</button>
                 <button onclick="updateDisplay('2')">2</button>
                 <button onclick="updateDisplay('3')">3</button>
+                <div class="empty"></div> <!-- Empty space-->
                 <button onclick="updateDisplay('4')">4</button>
             </div>
 
