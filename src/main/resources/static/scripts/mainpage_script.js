@@ -68,7 +68,7 @@ async function submitCode() {
         }
 
         let product = await response.json(); //else parse the response as JSON
-        await addItemToCart(product);  //call function to add item to cart and await it
+        await addItemToCart(product,false);  //call function to add item to cart and await it
 
     } catch (error) {
         console.error("Error:", error);  //log error in console
@@ -80,8 +80,9 @@ async function submitCode() {
 
 
 //function to dynamically add an item to the cart
-async function addItemToCart(product) {
+async function addItemToCart(product, allItems) {
     let enoughStock = await checkStock(product);  //call stock check function and await it
+    let skipAlerts = allItems;  //extra variable to allow skipping the alerts if every item is being added to cart (developer feature)
 
     if (!enoughStock) return;  //if not enough stock return from function, the alert will already be sent by the checkStock function
 
@@ -96,7 +97,11 @@ async function addItemToCart(product) {
             imageUrl: product.imageUrl  //now also store image url
         };
     }
-    alert(`${product.id} - ${product.name} added to cart successfully!`); //successful alert
+
+    if (!skipAlerts) {
+        alert(`${product.id} - ${product.name} added to cart successfully!`); //successful alert
+    }
+
     updateCartDisplay();  //calling function to update the cart display after adding an item
 }
 
@@ -329,7 +334,7 @@ document.addEventListener("DOMContentLoaded", function () {
     //function to add the selected item to the cart
     window.addItemToCartFromModal = function () {
         if (selectedProduct) {   //only if the selected product exists
-            addItemToCart(selectedProduct);  //call existing function and pass in currently selected product
+            addItemToCart(selectedProduct,false);  //call existing function and pass in currently selected product
             modal.style.display = "none";  //close the modal after adding to cart
         }
     };
@@ -421,6 +426,26 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+//new developer function to add all items to cart simply
+function addAllItemsToCart() {
+    let allItems = document.querySelectorAll(".item");
+
+    for (let item of allItems) {
+        let product = {
+            id: item.getAttribute("data-code"),
+            name: item.getAttribute("data-name"),
+            price: parseFloat(item.getAttribute("data-price")),
+            stock: parseInt(item.getAttribute("data-stock")),
+            imageUrl: item.getAttribute("data-image"),
+        };
+
+        if (product.stock > 0) { //only add if in stock
+            addItemToCart(product,true); //pass in true so alerts for items added to cart are skipped (saves time)
+        }
+    }
+}
+
 
 
 

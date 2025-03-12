@@ -374,9 +374,9 @@
 
 /* Cart Container */
 .cart-container {
-    position: absolute;
+    position: fixed;
     right: 20px;
-    top: 15%;
+    top: 20%;
     width: 550px;
     min-height: 40vh;
     max-height: 85vh;
@@ -436,7 +436,7 @@
     margin-bottom: 6px;
 }
 
-/* Cart Title */
+
 .cart-container h3 {
     font-size: 3rem;
     color: #ffcc00;
@@ -549,9 +549,9 @@
 }
 
 
-/* Glowing Blue & Magenta Buttons */
+
 .cart-container .cart-buttons button {
-    background: linear-gradient(90deg, #0099ff, #ff00ff); /* Blue to Magenta Gradient */
+    background: linear-gradient(90deg, #0099ff, #ff00ff);
     color: white;
     font-weight: bold;
     border: none;
@@ -589,9 +589,9 @@
 /* Payment Modal */
 .modal {
     width: 550px;
-    height: 85vh;
-    position: absolute;
-    top: 15%;
+    height: 79vh;
+    position: fixed;
+    top: 20%;
     right: 20px;
     background-color: black;
     border: 2px solid cyan;
@@ -929,7 +929,7 @@
 .instructions-panel {
     position: absolute;
     left: 40px;
-    top: 150px;
+    top: 175px;
     width: 500px;
     padding: 15px 10px;
     background: rgba(255, 255, 255, 0.1);
@@ -938,6 +938,7 @@
     color: white;
     font-size: 1.3rem;
     text-align: left;
+    margin-bottom: 10px;
 }
 
 /* Instructions Title */
@@ -1020,14 +1021,14 @@
 
 
 .product-modal-content {
-    background-color: #f0f0f0;
+    background-color: white/*#f0f0f0*/;
     margin: 10% auto;
     padding: 20px;
     width: 40%;
     border-radius: 10px;
     color: #222;
     text-align: center;
-    border: 2px solid #00ffcc; /* Teal border */
+    border: 2px solid #00ffcc;
     box-shadow: 0 4px 10px rgba(0, 255, 171, 0.5);
     position: relative;
 }
@@ -1152,6 +1153,29 @@
     visibility: visible;
     opacity: 1;
 }
+
+
+/* Button to Add All Items to Cart */
+.dev-button {
+    background: linear-gradient(90deg, #ff4500, #ff7f50);
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(255, 69, 0, 0.5);
+    transition: all 0.3s ease-in-out;
+    margin-bottom: 15px;
+}
+
+.dev-button:hover {
+    background: linear-gradient(90deg, #ff7f50, #ff4500);
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(255, 69, 0, 0.8);
+}
+
 
 
 
