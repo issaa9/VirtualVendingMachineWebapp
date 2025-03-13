@@ -14,12 +14,18 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id",nullable = false)
     private Long id;
+
     @Column(name="total_cost",nullable = false)
     private double totalCost;
+
     @Column(name="payment_received",nullable = false)
     private double paymentReceived;
+
     @Column(name="change_given",nullable = false)
     private double changeGiven;
+
+    @Column(name="user", nullable = false)
+    private String user;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name="transaction_date",nullable = false)
@@ -32,11 +38,12 @@ public class Transaction {
 
     }
 
-    public Transaction(Long id, double totalCost, double paymentReceived, double changeGiven, Date transactionDate, List<TransactionProduct> transactionProducts) {
+    public Transaction(Long id, double totalCost, double paymentReceived, double changeGiven, String user, Date transactionDate, List<TransactionProduct> transactionProducts) {
         this.id = id;
         this.totalCost = totalCost;
         this.paymentReceived = paymentReceived;
         this.changeGiven = changeGiven;
+        this.user = user;
         this.transactionDate = transactionDate;
         this.transactionProducts = transactionProducts;
     }
@@ -100,6 +107,14 @@ public class Transaction {
         this.transactionProducts = transactionProducts;
     }
 
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String username) {
+        this.user = username;
+    }
+
     @Override
     public String toString() {
         return "Transaction{" +
@@ -107,6 +122,7 @@ public class Transaction {
                 ", totalCost=" + totalCost +
                 ", paymentReceived=" + paymentReceived +
                 ", changeGiven=" + changeGiven +
+                ", user='" + user + '\'' +
                 ", transactionDate=" + transactionDate +
                 ", transactionProducts=" + transactionProducts +
                 '}';

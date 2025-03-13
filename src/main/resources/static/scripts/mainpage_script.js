@@ -314,6 +314,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 name: this.getAttribute("data-name"),
                 price: this.getAttribute("data-price"),
                 stock: this.getAttribute("data-stock"),
+                category: this.getAttribute("data-category"),
                 imageUrl: this.getAttribute("data-image")
             };
 
@@ -324,6 +325,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("modalProductImage").src = product.imageUrl;
             document.getElementById("modalProductName").innerText = product.name;
             document.getElementById("modalProductCode").innerText = product.id;
+            document.getElementById("modalProductCategory").innerText = product.category;
             document.getElementById("modalProductPrice").textContent = parseFloat(product.price).toFixed(2);
             document.getElementById("modalProductStock").innerText = product.stock;
 
@@ -334,7 +336,7 @@ document.addEventListener("DOMContentLoaded", function () {
     //function to add the selected item to the cart
     window.addItemToCartFromModal = function () {
         if (selectedProduct) {   //only if the selected product exists
-            addItemToCart(selectedProduct,false);  //call existing function and pass in currently selected product
+            addItemToCart(selectedProduct,false);  //call existing function and pass in currently selected product, and false to ensure alerts ae displayed as normal
             modal.style.display = "none";  //close the modal after adding to cart
         }
     };
@@ -353,50 +355,52 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-
+//event listeners and functions to handle category viewing and filtering
 document.addEventListener("DOMContentLoaded", function () {
+    //define constants for use
     const dropdownButton = document.querySelector(".dropdown-button");
     const dropdown = document.querySelector(".dropdown");
     const checkboxes = document.querySelectorAll(".category-checkbox");
     const allItemsCheckbox = document.querySelector('input[value="all"]');
 
-    // Toggle dropdown visibility
-    dropdownButton.addEventListener("click", function () {
-        dropdown.classList.toggle("active");
+    //shows the dropdown when clicking the button
+    dropdownButton.addEventListener("click", function () { //listen for a click only on the dropdown button
+        dropdown.classList.toggle("active"); //when the dropdown button is clicked, toggle the active class to show the dropdown
     });
 
-    // Hide dropdown when clicking outside
-    document.addEventListener("click", function (event) {
-        if (!dropdown.contains(event.target)) {
-            dropdown.classList.remove("active");
+    //hides dropdown when clicking outside of it
+    document.addEventListener("click", function (event) { //listen for a click anywhere in the document
+        if (!dropdown.contains(event.target)) {  //checks if the click was outside the dropdown
+            dropdown.classList.remove("active");  //remove the active toggle to hide the dropdown
         }
     });
 
     checkboxes.forEach(checkbox => {
-        checkbox.addEventListener("change", function () {
-            handleCheckboxSelection(this);
+        checkbox.addEventListener("change", function () { //adds a listener for any change (checking or unchecking) to every checkbox
+            handleCheckboxSelection(this);  //calls the function to handle changes for checkboxes
         });
     });
 
+    //function to process the checkbox selections
     function handleCheckboxSelection(selectedCheckbox) {
-        let selectedCategories = Array.from(document.querySelectorAll(".category-checkbox:checked"))
-            .map(cb => cb.value.toLowerCase());
+        let selectedCategories = Array.from(document.querySelectorAll(".category-checkbox:checked")) //selects all checkboxes that have been checked
+            .map(cb => cb.value.toLowerCase());  //creates an array of the values (in lowercase) of all the checked checkboxes
 
-        // If "All Items" is selected, uncheck everything else and show all categories
-        if (selectedCheckbox.value === "all" && selectedCheckbox.checked) {
+        //if "All Items" is selected, uncheck everything else and show all categories
+        if (selectedCheckbox.value === "all" && selectedCheckbox.checked) { //checks if the 'All Items' category is checked
             checkboxes.forEach(cb => {
-                if (cb.value !== "all") cb.checked = false;
+                if (cb.value !== "all") cb.checked = false;  //unchecks all other boxes
             });
-            showAllCategories();
+            showAllCategories(); //call function to show all categories
             return;
         } else {
-            allItemsCheckbox.checked = false; // Uncheck "All Items" when another category is selected
+            allItemsCheckbox.checked = false; //else automatically uncheck 'All Items' if another category is selected
         }
 
-        // If no categories are selected, re-check "All Items"
-        if (selectedCategories.length === 0) {
-            allItemsCheckbox.checked = true;
-            showAllCategories();
+        //if no categories are selected, re-check "All Items" and show all items again which is the default (prevent an empty vending machine)
+        if (selectedCategories.length === 0) {  //check if the selected categories array is empty
+            allItemsCheckbox.checked = true; //if empty, check the 'All Items' box
+            showAllCategories();  //also call the function to show all categories
             return;
         }
 
@@ -404,30 +408,35 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function showAllCategories() {
+        //select all product row and category heading elements
         const productRows = document.querySelectorAll(".product-row");
         const categoryHeadings = document.querySelectorAll(".category-heading-container");
 
-        productRows.forEach(row => row.classList.remove("hidden"));
-        categoryHeadings.forEach(heading => heading.classList.remove("hidden"));
+        //show all product rows and category headings
+        productRows.forEach(row => row.classList.remove("hidden")); //for every product row remove the hidden class
+        categoryHeadings.forEach(heading => heading.classList.remove("hidden"));  //for every category heading remove the hidden class
     }
 
     function updateCategoryFilter(selectedCategories) {
+        //select all product row and category heading elements
         const productRows = document.querySelectorAll(".product-row");
         const categoryHeadings = document.querySelectorAll(".category-heading-container");
 
-        productRows.forEach(row => {
-            const rowCategory = row.getAttribute("data-category").trim().toLowerCase();
-            row.classList.toggle("hidden", !selectedCategories.includes(rowCategory));
+        //add or remove each product row based on if it is selected or not
+        productRows.forEach(row => { //iterate through each product row
+            const rowCategory = row.getAttribute("data-category").trim().toLowerCase(); //retrieve the category of the row in lowercase (remember each row has a different category)
+            row.classList.toggle("hidden", !selectedCategories.includes(rowCategory)); //toggle the hidden class to be added or removed based on if the retrieved category is in selectedCategories
         });
 
-        categoryHeadings.forEach(heading => {
-            const headingCategory = heading.getAttribute("data-category").trim().toLowerCase();
-            heading.classList.toggle("hidden", !selectedCategories.includes(headingCategory));
+        //do the same with each category heading
+        categoryHeadings.forEach(heading => { //iterate through each category heading
+            const headingCategory = heading.getAttribute("data-category").trim().toLowerCase(); //retrieve the category value as lowercase
+            heading.classList.toggle("hidden", !selectedCategories.includes(headingCategory)); //add or remove hidden based on if the category is selected
         });
     }
 });
 
-//new developer function to add all items to cart simply
+//new developer function button to add all items to cart simply
 function addAllItemsToCart() {
     let allItems = document.querySelectorAll(".item");
 

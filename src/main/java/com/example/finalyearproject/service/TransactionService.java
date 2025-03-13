@@ -35,7 +35,7 @@ public class TransactionService {
 
     //method to create a transaction
     @Transactional
-    public Transaction createTransaction(Map<String, Integer> productQuantities, double paymentReceived) {
+    public Transaction createTransaction(Map<String, Integer> productQuantities, double paymentReceived, String username) {
         List<Product> products = fetchProducts(productQuantities); //list of products
 
         //call method to calculate total cost based on products and their quantities bought
@@ -43,8 +43,8 @@ public class TransactionService {
 
 
         validatePayment(totalCost, paymentReceived);  //validate payment first
-//        deductStock(productQuantities);   //deduct stock using the quantities of each product purchased
-        return saveTransaction(products, totalCost, paymentReceived, productQuantities); //save transaction into DB
+        deductStock(productQuantities);   //deduct stock using the quantities of each product purchased
+        return saveTransaction(products, totalCost, paymentReceived, productQuantities, username); //save transaction into DB
     }
 
     //method to fetch a transaction from the DB by its ID
@@ -127,7 +127,7 @@ public class TransactionService {
 
 
     //method to save transaction into DB
-    private Transaction saveTransaction(List<Product> products, double totalCost, double paymentReceived, Map<String, Integer> productQuantities) {
+    private Transaction saveTransaction(List<Product> products, double totalCost, double paymentReceived, Map<String, Integer> productQuantities, String username) {
 
         //round all money values before saving to DB to prevent floating point errors
         double roundedTotalCost = roundTwoDP(totalCost);
@@ -140,6 +140,7 @@ public class TransactionService {
         transaction.setPaymentReceived(roundedPaymentReceived);
         transaction.setChangeGiven(roundedChangeGiven);
         transaction.setTransactionDate(new Date());
+        transaction.setUser(username);
 
         //save the transaction first to generate its ID (needed for transaction_products)
         transactionRepo.save(transaction);
@@ -163,7 +164,7 @@ public class TransactionService {
         transaction.setTransactionProducts(transactionProducts);
 
         //print transaction for easy viewing and logging
-        System.out.println("New Transaction " + transaction.getId() + " saved with " + transactionProducts.size() + " product entries.");
+        System.out.println("New Transaction " + transaction.getId() + " saved for user: " + username + " with " + transactionProducts.size() + " product entries.");
 
         return transaction;
     }
@@ -171,6 +172,11 @@ public class TransactionService {
     public double roundTwoDP(double value) {
         DecimalFormat df = new DecimalFormat("#.##"); //ensures only 2 decimal places
         return Double.parseDouble(df.format(value));  //formats and converts back to double
+    }
+
+    //method to return a full list of transactions made by a specific user from the repository
+    public List<Transaction> getTransactionsByUsername(String username) {
+        return transactionRepo.findByUser(username);
     }
 
 }

@@ -21,6 +21,11 @@ public class NavigationController {
         return "homepage"; //render the homepage
     }
 
+    @GetMapping("/transactions")
+    public String showTransactionsPage() {
+        return "transactionspage"; //render the transactions history page
+    }
+
     @GetMapping("/about")
     public String showAboutPage() {
 

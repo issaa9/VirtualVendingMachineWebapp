@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction History</title>
+    <link rel="stylesheet" th:href="@{/css/general_styles.css}">
+    <link rel="stylesheet" th:href="@{/css/transactionspage_styles.css}">
+    <script th:src="@{/scripts/transactionspage_script.js}" defer></script>
+</head>
+<body>
+
+<!-- H1 Heading for Webapp Title -->
+<header>
+    <h1 class="webapp-title">Virtual Vending Machine Webapp</h1>
+</header>
+
+<!-- Display Logged-In User -->
+<div class="user-info">
+    <p>Logged In As: <span th:text="${username}">Guest</span></p>
+</div>
+
+<main>
+    <h2>Your Transactions History</h2>
+
+    <!-- Transactions List -->
+    <div class="transactions-container">
+        <table id="transactionsTable" class="transactions-table">
+            <thead>
+            <tr>
+                <th>Transaction ID</th>
+                <th>Date</th>
+                <th>Total Cost</th>
+                <th>Payment Received</th>
+                <th>Change Given</th>
+                <th>Details</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Transactions will be dynamically inserted here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Home Button -->
+    <a th:href="@{/home}" class="home-button-link">
+        <button class="home-button">Home</button>
+    </a>
+</main>
+
+</body>
+</html>

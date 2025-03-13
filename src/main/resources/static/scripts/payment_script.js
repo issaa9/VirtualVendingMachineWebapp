@@ -75,10 +75,13 @@ async function processTransaction() {
         productQuantities[productId] = cartItems[productId].quantity;
     }
 
+    let username = document.querySelector(".user-info span").innerText; //retrieve the username from the page
+
     //ensure paymentReceived is separate and formatted correctly
     let transactionData = {
         productQuantities: productQuantities,  //nested under a separate key
-        paymentReceived: insertedAmount
+        paymentReceived: insertedAmount,
+        username: username  //now adding username to the transaction data request
     };
 
     try {

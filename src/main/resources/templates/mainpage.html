@@ -26,7 +26,7 @@
 <main>
 
     <!-- Page Heading -->
-    <h2>Main</h2>
+    <h2>Main Page</h2>
 
 
     <!-- General Instructions Panel (Default) -->
@@ -89,12 +89,12 @@
         <div class="items-grid">
             <th:block th:each="rowStart : ${#numbers.sequence(0, products.size()-1, 4)}">
 
-                <!-- Display category heading using the first product in this row -->
+                <!-- Display category heading using the first product in each row -->
                 <div class="category-heading-container" th:data-category="${products[rowStart].category}">
                     <h3 class="category-heading" th:text="${products[rowStart].category}"></h3>
                 </div>
 
-                <!-- Display a row of 4 products -->
+                <!-- Display rows of 4 products -->
                 <div class="product-row" th:data-category="${products[rowStart].category}">
                     <th:block th:each="i : ${#numbers.sequence(rowStart, rowStart + 3)}" th:if="${i < products.size()}">
                         <div class="item"
@@ -104,6 +104,7 @@
                           data-code=${products[i].id},
                           data-price=${products[i].price},
                           data-stock=${products[i].stock},
+                          data-category=${products[i].category},
                           data-image=${products[i].imageUrl}">
 
                             <div class="item-content">
@@ -126,7 +127,8 @@
 
         <!-- Keypad Container -->
         <div class="keypad-container">
-            <!-- Display Screen -->
+
+            <!-- Keypad Display Screen -->
             <div class="keypad-display" id="keypadDisplay">_</div>
 
             <!-- Keypad -->
@@ -167,7 +169,7 @@
         </div>
     </div>
 
-    <!-- Payment Modal -->
+    <!-- Payment Modal (Appears after pressing Checkout) -->
     <div id="paymentModal" class="modal">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal()">&times;</button>
@@ -196,7 +198,7 @@
         </div>
     </div>
 
-    <!-- Payment Success Modal -->
+    <!-- Payment Success Modal (Appears after a successful payment) -->
     <div id="successModal" class="success-modal">
         <div class="modal-content">
             <h2>Payment Successful!</h2>
@@ -206,7 +208,7 @@
             <div class="purchased-items-container">
                 <p class="purchased-items-title">Here are your purchased items:</p>
                 <div class="purchased-items-display">
-                    <!-- Purchased item images, names and quantities will be dynamically added here from JS -->
+                    <!-- Purchased item images, names and quantities will be dynamically added in here from JS -->
                 </div>
             </div>
 
@@ -220,12 +222,13 @@
         </div>
     </div>
 
-    <!-- Detailed Product View Modal (Hidden Initially) -->
+    <!-- Detailed Product View Modal (Hidden Initially, Appears when Double-Clicking an Item) -->
     <div id="productModal" class="product-modal">
         <div class="product-modal-content">
             <span class="close-button">&times;</span>
             <h3 id="modalProductName"></h3>
             <img id="modalProductImage" src="" alt="Product Image">
+            <p><strong>Category:</strong> <span id="modalProductCategory"></span></p>
             <p><strong>Item Code:</strong> <span id="modalProductCode"></span></p>
             <p><strong>Price:</strong> £<span id="modalProductPrice"></span></p>
             <p><strong>Amount In Stock:</strong> <span id="modalProductStock"></span></p>
@@ -241,7 +244,7 @@
         <button class="home-button">Home</button>
     </a>
 
-    <!-- Overlay to cover entire page (and darken) when success modal is shown -->
+    <!-- Overlay to cover entire page (and darken) when Success Modal is shown -->
     <div id="modalOverlay" class="modal-overlay"></div>
 
 </main>

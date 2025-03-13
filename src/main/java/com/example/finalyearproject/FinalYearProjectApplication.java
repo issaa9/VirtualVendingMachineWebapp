@@ -57,27 +57,28 @@ public class FinalYearProjectApplication {
     }
 
     //test creating a transaction
-// Test creating a transaction with quantities
+//test creating a transaction with quantities
     public void createTransactionTest() {
-        // Create a test transaction with product IDs and their quantities
+        //create a test transaction with product IDs and their quantities
         Map<String, Integer> productQuantities = new HashMap<>();
-        productQuantities.put("A1", 2); // Buy 2 of A1
-        productQuantities.put("A2", 1); // Buy 1 of A2
-        productQuantities.put("B1", 3); // Buy 3 of B1
+        productQuantities.put("A1", 2); //buy 2 of A1
+        productQuantities.put("A2", 1); //buy 1 of A2
+        productQuantities.put("B1", 3); //buy 3 of B1
 
-        double paymentReceived = 20.00; // Simulated payment
+        double paymentReceived = 20.00; //simulated payment
 
         try {
-            // Create the transaction
-            Transaction transaction = transactionService.createTransaction(productQuantities, paymentReceived);
+            //create the transaction
+            String username = "tester";
+            Transaction transaction = transactionService.createTransaction(productQuantities, paymentReceived, username);
 
-            // Print out transaction details
+            //print out transaction details
             System.out.println("Transaction created successfully:");
             System.out.println("Total Cost: £" + String.format("%.2f", transaction.getTotalCost()));
             System.out.println("Payment Received: £" + String.format("%.2f", transaction.getPaymentReceived()));
             System.out.println("Change Given: £" + String.format("%.2f", transaction.getChangeGiven()));
 
-            // Print out updated stock levels
+            //print out updated stock levels
             System.out.println("\n Updated Stock Levels After Transaction:");
             for (Map.Entry<String, Integer> entry : productQuantities.entrySet()) {
                 String productId = entry.getKey();

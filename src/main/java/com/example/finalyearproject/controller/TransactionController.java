@@ -30,8 +30,14 @@ public class TransactionController {
             //extract paymentReceived and store as a double
             double paymentReceived = ((Number) requestBody.get("paymentReceived")).doubleValue();
 
+            //extract username from requestBody
+            String username = (String) requestBody.get("username");
+            if (username == null || username.isEmpty()) {
+                return ResponseEntity.badRequest().body(Map.of("error", "Username is required."));  //error handling in case of no username
+            }
+
             //call service method to create the transaction
-            Transaction transaction = transactionService.createTransaction(productQuantities, paymentReceived);
+            Transaction transaction = transactionService.createTransaction(productQuantities, paymentReceived, username);
 
             //deduct stock and track restocked items
             List<String> restockedItems = transactionService.deductStock(productQuantities);
@@ -62,5 +68,12 @@ public class TransactionController {
             return ResponseEntity.badRequest().body(Map.of("error", "Transaction failed: " + e.getMessage()));  //return failure response
         }
     }
+
+    @GetMapping("/user")   //api endpoint to fetch all transactions for the user
+    public ResponseEntity<List<Transaction>> getUserTransactions(@ModelAttribute("username") String username) { //model attribute used to retrieve the username of the user currently logged in
+        List<Transaction> transactions = transactionService.getTransactionsByUsername(username); //call service method to retrieve transactions
+        return ResponseEntity.ok(transactions);  //return transaction list
+    }
+
 
 }
