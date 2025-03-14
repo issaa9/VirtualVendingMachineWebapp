@@ -1,44 +1,164 @@
 /* Transactions Page Styles */
-.transactions-container {
-    margin: 20px auto;
-    width: 90%;
-    max-width: 800px;
+
+h2 {
+    position: absolute;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 3.5rem;
+    color: #00ffcc;
+    text-shadow: 2px 2px 10px rgba(0, 255, 204, 0.8);
+    margin-bottom: 30px;
 }
 
+.transactions-container {
+    position: relative;
+    margin: 20vh auto;
+    width: 100%;
+    max-width: 1800px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Ensure only table body scrolls */
+.transactions-table-wrapper {
+    width: 100%;
+    min-width: 1600px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 255, 204, 0.5);
+    overflow: hidden;
+}
+
+/* Table Styling */
 table {
     width: 100%;
     border-collapse: collapse;
-    background: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.9);
+    border-radius: 10px;
+    overflow: hidden;
+    display: table;
+    table-layout: fixed;
 }
 
+/* Fixed Header */
+thead {
+    position: sticky;
+    top: 0;
+    background-color: #00ffcc;
+    z-index: 10;
+    box-shadow: 0 3px 5px rgba(0, 255, 204, 0.5);
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+
 th, td {
-    padding: 12px;
-    border: 1px solid #ddd;
+    padding: 10px;
+    border: 2px solid black;
     text-align: center;
-    color: black;
+    color: white;
+    font-size: 1.2rem;
+    transition: transform 0.2s ease-in-out, color 0.2s, background-color 0.2s;
 }
 
 th {
-    background-color: #007bff;
-    color: white;
+    background-color: #00ffcc;
+    color: black;
+    font-size: 1.4rem;
+    text-transform: uppercase;
 }
 
 
-tr:nth-child(even) {
-    background-color: #f2f2f2;
+/* Scrollable Table Body */
+tbody {
+    display: block;
+    max-height: 730px;
+    overflow-y: auto;
+    width: 100%;
 }
 
 
+tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+
+tbody::-webkit-scrollbar {
+    width: 8px;
+}
+
+tbody::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+}
+
+tbody::-webkit-scrollbar-thumb {
+    background: #00ffcc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 255, 204, 0.7);
+}
+
+tbody::-webkit-scrollbar-thumb:hover {
+    background: cyan;
+    box-shadow: 0 0 25px rgba(0, 255, 204, 1);
+}
+
+/* Alternating row colors */
+tr:nth-child(even) td {
+    background-color: rgba(0, 255, 204, 0.2);
+}
+
+tr:nth-child(odd) td:hover {
+    background-color: rgba(0, 255, 204, 0.2);
+    color: #00ffcc;
+    font-size: 1.4rem;
+}
+
+tr:nth-child(even) td:hover {
+    background-color: black;
+    color: #00ffcc;
+    font-size: 1.4rem;
+}
+
+/* Button Styling */
 button {
-    background: #007bff;
-    color: white;
+    background: #00ffcc;
+    color: black;
+    font-weight: bold;
     border: none;
-    padding: 8px 12px;
+    padding: 10px 15px;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 button:hover {
-    background: #0056b3;
+    background: #33ffdd;
+    box-shadow: 0 0 15px rgba(0, 255, 204, 1);
 }
+
+/* Responsive design */
+@media screen and (max-width: 768px) {
+    .transactions-container {
+        width: 100%;
+    }
+
+    tbody {
+        max-height: 300px; /* Adjust height for small screens */
+    }
+
+    table {
+        font-size: 1rem;
+    }
+
+    button {
+        padding: 8px 12px;
+        font-size: 1rem;
+    }
+}
+

@@ -30,7 +30,7 @@ async function fetchUserTransactions(username) {
 
 //function to populate the transactions table
 function populateTransactionTable(transactions) {
-    let tableBody = document.querySelector("#transactionsTable tbody");
+    let tableBody = document.querySelector(".transactions-table tbody");
     tableBody.innerHTML = ""; //clear all previous content in the table
 
     if (transactions.length === 0) { //check if there's no transactions for the user
@@ -41,21 +41,27 @@ function populateTransactionTable(transactions) {
     transactions.forEach(transaction => {  //iterate for each transaction
         let row = document.createElement("tr");  //create a row
 
+        //separating out date and time
+        let transactionDate = new Date(transaction.transactionDate);
+        let formattedDate = transactionDate.toLocaleDateString();
+        let formattedTime = transactionDate.toLocaleTimeString();
+        
         //add in all the transaction data
         row.innerHTML = `
             <td>${transaction.id}</td>
-            <td>${new Date(transaction.transactionDate).toLocaleString()}</td>
+            <td>${formattedDate}</td>
+            <td>${formattedTime}</td>
             <td>£${transaction.totalCost.toFixed(2)}</td>
             <td>£${transaction.paymentReceived.toFixed(2)}</td>
             <td>£${transaction.changeGiven.toFixed(2)}</td>
-            <td><button onclick="viewTransactionDetails(${transaction.id})">View</button></td>
+            <td><button onclick="viewReceipt(${transaction.id})">View</button></td>
         `;
 
         tableBody.appendChild(row);  //append the row to the table
     });
 }
 
-//function to view transaction details (in separate page) when the button is clicked
-function viewTransactionDetails(transactionId) {
-    window.location.href = `/transaction/${transactionId}`;  //for now navigate to new page, potentially could change this part later
+//function to view receipt for the specific transaction (in separate tab) when the button is clicked
+function viewReceipt(transactionId) {
+    window.location.href = `/receipts/${transactionId}`;  //for now navigate to new page, potentially could change this part later
 }

@@ -43,7 +43,10 @@ public class TransactionService {
 
 
         validatePayment(totalCost, paymentReceived);  //validate payment first
-        deductStock(productQuantities);   //deduct stock using the quantities of each product purchased
+
+        //deductStock(productQuantities);   //deduct stock using the quantities of each product purchased
+        //no longer need to call deductStock from here as it is now called from in TransactionController
+
         return saveTransaction(products, totalCost, paymentReceived, productQuantities, username); //save transaction into DB
     }
 

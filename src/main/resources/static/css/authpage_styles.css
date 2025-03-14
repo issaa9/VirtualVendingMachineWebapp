@@ -105,5 +105,38 @@
     color: #00aaff;
 }
 
+/* Remember-Me Checkbox Styling */
+.remember-me-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 1.8rem;
+    color: cyan;
+    margin-bottom: 15px;
+}
+
+
+.remember-me-container input[type="checkbox"] {
+    width: 25px;
+    height: 25px;
+    border: 2px solid cyan;
+    background: black;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+
+.remember-me-container input[type="checkbox"]:hover {
+    box-shadow: 0 0 6px cyan;
+}
+
+
+.remember-me-container input[type="checkbox"]:checked {
+    background-color: cyan;
+    box-shadow: 0 0 10px cyan;
+}
+
+
 
 
