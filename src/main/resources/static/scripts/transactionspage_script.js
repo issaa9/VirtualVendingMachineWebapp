@@ -63,5 +63,5 @@ function populateTransactionTable(transactions) {
 
 //function to view receipt for the specific transaction (in separate tab) when the button is clicked
 function viewReceipt(transactionId) {
-    window.location.href = `/receipts/${transactionId}`;  //for now navigate to new page, potentially could change this part later
+    window.location.href = `/receipts/${transactionId}`;  //navigate to receipt page with specific transaction id
 }

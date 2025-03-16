@@ -276,17 +276,24 @@ function clearCart() {
 
 //allows user to use their keyboard keys as alternatives to ENT and DEL buttons
 document.addEventListener("keydown", function(event) {
+    //fetch required elements
     let enterButton = document.getElementById("enterBtn");
     let deleteButton = document.getElementById("deleteBtn");
+    let clearButton = document.getElementById("clearBtn");
 
-    //if ENTER key is pressed and the ENT button is enabled, trigger an ENT button click
-    if (event.key === "Enter" && !enterButton.disabled) {
-        enterButton.click();
+    let validInput = /^[A-Fa-f1-4]$/; //define RegEx for allowed input characters, upper or lowercase letters A-F or numbers 1-4
+
+    if (validInput.test(event.key)) {  //if one of the allowed keys is pressed
+        updateDisplay(event.key.toUpperCase()); //pass uppercase value into updateDisplay, which will handle all required validation
+    } else {
+        if (event.key === "Enter" && !enterButton.disabled) {
+            enterButton.click(); //if ENTER key is pressed and the ENT button is enabled, trigger an ENT button click
+        } else if (event.key === "Backspace") {
+            deleteButton.click(); //if BACKSPACE or DELETE key is pressed, trigger a DEL button click
+        } else if (event.key === "Delete") {
+            clearButton.click(); // if DELETE key is pressed, trigger a CLR button click
     }
 
-    //if BACKSPACE or DELETE key is pressed, trigger a DEL button click
-    if (event.key === "Backspace" || event.key === "Delete") {
-        deleteButton.click();
     }
 });
 

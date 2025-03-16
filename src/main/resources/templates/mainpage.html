@@ -34,10 +34,10 @@
         <h3>Using the Vending Machine</h3>
         <ul>
             <li>— Double-click an item to view it. </li>
-            <li>— Use the Keypad to enter an item code.</li>
+            <li>— Use the Keypad or your Keyboard to enter an item code.</li>
             <li>— Click <span class="highlight-green">ENT</span> on the Keypad or press ENTER on your keyboard to add the item to your Cart (only works when a valid code has been entered).</li>
-            <li>— Click <span class="highlight-orange">DEL</span> or press DELETE/BACKSPACE on your keyboard to delete the last character from the Keypad Display.</li>
-            <li>— Click <span class="highlight-red">CLR</span> to clear the Keypad Display.</li>
+            <li>— Click <span class="highlight-orange">DEL</span> or press BACKSPACE on your keyboard to delete the last character from the Keypad Display.</li>
+            <li>— Click <span class="highlight-red">CLR</span> or press DELETE on your keyboard to clear the Keypad Display.</li>
             <li class="space"></li>
             <li>— Remove an item from the Cart by clicking the “x” button next to it.</li>
             <li>— Increase an Item’s Quantity by clicking the “+” button next to it.</li>
@@ -148,7 +148,7 @@
 
             <!-- Keypad Controls -->
             <div class="keypad-controls">
-                <button class="clear-btn" onclick="clearDisplay()">CLR</button>
+                <button class="clear-btn" id="clearBtn" onclick="clearDisplay()">CLR</button>
                 <button class="delete-btn" id="deleteBtn" onclick="deleteLastCharacter()">DEL</button>
                 <button class="enter-btn" id="enterBtn" onclick="submitCode()" disabled>ENT</button>
             </div>
