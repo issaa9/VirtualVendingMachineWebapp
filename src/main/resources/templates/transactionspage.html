@@ -23,6 +23,60 @@
 <main>
     <h2>Your Transactions History</h2>
 
+    <!-- Filter Menu to Query the Data -->
+    <div class="filter-menu">
+        <h3>Querying/Filtering Transactions Menu</h3>
+
+        <!-- Transaction ID Filter -->
+        <label for="transactionId">Transaction ID:</label>
+        <input type="text" id="transactionId" placeholder="Enter ID">
+
+        <!-- Date Range Filters -->
+        <div class="date-filters">
+            <div class="date-input-container">
+                <label for="startDate">Date From:</label>
+                <input type="date" id="startDate">
+            </div>
+            <div class="date-input-container">
+                <label for="endDate">Date To:</label>
+                <input type="date" id="endDate">
+            </div>
+        </div>
+
+        <!-- Money Filters -->
+        <div class="money-filters">
+
+            <!-- Total Cost Range -->
+            <div class="money-column">
+                <label for="minTotalCost">Total Cost:</label>
+                <input type="number" id="minTotalCost" placeholder="Min £">
+                <input type="number" id="maxTotalCost" placeholder="Max £">
+            </div>
+
+            <!-- Payment Received Range -->
+            <div class="money-column">
+                <label for="minPayment">Payment Received:</label>
+                <input type="number" id="minPayment" placeholder="Min £">
+                <input type="number" id="maxPayment" placeholder="Max £">
+            </div>
+
+            <!-- Change Given Range -->
+            <div class="money-column">
+                <label for="minChange">Change Given:</label>
+                <input type="number" id="minChange" placeholder="Min £">
+                <input type="number" id="maxChange" placeholder="Max £">
+            </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="filter-buttons">
+            <button onclick="applyFilters()">Apply Filters</button>
+            <button onclick="resetFilters()">Reset Filters</button>
+        </div>
+
+    </div>
+
+
     <!-- Transactions List -->
     <div class="transactions-container">
         <div class="transactions-table-wrapper">

@@ -3,10 +3,12 @@ package com.example.finalyearproject.controller;
 import com.example.finalyearproject.model.Transaction;
 import com.example.finalyearproject.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -74,6 +76,29 @@ public class TransactionController {
         List<Transaction> transactions = transactionService.getTransactionsByUsername(username); //call service method to retrieve transactions
         return ResponseEntity.ok(transactions);  //return transaction list
     }
+
+
+    @GetMapping("/filter")  //api endpoint to filter/query transactions
+    public ResponseEntity<List<Transaction>> filterTransactions(
+            @RequestParam(required = false) Long transactionId,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,   //formatted dates
+            @RequestParam(required = false) Double minTotalCost,
+            @RequestParam(required = false) Double maxTotalCost,
+            @RequestParam(required = false) Double minPayment,
+            @RequestParam(required = false) Double maxPayment,
+            @RequestParam(required = false) Double minChange,
+            @RequestParam(required = false) Double maxChange,
+            @RequestParam String username) {
+            //request all possible parameters, they aren't all required because we allow null values, only username is required
+
+        List<Transaction> filteredTransactions = transactionService.getFilteredTransactions(   //call service method and pass in the parameters, if some have no value NULL will be sent for them
+                transactionId, startDate, endDate, minTotalCost, maxTotalCost, minPayment, maxPayment, minChange, maxChange, username
+        );
+
+        return ResponseEntity.ok(filteredTransactions);  //return the filtered transactions list as JSON response to frontend
+    }
+
 
 
 }

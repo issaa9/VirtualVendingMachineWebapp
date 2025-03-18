@@ -8,9 +8,12 @@ import com.example.finalyearproject.repository.TransactionProductRepo;
 import com.example.finalyearproject.repository.TransactionRepo;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -179,7 +182,31 @@ public class TransactionService {
 
     //method to return a full list of transactions made by a specific user from the repository
     public List<Transaction> getTransactionsByUsername(String username) {
+
         return transactionRepo.findByUser(username);
     }
+
+    //method to return the filtered transactions from the repository
+    public List<Transaction> getFilteredTransactions(Long transactionId, LocalDate startDate, LocalDate endDate,
+                                                     Double minTotalCost, Double maxTotalCost,
+                                                     Double minPayment, Double maxPayment,
+                                                     Double minChange, Double maxChange, String username) {
+
+
+
+//        System.out.println("Filtering transactions with: ID=" + transactionId +
+//                ", StartDate=" + startDate + ", EndDate=" + endDate + ", minTotalCost=" + minTotalCost +
+//                ", maxTotalCost=" + maxTotalCost);      //logging
+
+
+        List<Transaction> filteredTransactions = transactionRepo.filterTransactions(  //call the repository method to execute the SQL query
+                transactionId, username, startDate, endDate,
+                minTotalCost, maxTotalCost, minPayment, maxPayment, minChange, maxChange);  //pass in all the parameters
+
+        System.out.println("**Retrieved Filtered Transactions for user: " + username + " -> " + filteredTransactions);   //logging
+
+        return filteredTransactions;   //return the list of filtered transactions
+    }
+
 
 }

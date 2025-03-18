@@ -13,7 +13,8 @@ h2 {
 
 .transactions-container {
     position: relative;
-    margin: 20vh auto;
+    margin-top: 520px;
+    margin-bottom: 40px;
     width: 100%;
     max-width: 1800px;
     display: flex;
@@ -41,7 +42,7 @@ table {
     table-layout: fixed;
 }
 
-/* Fixed Header */
+/* Fixed Header Row */
 thead {
     position: sticky;
     top: 0;
@@ -124,7 +125,7 @@ tr:nth-child(even) td:hover {
     font-size: 1.4rem;
 }
 
-/* Button Styling */
+
 button {
     background: #00ffcc;
     color: black;
@@ -142,6 +143,171 @@ button:hover {
     box-shadow: 0 0 15px rgba(0, 255, 204, 1);
 }
 
+
+/* Filter Menu Styling */
+.filter-menu {
+    position: absolute;
+    top: 150px;
+    right: 20px;
+    width: 40%;
+    background: rgba(0, 0, 0, 0.95);
+    padding: 12px 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px cyan;
+    z-index: 10;
+}
+
+.filter-menu h3 {
+    font-size: 2rem;
+}
+
+
+.filter-menu input {
+    width: 80px;
+    background: black;
+    border: 2px solid cyan;
+    color: cyan;
+    padding: 5px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+
+.date-filters {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.date-filters input {
+    width: 130px;
+    background: black;
+    border: 2px solid cyan;
+    color: cyan;
+    padding: 6px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+
+.date-input-container {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+}
+
+
+input[type="date"] {
+    width: 130px;
+    padding: 6px;
+    background-color: black;
+    color: cyan;
+    border: 2px solid cyan;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    cursor: text;
+}
+
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 1;
+    cursor: pointer;
+    background: none;
+    padding-right: 5px;
+}
+
+
+
+input[type="date"]:focus {
+    outline: none;
+}
+
+
+
+
+.money-filters {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+
+.money-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.money-column input {
+    width: 90px;
+    height: 50px
+}
+
+
+input[type="number"] {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+    background-color: black;
+    color: cyan;
+    border: 2px solid cyan;
+    padding: 5px;
+    font-size: 16px;
+    text-align: center;
+    width: 80px;
+    border-radius: 5px;
+}
+
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    opacity: 1; /* Ensure visibility */
+    background: black;
+    border: none;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+
+input[type="number"]:hover::-webkit-inner-spin-button,
+input[type="number"]:hover::-webkit-outer-spin-button {
+    background: cyan;
+}
+
+
+
+
+.filter-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.filter-buttons button {
+    background: cyan;
+    color: black;
+    border: 2px solid magenta;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: 0.3s ease-in-out;
+}
+
+.filter-buttons button:hover {
+    background: magenta;
+    color: white;
+    border: 2px solid cyan;
+    box-shadow: 0 0 10px magenta;
+}
+
+
+
+
+
 /* Responsive design */
 @media screen and (max-width: 768px) {
     .transactions-container {
@@ -149,7 +315,7 @@ button:hover {
     }
 
     tbody {
-        max-height: 300px; /* Adjust height for small screens */
+        max-height: 300px;
     }
 
     table {

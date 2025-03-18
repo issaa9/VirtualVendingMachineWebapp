@@ -1,7 +1,9 @@
+const usernameElement = document.querySelector(".user-info span");  //select user info element
+const username = usernameElement.innerText.trim();  //extract the username from the user-info
+
+
 //event listener to retrieve the username after the full HTML document has loaded
 document.addEventListener("DOMContentLoaded", async function () {
-    let usernameElement = document.querySelector(".user-info span");  //select user info element
-    let username = usernameElement.innerText.trim();  //extract the username from the user-info
 
     if (!username || username === "Guest") {  //handling in case no username, or Guest login
         console.warn("User not logged in. Transactions cannot be fetched."); //set warning instead of error - better practice
@@ -34,7 +36,7 @@ function populateTransactionTable(transactions) {
     tableBody.innerHTML = ""; //clear all previous content in the table
 
     if (transactions.length === 0) { //check if there's no transactions for the user
-        tableBody.innerHTML = "<tr><td colspan='6'>No transactions found.</td></tr>"; //add in a message
+        tableBody.innerHTML = "<tr><td colspan='6'>No Transactions Found.</td></tr>"; //add in a message
         return;
     }
 
@@ -65,3 +67,49 @@ function populateTransactionTable(transactions) {
 function viewReceipt(transactionId) {
     window.location.href = `/receipts/${transactionId}`;  //navigate to receipt page with specific transaction id
 }
+
+//function to apply filters by querying to the backend and displaying the response using AJAX
+function applyFilters() {
+    //retrieve filter values from the HTML elements
+    let transactionId = document.getElementById("transactionId").value;
+    let startDate = document.getElementById("startDate").value;
+    let endDate = document.getElementById("endDate").value;
+    let minTotalCost = document.getElementById("minTotalCost").value;
+    let maxTotalCost = document.getElementById("maxTotalCost").value;
+    let minPayment = document.getElementById("minPayment").value;
+    let maxPayment = document.getElementById("maxPayment").value;
+    let minChange = document.getElementById("minChange").value;
+    let maxChange = document.getElementById("maxChange").value;
+
+    //create the URL parameters for the query
+    let queryParams = new URLSearchParams({
+        transactionId, startDate, endDate, minTotalCost, maxTotalCost,
+        minPayment, maxPayment, minChange, maxChange, username
+    });
+
+    //send an AJAX fetch request to the controller method endpoint with the query parameters sent over
+    fetch(`api/transactions/filter?${queryParams.toString()}`)
+        .then(response => response.json())  //parse the response
+        .then(data => populateTransactionTable(data))  //call function to populate the table, using the response data
+        .catch(error => console.error("Error fetching transactions:", error));  //handle errors
+}
+
+//function to reset filters
+function resetFilters() {
+    //clear the filter HTML elements
+    document.getElementById("transactionId").value = "";
+    document.getElementById("startDate").value = "";
+    document.getElementById("endDate").value = "";
+    document.getElementById("minTotalCost").value = "";
+    document.getElementById("maxTotalCost").value = "";
+    document.getElementById("minPayment").value = "";
+    document.getElementById("maxPayment").value = "";
+    document.getElementById("minChange").value = "";
+    document.getElementById("maxChange").value = "";
+
+    applyFilters(); //reload all transactions by applying with no filters on
+}
+
+
+
+
