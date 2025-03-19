@@ -49,22 +49,22 @@
             <!-- Total Cost Range -->
             <div class="money-column">
                 <label for="minTotalCost">Total Cost:</label>
-                <input type="number" id="minTotalCost" placeholder="Min £">
-                <input type="number" id="maxTotalCost" placeholder="Max £">
+                <input type="number" id="minTotalCost" placeholder="Min £" min="0" step="1">
+                <input type="number" id="maxTotalCost" placeholder="Max £" min="0" step="1">
             </div>
 
             <!-- Payment Received Range -->
             <div class="money-column">
                 <label for="minPayment">Payment Received:</label>
-                <input type="number" id="minPayment" placeholder="Min £">
-                <input type="number" id="maxPayment" placeholder="Max £">
+                <input type="number" id="minPayment" placeholder="Min £" min="0" step="1">
+                <input type="number" id="maxPayment" placeholder="Max £" min="0" step="1">
             </div>
 
             <!-- Change Given Range -->
             <div class="money-column">
                 <label for="minChange">Change Given:</label>
-                <input type="number" id="minChange" placeholder="Min £">
-                <input type="number" id="maxChange" placeholder="Max £">
+                <input type="number" id="minChange" placeholder="Min £" min="0" step="1">
+                <input type="number" id="maxChange" placeholder="Max £" min="0" step="1">
             </div>
         </div>
 
@@ -83,12 +83,12 @@
             <table id="transactionsTable" class="transactions-table">
                 <thead>
                     <tr>
-                        <th>Transaction ID</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Total Cost</th>
-                        <th>Payment Received</th>
-                        <th>Change Given</th>
+                        <th id="transactionIdHeader" onclick="sortTableByColumn('id')">Transaction ID</th>
+                        <th id="dateHeader" onclick="sortTableByColumn('date')">Date</th>
+                        <th id="timeHeader" onclick="sortTableByColumn('time')">Time</th>
+                        <th id="totalCostHeader" onclick="sortTableByColumn('totalCost')">Total Cost</th>
+                        <th id="paymentReceivedHeader" onclick="sortTableByColumn('paymentReceived')">Payment Received</th>
+                        <th id="changeGivenHeader" onclick="sortTableByColumn('changeGiven')">Change Given</th>
                         <th>Receipt</th>
                     </tr>
                 </thead>
@@ -99,11 +99,12 @@
         </div>
     </div>
 
-    <!-- Home Button -->
-    <a th:href="@{/home}" class="home-button-link">
-        <button class="home-button">Home</button>
-    </a>
 </main>
+
+<!-- Home Button -->
+<a th:href="@{/home}" class="home-button-link">
+    <button class="home-button">Home</button>
+</a>
 
 </body>
 </html>

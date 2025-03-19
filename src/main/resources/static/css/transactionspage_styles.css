@@ -11,6 +11,13 @@ h2 {
     margin-bottom: 30px;
 }
 
+.home-button-link {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    z-index: 20;
+}
+
 .transactions-container {
     position: relative;
     margin-top: 520px;
@@ -304,6 +311,16 @@ input[type="number"]:hover::-webkit-outer-spin-button {
     box-shadow: 0 0 10px magenta;
 }
 
+
+th.sorted-column {
+    background-color: magenta;
+    color: white;
+    transition: background-color 0.3s;
+    font-weight: bold;
+}
+th {
+    cursor: pointer;
+}
 
 
 
