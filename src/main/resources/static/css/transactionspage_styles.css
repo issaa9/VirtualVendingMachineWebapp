@@ -2,7 +2,7 @@
 
 h2 {
     position: absolute;
-    top: 25px;
+    top: 35px;
     left: 50%;
     transform: translateX(-50%);
     font-size: 3.5rem;
@@ -20,7 +20,7 @@ h2 {
 
 .transactions-container {
     position: relative;
-    margin-top: 520px;
+    margin-top: 560px;
     margin-bottom: 40px;
     width: 100%;
     max-width: 1800px;
@@ -69,6 +69,8 @@ th, td {
     color: white;
     font-size: 1.2rem;
     transition: transform 0.2s ease-in-out, color 0.2s, background-color 0.2s;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 th {
@@ -154,8 +156,8 @@ button:hover {
 /* Filter Menu Styling */
 .filter-menu {
     position: absolute;
-    top: 150px;
-    right: 20px;
+    top: 170px;
+    right: 30%;
     width: 40%;
     background: rgba(0, 0, 0, 0.95);
     padding: 12px 20px;
@@ -230,9 +232,6 @@ input[type="date"]:focus {
     outline: none;
 }
 
-
-
-
 .money-filters {
     display: flex;
     justify-content: space-between;
@@ -253,6 +252,26 @@ input[type="date"]:focus {
 }
 
 
+.money-input-container {
+    position: relative;
+    display: inline-block;
+}
+
+.money-input-container input {
+    padding-left: 20px;
+}
+
+.money-input-container::before {
+    content: '£';
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: bold;
+    color: #00ffcc;
+}
+
+
 input[type="number"] {
     -webkit-appearance: textfield;
     -moz-appearance: textfield;
@@ -268,22 +287,26 @@ input[type="number"] {
 }
 
 
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-    opacity: 1; /* Ensure visibility */
-    background: black;
-    border: none;
-    width: 18px;
-    height: 18px;
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: inner-spin-button;
+    opacity: 1;
+    transform: scale(1.4);
+    filter: drop-shadow(0 0 4px #00ffcc);
     cursor: pointer;
+    transition: filter 0.2s;
 }
 
-
-input[type="number"]:hover::-webkit-inner-spin-button,
-input[type="number"]:hover::-webkit-outer-spin-button {
-    background: cyan;
+input[type=number]::-webkit-inner-spin-button:hover {
+    filter: drop-shadow(0 0 8px #00ffcc);
 }
 
+input[type=number]::-webkit-outer-spin-button {
+    display: none;
+}
+
+.id-filter input{
+    width: 105px;
+}
 
 
 
@@ -312,6 +335,8 @@ input[type="number"]:hover::-webkit-outer-spin-button {
 }
 
 
+
+/* Highlighting for Sorted Column Heading */
 th.sorted-column {
     background-color: magenta;
     color: white;
@@ -321,6 +346,40 @@ th.sorted-column {
 th {
     cursor: pointer;
 }
+
+
+/* Instructions Panel Styles */
+.instructions-panel {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    border: 2px solid #00ffff;
+    border-radius: 10px;
+    padding: 15px;
+    width: 350px;
+    color: #ffffff;
+    float: left;
+    box-shadow: 0 0 20px #00ffff;
+    left: 10px;
+    margin-top: 170px;
+}
+
+.instructions-panel h2 {
+    text-align: center;
+    color: #00ffff;
+    margin-bottom: 10px;
+    text-shadow: 0 0 8px #00ffff;
+}
+
+.instructions-panel ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.instructions-panel li {
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
 
 
 

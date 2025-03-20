@@ -23,13 +23,28 @@
 <main>
     <h2>Your Transactions History</h2>
 
+    <!-- Instructions Panel -->
+    <div class="instructions-panel">
+        <h3>Viewing Transactions</h3>
+        <ul>
+            <li>All of your transactions are displayed in the table by default.</li>
+            <li>Use the filter menu to narrow down or query transactions.</li>
+            <li>Click on any table header to sort by that column.</li>
+            <li>Click headers repeatedly to toggle between ascending/descending order.</li>
+            <li>Relevant tooltips will appear when hovering over a header.</li>
+            <li>Double click outside headers to reset sorting.</li>
+        </ul>
+    </div>
+
     <!-- Filter Menu to Query the Data -->
     <div class="filter-menu">
         <h3>Querying/Filtering Transactions Menu</h3>
 
         <!-- Transaction ID Filter -->
-        <label for="transactionId">Transaction ID:</label>
-        <input type="text" id="transactionId" placeholder="Enter ID">
+        <div class="id-filter">
+            <label for="transactionId">Transaction ID:</label>
+            <input type="number" id="transactionId" placeholder="Enter ID" min="0" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+        </div>
 
         <!-- Date Range Filters -->
         <div class="date-filters">
@@ -49,22 +64,40 @@
             <!-- Total Cost Range -->
             <div class="money-column">
                 <label for="minTotalCost">Total Cost:</label>
-                <input type="number" id="minTotalCost" placeholder="Min £" min="0" step="1">
-                <input type="number" id="maxTotalCost" placeholder="Max £" min="0" step="1">
+
+                <div class="money-input-container">
+                    <input type="number" id="minTotalCost" class="money-filter-input"  placeholder="Min" min="0" step="1">
+                </div>
+
+                <div class="money-input-container">
+                    <input type="number" id="maxTotalCost" class="money-filter-input" placeholder="Max" min="0" step="1">
+                </div>
             </div>
 
             <!-- Payment Received Range -->
             <div class="money-column">
                 <label for="minPayment">Payment Received:</label>
-                <input type="number" id="minPayment" placeholder="Min £" min="0" step="1">
-                <input type="number" id="maxPayment" placeholder="Max £" min="0" step="1">
+
+                <div class="money-input-container">
+                    <input type="number" id="minPayment" class="money-filter-input" placeholder="Min" min="0" step="1">
+                </div>
+
+                <div class="money-input-container">
+                    <input type="number" id="maxPayment" class="money-filter-input" placeholder="Max" min="0" step="1">
+                </div>
             </div>
 
             <!-- Change Given Range -->
             <div class="money-column">
                 <label for="minChange">Change Given:</label>
-                <input type="number" id="minChange" placeholder="Min £" min="0" step="1">
-                <input type="number" id="maxChange" placeholder="Max £" min="0" step="1">
+
+                <div class="money-input-container">
+                    <input type="number" id="minChange" class="money-filter-input" placeholder="Min" min="0" step="0.1">
+                </div>
+
+                <div class="money-input-container">
+                    <input type="number" id="maxChange" class="money-filter-input" placeholder="Max" min="0" step="0.1">
+                </div>
             </div>
         </div>
 
@@ -83,12 +116,12 @@
             <table id="transactionsTable" class="transactions-table">
                 <thead>
                     <tr>
-                        <th id="transactionIdHeader" onclick="sortTableByColumn('id')">Transaction ID</th>
-                        <th id="dateHeader" onclick="sortTableByColumn('date')">Date</th>
-                        <th id="timeHeader" onclick="sortTableByColumn('time')">Time</th>
-                        <th id="totalCostHeader" onclick="sortTableByColumn('totalCost')">Total Cost</th>
-                        <th id="paymentReceivedHeader" onclick="sortTableByColumn('paymentReceived')">Payment Received</th>
-                        <th id="changeGivenHeader" onclick="sortTableByColumn('changeGiven')">Change Given</th>
+                        <th id="transactionIdHeader" onclick="sortTableByColumn('id')" title="Click to sort ascending">Transaction ID</th>
+                        <th id="dateHeader" onclick="sortTableByColumn('date')" title="Click to sort ascending">Date</th>
+                        <th id="timeHeader" onclick="sortTableByColumn('time')" title="Click to sort ascending">Time</th>
+                        <th id="totalCostHeader" onclick="sortTableByColumn('totalCost')" title="Click to sort ascending">Total Cost</th>
+                        <th id="paymentReceivedHeader" onclick="sortTableByColumn('paymentReceived')" title="Click to sort ascending">Payment Received</th>
+                        <th id="changeGivenHeader" onclick="sortTableByColumn('changeGiven')" title="Click to sort ascending">Change Given</th>
                         <th>Receipt</th>
                     </tr>
                 </thead>

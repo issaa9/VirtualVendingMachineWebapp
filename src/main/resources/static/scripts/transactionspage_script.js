@@ -108,7 +108,14 @@ function applyFilters() {
     //send an AJAX fetch request to the controller method endpoint with the query parameters sent over
     fetch(`api/transactions/filter?${queryParams.toString()}`)
         .then(response => response.json())  //parse the response
-        .then(data => populateTransactionTable(data))  //call function to populate the table, using the response data
+        .then(data => {
+            currentTransactions = data;  //store the filtered transactions in case they need to be sorted
+            if (currentSortColumn) {   //check if there is currently a sort active
+                sortTableData(currentSortColumn, currentSortDirection); //apply active sort to filtered data
+            } else {
+                populateTransactionTable(currentTransactions);  //otherwise display the filtered transactions in the table in default order
+            }
+        })
         .catch(error => console.error("Error fetching transactions:", error));  //handle errors
 }
 
@@ -120,13 +127,19 @@ function validateFilters() {
 
     //Transaction ID validation: must be a positive integer
     if (transactionId && (!/^\d+$/.test(transactionId) || parseInt(transactionId) <= 0)) {
-        alert("Transaction ID must be a positive integer.");
+        alert("Transaction ID must be a Positive Integer.");
+        document.getElementById("transactionId").value = ""; //clear the box
         return false;
     }
 
     //Date range validation: start date must be before end date
     if (startDate && endDate && new Date(startDate) > new Date(endDate)) {
-        alert("Start date cannot be after end date.");
+        alert("Date From cannot be later than Date To.");
+
+        //clear the boxes
+        document.getElementById("startDate").value = "";
+        document.getElementById("endDate").value = "";
+
         return false;
     }
 
@@ -143,6 +156,19 @@ function validateFilters() {
 
     return true;
 }
+
+//event listener to block invalid input in money fields
+document.addEventListener("DOMContentLoaded", () => {
+    const moneyInputs = document.querySelectorAll('.money-filter-input');
+    moneyInputs.forEach(input => {
+        input.addEventListener('input', () => {
+            //if a negative value or minus sign appears, remove it immediately
+            if (parseFloat(input.value) < 0 || input.value.includes('-')) {
+                input.value = '';
+            }
+        });
+    });
+});
 
 
 //function to reset filters
@@ -164,9 +190,9 @@ function resetFilters() {
 
 //event listener to ensure money values are always displayed as 2 DP
 document.addEventListener("DOMContentLoaded", () => {
-    const moneyInputs = document.querySelectorAll('input[type="number"]');
+    const moneyInputs = document.querySelectorAll('.money-filter-input');
     moneyInputs.forEach(input => {
-        input.addEventListener('change', () => {
+        input.addEventListener('blur', () => {
             if (input.value) {
                 input.value = parseFloat(input.value).toFixed(2);
             }
@@ -254,7 +280,7 @@ const headers = Object.values(headersMap).map(header => header.id);
 
 
 //event listener to reset all sorting functionality when clicking outside the headers
-document.addEventListener('click', function(event) {
+document.addEventListener('dblclick', function(event) {
 
 
     if (!headers.includes(event.target.id)) {  //only if the click is NOT on any of the headers
