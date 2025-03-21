@@ -235,35 +235,43 @@ function exitToHome() {
 }
 
 //function to download the receipt
-function downloadReceipt() {
+async function downloadReceipt() {
+    const receiptElement = document.getElementById('receiptBox'); //retrieve receipt box element
 
-    //extract transaction ID from URL
-    let transactionId = window.location.pathname.split("/").pop();
-
-    //select all the content from the receipt box
-    let receiptBox = document.querySelector(".receipt-box");
-
-    if (!receiptBox) {
-        alert("Receipt content not found!"); //in case not found
+    if (!receiptElement) {
+        alert("Receipt content not found.");  //in case of an error trying to retrieve the receipt box
         return;
     }
 
-    //extract exact text content from receipt box contents
-    let receiptText = receiptBox.innerText.trim();
+    const transactionId = receiptElement.querySelector('span[th\\:text="${transaction.id}"]')
+        ? receiptElement.querySelector('span[th\\:text="${transaction.id}"]').innerText  //retrieve the transaction ID
+        : document.querySelector('.receipt-box').innerText.match(/Transaction ID:\s*(\d+)/)[1]; //if the ID can't be found fallback to use RegEx to try extract it from the receipt box
 
-    //create a blob containing the receipt text
-    let blob = new Blob([receiptText], { type: "text/plain" });
+    const canvas = await html2canvas(receiptElement, { scale: 2 });  //render the receipt element into a canvas
+    const imgData = canvas.toDataURL('image/png'); //convert the canvas into an image
 
-    //create downloadable a-link
-    let a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = `Transaction_${transactionId}_Receipt.txt`; //set file name using the transaction ID
+    const pdf = new jspdf.jsPDF('p', 'mm', 'a4'); //initialise new jsPDF document and set the parameters (portrait mode, millimeters unit, a4 size)
 
-    //trigger the download
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+    const imgProps = pdf.getImageProperties(imgData);  //fetch the dimensions of the canvas image
+    const pdfWidth = pdf.internal.pageSize.getWidth(); //set the page width
+    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width; //calculate a proportional page height
+
+    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight); //add in the image with the set width and height from above
+
+    pdf.save(`Transaction_${transactionId}_Receipt.pdf`); //save the file with the transaction ID in the name
 }
+
+
+
+//function for back button to navigate back to previous page
+function goBack() {
+    if (document.referrer) {  //if came from another page
+        window.history.back();  //go back to the page
+    } else {
+        window.location.href = '/home'; //else fallback to homepage
+    }
+}
+
 
 
 

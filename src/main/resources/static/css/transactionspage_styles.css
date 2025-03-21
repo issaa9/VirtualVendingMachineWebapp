@@ -13,9 +13,9 @@ h2 {
 
 .home-button-link {
     position: absolute;
-    bottom: 30px;
-    left: 30px;
-    z-index: 20;
+    bottom: 80px;
+    left: 10px;
+    z-index: 999;
 }
 
 .transactions-container {
@@ -27,6 +27,7 @@ h2 {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-bottom: 70px;
 }
 
 /* Ensure only table body scrolls */

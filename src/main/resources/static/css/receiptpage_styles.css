@@ -35,7 +35,7 @@ p {
 
 
 .receipt-box {
-    width: 700px;
+    width: fit-content;
     min-height: 600px;
     max-height: 85vh;
     background: white;
@@ -91,6 +91,7 @@ p {
 
 .receipt-buttons {
     margin-top: 25px;
+    margin-bottom: 10px;
     display: flex;
     justify-content: center;
     gap: 15px;
@@ -133,7 +134,7 @@ p {
 
 
 .download-btn {
-    background: linear-gradient(90deg, #228B22, #006400);
+    background: linear-gradient(90deg, #7CFC00, #32CD32);
     color: white;
     border: none;
     padding: 12px 20px;
@@ -142,22 +143,43 @@ p {
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    box-shadow: 0 4px 10px rgba(34, 139, 34, 0.6);
+    box-shadow: 0 4px 10px rgba(124, 252, 0, 0.6);
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
-
 .download-btn:hover {
-    background: linear-gradient(90deg, #006400, #228B22);
+    background: linear-gradient(90deg, #00FF7F, #00FA9A);
     transform: scale(1.05);
-    box-shadow: 0 6px 15px rgba(34, 139, 34, 0.9);
+    box-shadow: 0 0 30px rgba(0, 250, 154, 0.7);
 }
-
 
 .download-icon {
     font-size: 1.5rem;
 }
+
+.back-button {
+    position: absolute;
+    top: 180px;
+    left: 20px;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(135deg, #ff6ec4, #7873f5);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 0 12px rgba(255, 110, 196, 0.8);
+    transition: all 0.3s ease;
+}
+
+.back-button:hover {
+    background: linear-gradient(135deg, #ff90d8, #9b94f7);
+    box-shadow: 0 0 20px rgba(255, 110, 196, 1);
+    transform: scale(1.05);
+}
+
 
 
