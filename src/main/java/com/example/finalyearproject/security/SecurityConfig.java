@@ -15,6 +15,9 @@ public class SecurityConfig {
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
+    @Autowired
+    private CustomLoginSuccessHandler customLoginSuccessHandler;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(); //used for password encryption/hashing
@@ -34,7 +37,8 @@ public class SecurityConfig {
                 .formLogin(login -> login
                         .loginPage("/login") //use custom login page
                         .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/home", true) //redirect to home page after login
+                        .successHandler(customLoginSuccessHandler)  //use the custom success handler class to handle a successful login
+                        //.defaultSuccessUrl("/home", true) //redirect to home page after login
                         .permitAll()
                 )
                 .logout(logout -> logout

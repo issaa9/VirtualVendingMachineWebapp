@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/general_styles.css}">
+    <link rel="stylesheet" th:href="@{/css/adminpage_styles.css}">
+    <title>Admin Dashboard</title>
+</head>
+
+<body>
+
+<!-- Webapp Title -->
+<header>
+    <h1 class="webapp-title">Virtual Vending Machine Webapp</h1>
+</header>
+
+<!-- User Info -->
+<div class="user-info">
+    <p>Logged In As: <span th:text="${username}">Admin</span></p>
+</div>
+
+<!-- Logout Button -->
+<div class="logout-container">
+    <form th:action="@{/logout}" method="post">
+        <button type="submit" class="logout-button">Logout</button>
+    </form>
+</div>
+
+<!-- Admin Dashboard Main Content -->
+<main>
+    <h2 class="admin-heading">Admin Dashboard</h2>
+
+    <!-- Adding Content Here Later -->
+    <div class="admin-content">
+        <p>Welcome to the Admin Dashboard. Manage Users, Products and Transactions all from here.</p>
+    </div>
+</main>
+
+</body>
+</html>

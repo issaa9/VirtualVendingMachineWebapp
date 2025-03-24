@@ -109,12 +109,15 @@ function applyFilters() {
     fetch(`api/transactions/filter?${queryParams.toString()}`)
         .then(response => response.json())  //parse the response
         .then(data => {
+
             currentTransactions = data;  //store the filtered transactions in case they need to be sorted
+
             if (currentSortColumn) {   //check if there is currently a sort active
                 sortTableData(currentSortColumn, currentSortDirection); //apply active sort to filtered data
             } else {
                 populateTransactionTable(currentTransactions);  //otherwise display the filtered transactions in the table in default order
             }
+
         })
         .catch(error => console.error("Error fetching transactions:", error));  //handle errors
 }

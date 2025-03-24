@@ -1,3 +1,5 @@
+-- Inserting Product Data
+
 -- Crisps (Row 1)
 INSERT INTO products (id, name, price, stock, category, image_url)
 VALUES
@@ -51,4 +53,11 @@ VALUES
     ('F3', 'Apple Juice 330ml', 1.80, 12, 'Bottled Drinks', '/images/apple_juice.webp'),
     ('F4', 'Lemon Iced Tea 500ml', 1.80, 8, 'Bottled Drinks', '/images/lemon_iced_tea.webp')
     ON DUPLICATE KEY UPDATE image_url = VALUES(image_url);
+
+
+
+-- Inserting Admin User Account
+INSERT INTO users (username, password, email, role)
+VALUES ('admin', '$2b$10$rFzxvg4dckIixTQZQ7NPKufuomGwGCHTGTlJlaoR/a04Ofw7vpwgy', 'admin1@admin.com', 'ADMIN')
+ON DUPLICATE KEY UPDATE username = username;
 
