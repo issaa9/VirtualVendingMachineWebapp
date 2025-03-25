@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/general_styles.css}">
-    <link rel="stylesheet" th:href="@{/css/adminpage_styles.css}">
+    <link rel="stylesheet" th:href="@{/css/admindashboard_styles.css}">
     <title>Admin Dashboard</title>
 </head>
 
@@ -31,10 +31,39 @@
 <main>
     <h2 class="admin-heading">Admin Dashboard</h2>
 
-    <!-- Adding Content Here Later -->
-    <div class="admin-content">
-        <p>Welcome to the Admin Dashboard. Manage Users, Products and Transactions all from here.</p>
+    <div class="stock-management-container">
+        <h3>Product Stock Management</h3>
+        <table class="stock-management-table">
+            <thead>
+            <tr>
+                <th>Item Code</th>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Current Stock</th>
+                <th>Actions</th>
+                <th>Auto-Update</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Dynamically Add In All Product Rows-->
+            <tr th:each="product : ${products}">
+                <td th:text="${product.id}"></td>
+                <td th:text="${product.name}"></td>
+                <td th:text="${product.category}"></td>
+                <td th:text="${product.stock}"></td>
+                <td>
+                    <button class="increase-btn" th:attr="data-id=${product.id}">Increase</button>
+                    <button class="decrease-btn" th:attr="data-id=${product.id}">Decrease</button>
+                    <button class="empty-btn" th:attr="data-id=${product.id}">Empty Stock</button>
+                </td>
+                <td>
+                    <input type="checkbox">
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
+
 </main>
 
 </body>

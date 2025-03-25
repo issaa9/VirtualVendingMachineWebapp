@@ -1,0 +1,87 @@
+.admin-heading {
+    text-align: center;
+    font-size: 3rem;
+    color: #007bff;
+    text-shadow: 2px 2px 10px rgba(0, 123, 255, 0.4);
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
+.stock-management-container {
+    width: 95%;
+    margin: 30px auto 0;
+}
+
+.stock-management-table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: white;
+}
+
+.stock-management-table th {
+    background-color: #cce6ff;
+    color: black;
+    font-size: 1.3rem;
+    padding: 14px;
+    border: 1px solid #99ccff;
+}
+
+.stock-management-table td {
+    text-align: center;
+    padding: 12px;
+    border: 1px solid #e0f0ff;
+    font-size: 1.1rem;
+    color: #0f2027;
+}
+
+.stock-management-table tr:nth-child(even) td {
+    background-color: #f5fbff;
+}
+
+.stock-management-table tr:hover td {
+    background-color: #e0f0ff;
+    transition: background-color 0.3s;
+}
+
+.increase-btn, .decrease-btn, .empty-btn {
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    margin: 0 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.increase-btn {
+    background-color: #4caf50;
+    color: white;
+}
+
+.increase-btn:hover {
+    background-color: #45a049;
+    box-shadow: 0 0 10px rgba(72, 200, 80, 0.7);
+}
+
+.decrease-btn {
+    background-color: #ff9800;
+    color: white;
+}
+
+.decrease-btn:hover {
+    background-color: #e68900;
+    box-shadow: 0 0 10px rgba(255, 152, 0, 0.7);
+}
+
+.empty-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+.empty-btn:hover {
+    background-color: #d32f2f;
+    box-shadow: 0 0 10px rgba(244, 67, 54, 0.7);
+}
