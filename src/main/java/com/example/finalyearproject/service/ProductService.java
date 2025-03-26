@@ -48,4 +48,25 @@ public class ProductService {        //service class for Product
             productRepository.save(product); // saves updated stock to the database
         }
     }
+
+    public void setNewStockById(String id, int newStock) {  //method to update stock of product with given id by the quantity given
+        Optional<Product> optionalProduct = productRepository.findById(id);
+        if (optionalProduct.isPresent()) {  //use built in Optional container object for better handling in case product is not found
+            Product product = optionalProduct.get();
+
+            // makes sure stock does not go negative
+            if (newStock < 0) {
+                throw new IllegalArgumentException("Unable to set stock due to invalid stock level");
+            }
+
+            System.out.println("Product: "+product.getId()+" stock changed from "+product.getStock()+" to "+newStock+" by Admin.");
+
+            product.setStock(newStock);  //set the stock for the product to the new value
+            productRepository.save(product); //saves updated stock to the database
+
+
+        }
+    }
+
+
 }

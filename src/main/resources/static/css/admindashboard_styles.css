@@ -27,14 +27,20 @@
     font-size: 1.3rem;
     padding: 14px;
     border: 1px solid #99ccff;
+    text-shadow: 0 0 10px rgba(135, 206, 250, 0.8);
 }
 
 .stock-management-table td {
     text-align: center;
-    padding: 12px;
+    padding: 6px 10px;
     border: 1px solid #e0f0ff;
     font-size: 1.1rem;
     color: #0f2027;
+}
+
+.stock-management-table th:nth-child(5),
+.stock-management-table td:nth-child(5) {
+    width: 350px;
 }
 
 .stock-management-table tr:nth-child(even) td {
@@ -50,7 +56,7 @@
     border: none;
     padding: 8px 12px;
     border-radius: 5px;
-    margin: 0 4px;
+    margin: 0 2px;
     cursor: pointer;
     font-weight: bold;
     transition: background-color 0.3s, box-shadow 0.3s;
@@ -85,3 +91,76 @@
     background-color: #d32f2f;
     box-shadow: 0 0 10px rgba(244, 67, 54, 0.7);
 }
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px; width: 18px;
+    left: 3px; bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #4da6ff;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.provisional-stock {
+    color: blue;
+    font-weight: bold;
+}
+.provisional-zero {
+    color: red;
+    font-weight: bold;
+}
+.undo-button {
+    background-color: #ffa500;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.undo-button:hover {
+    background-color: #ff7f00;
+}
+.save-changes-btn {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+.save-changes-btn:hover {
+    background-color: #218838;
+}
+

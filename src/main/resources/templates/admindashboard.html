@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/general_styles.css}">
     <link rel="stylesheet" th:href="@{/css/admindashboard_styles.css}">
+    <script th:src="@{/scripts/admindashboard_script.js}"></script>
     <title>Admin Dashboard</title>
 </head>
 
@@ -39,29 +40,20 @@
                 <th>Item Code</th>
                 <th>Product Name</th>
                 <th>Category</th>
-                <th>Current Stock</th>
-                <th>Actions</th>
+                <th>Stock:<br>Current (Provisional*)</th>
+                <th>Stock Actions</th>
                 <th>Auto-Update</th>
+                <th>Undo Changes</th>
             </tr>
             </thead>
-            <tbody>
-            <!-- Dynamically Add In All Product Rows-->
-            <tr th:each="product : ${products}">
-                <td th:text="${product.id}"></td>
-                <td th:text="${product.name}"></td>
-                <td th:text="${product.category}"></td>
-                <td th:text="${product.stock}"></td>
-                <td>
-                    <button class="increase-btn" th:attr="data-id=${product.id}">Increase</button>
-                    <button class="decrease-btn" th:attr="data-id=${product.id}">Decrease</button>
-                    <button class="empty-btn" th:attr="data-id=${product.id}">Empty Stock</button>
-                </td>
-                <td>
-                    <input type="checkbox">
-                </td>
-            </tr>
+            <tbody id="productRows">
+                <!-- Rows will be dynamically added in via JS -->
             </tbody>
         </table>
+        <div class="save-container">
+            <button class="global-reset-button" onclick="resetAllChanges()">Reset All Changes</button>
+            <button id="saveChangesBtn" class="save-changes-btn" onclick="saveChanges()">Save All Changes</button>
+        </div>
     </div>
 
 </main>

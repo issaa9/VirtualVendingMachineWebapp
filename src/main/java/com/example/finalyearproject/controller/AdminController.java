@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -22,4 +25,23 @@ public class AdminController {
         model.addAttribute("products", products);  //add in products as model attribute
         return "admindashboard"; //render the admin dashboard page
     }
+
+
+    @GetMapping("/admin/products")
+    @ResponseBody
+    public List<Product> getProducts() {
+        return productService.getAllProducts();
+    }
+
+
+    @PostMapping("/admin/update-stock")
+    @ResponseBody
+    public String updateStock(@RequestBody List<Product> updatedProducts) {
+        for (Product p : updatedProducts) {
+            productService.setNewStockById(p.getId(), p.getStock());
+        }
+        return "Stock updated successfully";
+    }
+
+
 }
