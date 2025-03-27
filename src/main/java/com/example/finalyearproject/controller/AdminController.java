@@ -19,6 +19,7 @@ public class AdminController {
     @Autowired
     private ProductService productService;
 
+    //controller method to render the page
     @GetMapping("/admin/dashboard") //create endpoint for admin dashboard
     public String showAdminDashboard(Model model) {
         List<Product> products = productService.getAllProducts(); //retrieve all products
@@ -26,21 +27,22 @@ public class AdminController {
         return "admindashboard"; //render the admin dashboard page
     }
 
-
-    @GetMapping("/admin/products")
+    //controller method to fetch a list of all products
+    @GetMapping("/admin/products") //create the endpoint
     @ResponseBody
     public List<Product> getProducts() {
-        return productService.getAllProducts();
+
+        return productService.getAllProducts(); //retrieve all products from the repository
     }
 
-
-    @PostMapping("/admin/update-stock")
+    //controller method to handle updating stock
+    @PostMapping("/admin/update-stock") //create endpoint for updating stock
     @ResponseBody
-    public String updateStock(@RequestBody List<Product> updatedProducts) {
-        for (Product p : updatedProducts) {
-            productService.setNewStockById(p.getId(), p.getStock());
+    public String updateStock(@RequestBody List<Product> updatedProducts) {  //retrieve list of updated products
+        for (Product p : updatedProducts) {  //for every updated product
+            productService.setNewStockById(p.getId(), p.getStock());   //set the new stock value
         }
-        return "Stock updated successfully";
+        return "Stock updated successfully"; //return success message
     }
 
 

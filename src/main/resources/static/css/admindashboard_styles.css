@@ -164,3 +164,16 @@ input:checked + .slider:before {
     background-color: #218838;
 }
 
+
+button:disabled,
+button:disabled:hover {
+    background-color: grey;
+    background-image: none;
+    color: #e0e0e0;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+
+
