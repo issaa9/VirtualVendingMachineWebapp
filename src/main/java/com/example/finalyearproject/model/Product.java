@@ -26,8 +26,17 @@ public class Product {
     @Column(name="category",nullable = false)
     private String category;
 
+    @Column(name="auto_stock_enabled")
+    private boolean autoStockEnabled;
+
+    @Column(name="stock_threshold")
+    private Integer stockThreshold;
+
+    @Column(name="update_amount")
+    private Integer updateAmount;
+
     @Column(name="image_url")
-    private String imageUrl; // New field to store product image URL
+    private String imageUrl; //field to store product image URL
 
     @OneToMany(mappedBy = "productId", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TransactionProduct> transactionProducts = new ArrayList<>();
@@ -106,6 +115,30 @@ public class Product {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public boolean isAutoStockEnabled() {
+        return autoStockEnabled;
+    }
+
+    public void setAutoStockEnabled(boolean autoStockEnabled) {
+        this.autoStockEnabled = autoStockEnabled;
+    }
+
+    public Integer getStockThreshold() {
+        return stockThreshold;
+    }
+
+    public void setStockThreshold(Integer stockThreshold) {
+        this.stockThreshold = stockThreshold;
+    }
+
+    public Integer getUpdateAmount() {
+        return updateAmount;
+    }
+
+    public void setUpdateAmount(Integer updateAmount) {
+        this.updateAmount = updateAmount;
     }
 
     @Override

@@ -49,24 +49,26 @@ public class ProductService {        //service class for Product
         }
     }
 
-    public void setNewStockById(String id, int newStock) {  //method to update stock of product with given id by the quantity given
+    public void updateProductStockAndSettings(String id, int stock, boolean auto, Integer threshold, Integer updateAmt) {
         Optional<Product> optionalProduct = productRepository.findById(id);
-        if (optionalProduct.isPresent()) {  //use built in Optional container object for better handling in case product is not found
+        if (optionalProduct.isPresent()) {
             Product product = optionalProduct.get();
 
-            // makes sure stock does not go negative
-            if (newStock < 0) {
-                throw new IllegalArgumentException("Unable to set stock due to invalid stock level");
+            if (stock < 0) {
+                throw new IllegalArgumentException("Invalid stock level: cannot be negative.");
             }
 
-            System.out.println("Product: "+product.getId()+" stock changed from "+product.getStock()+" to "+newStock+" by Admin.");
+            product.setStock(stock);
+            product.setAutoStockEnabled(auto);
+            product.setStockThreshold(threshold);
+            product.setUpdateAmount(updateAmt);
 
-            product.setStock(newStock);  //set the stock for the product to the new value
-            productRepository.save(product); //saves updated stock to the database
-
-
+            productRepository.save(product);
+            System.out.println("Updated product " + id + " with stock: " + stock +
+                    ", auto: " + auto + ", threshold: " + threshold + ", updateAmount: " + updateAmt);
         }
     }
+
 
 
 }

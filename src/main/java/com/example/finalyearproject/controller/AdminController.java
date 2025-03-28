@@ -36,14 +36,21 @@ public class AdminController {
     }
 
     //controller method to handle updating stock
-    @PostMapping("/admin/update-stock") //create endpoint for updating stock
+    @PostMapping("/admin/update-stock")
     @ResponseBody
-    public String updateStock(@RequestBody List<Product> updatedProducts) {  //retrieve list of updated products
-        for (Product p : updatedProducts) {  //for every updated product
-            productService.setNewStockById(p.getId(), p.getStock());   //set the new stock value
+    public String updateStock(@RequestBody List<Product> updatedProducts) {
+        for (Product p : updatedProducts) {
+            productService.updateProductStockAndSettings(
+                    p.getId(),
+                    p.getStock(),
+                    p.isAutoStockEnabled(),
+                    p.getStockThreshold(),
+                    p.getUpdateAmount()
+            );
         }
-        return "Stock updated successfully"; //return success message
+        return "Stock and settings updated successfully";
     }
+
 
 
 }

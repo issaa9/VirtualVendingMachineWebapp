@@ -7,7 +7,7 @@ VALUES
     ('A2', 'Salt & Vinegar Crisps', 1.20, 5, 'Crisps', '/images/crisp_salt_vinegar.webp'),
     ('A3', 'Cheese & Onion Crisps', 1.20, 12, 'Crisps', '/images/crisp_cheese_onion.webp'),
     ('A4', 'Prawn Cocktail Crisps', 1.20, 10, 'Crisps', '/images/crisp_prawn_cocktail.webp')
-    ON DUPLICATE KEY UPDATE image_url = VALUES(image_url), stock = VALUES(stock);
+    ON DUPLICATE KEY UPDATE image_url = VALUES(image_url);
 
 -- Sweet Snacks (Row 2)
 INSERT INTO products (id, name, price, stock, category, image_url)
@@ -61,3 +61,4 @@ INSERT INTO users (username, password, email, role)
 VALUES ('admin', '$2b$10$rFzxvg4dckIixTQZQ7NPKufuomGwGCHTGTlJlaoR/a04Ofw7vpwgy', 'admin1@admin.com', 'ADMIN')
 ON DUPLICATE KEY UPDATE username = username;
 
+UPDATE products SET auto_stock_enabled = FALSE WHERE auto_stock_enabled IS NULL;

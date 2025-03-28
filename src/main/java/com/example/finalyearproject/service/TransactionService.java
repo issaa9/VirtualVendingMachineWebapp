@@ -105,9 +105,6 @@ public class TransactionService {
     public List<String> deductStock(Map<String, Integer> productQuantities) {
         List<String> restockedProducts = new ArrayList<>(); //store all items that get restocked
 
-        //set variables for auto restocking here to be easily changed
-        int stockThreshold = 5;
-        int stockUpdate = 10;
 
         //iterate through every item in productQuantities
         for (Map.Entry<String, Integer> entry : productQuantities.entrySet()) {
@@ -121,12 +118,19 @@ public class TransactionService {
 
             Product product = productService.getProductById(productId); //retrieve product object
 
-//            if (product.getStock() < stockThreshold) {  //if product stock drops below threshold
-//                productService.updateStock(productId,stockUpdate); //update the stock by the set update value
-//                System.out.println("LOW STOCK for: "+ product.getName() + ". Stock auto updated to " + product.getStock()); //logging
-//                restockedProducts.add(product.getName());
-//            }
-            //temporarily disabled auto-stock updates to work on out-of-stock functionality
+            if (product.isAutoStockEnabled()
+                    && product.getStockThreshold() != null
+                    && product.getUpdateAmount() != null
+                    && product.getStock() < product.getStockThreshold()) {
+
+                productService.updateStock(productId, product.getUpdateAmount());
+
+                System.out.println("Auto-restocked " + product.getName() + " by "
+                        + product.getUpdateAmount() + " units. New stock: " + product.getStock());
+
+                restockedProducts.add(product.getName());
+            }
+
         }
         return restockedProducts; //return list of products that have been auto restocked
     }
