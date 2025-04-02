@@ -35,7 +35,7 @@ public class AdminController {
         return productService.getAllProducts(); //retrieve all products from the repository
     }
 
-    //controller method to handle updating stock
+    //controller method to handle updating stock and auto stock settings
     @PostMapping("/admin/update-stock")
     @ResponseBody
     public String updateStock(@RequestBody List<Product> updatedProducts) {
@@ -46,7 +46,7 @@ public class AdminController {
                     p.isAutoStockEnabled(),
                     p.getStockThreshold(),
                     p.getUpdateAmount()
-            );
+            );  //call the service method, passing in all parameters from the list sent by the frontend
         }
         return "Stock and settings updated successfully";
     }

@@ -1,3 +1,21 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+body {
+    align-items: flex-start;
+}
+
+main {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    text-align: left;
+}
+
+
 .admin-heading {
     text-align: center;
     font-size: 3rem;
@@ -8,23 +26,36 @@
 }
 
 .stock-management-container {
-    width: 95%;
-    margin: 30px auto 0;
+    position: relative;
+    width: 100%;
+    margin: 30px 0 20px 0;
+    text-align: left;
+    padding-left: 40px;
+}
+
+.stock-management-container h3 {
+    font-size: 2.4rem;
 }
 
 .stock-management-table {
     width: 100%;
+    max-width: 1600px;
+    margin: 0;
     border-collapse: collapse;
     box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
     border-radius: 10px;
     overflow: hidden;
     background-color: white;
+    font-size: 1.2rem;
+    table-layout: fixed;
+    text-align: center;
 }
+
 
 .stock-management-table th {
     background-color: #cce6ff;
     color: black;
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     padding: 14px;
     border: 1px solid #99ccff;
     text-shadow: 0 0 10px rgba(135, 206, 250, 0.8);
@@ -34,14 +65,47 @@
     text-align: center;
     padding: 6px 10px;
     border: 1px solid #e0f0ff;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     color: #0f2027;
+}
+
+/* Setting specific column widths */
+.stock-management-table th:nth-child(1),
+.stock-management-table td:nth-child(1) {
+    width: 100px;
+}
+
+.stock-management-table th:nth-child(2),
+.stock-management-table td:nth-child(2) {
+    width: 220px;
+}
+
+.stock-management-table th:nth-child(3),
+.stock-management-table td:nth-child(3) {
+    width: 130px;
+}
+
+.stock-management-table th:nth-child(4),
+.stock-management-table td:nth-child(4) {
+    width: 200px;
 }
 
 .stock-management-table th:nth-child(5),
 .stock-management-table td:nth-child(5) {
-    width: 350px;
+    width: 300px;
 }
+
+.stock-management-table th:nth-child(6),
+.stock-management-table td:nth-child(6),
+.stock-management-table th:nth-child(7),
+.stock-management-table td:nth-child(7),
+.stock-management-table th:nth-child(8),
+.stock-management-table td:nth-child(8),
+.stock-management-table th:nth-child(9),
+.stock-management-table td:nth-child(9) {
+    width: 140px;
+}
+
 
 .stock-management-table tr:nth-child(even) td {
     background-color: #f5fbff;
@@ -63,32 +127,32 @@
 }
 
 .increase-btn {
-    background-color: #4caf50;
+    background: #4caf50;
     color: white;
 }
 
 .increase-btn:hover {
-    background-color: #45a049;
+    background: #45a049;
     box-shadow: 0 0 10px rgba(72, 200, 80, 0.7);
 }
 
 .decrease-btn {
-    background-color: #ff9800;
+    background: #ff9800;
     color: white;
 }
 
 .decrease-btn:hover {
-    background-color: #e68900;
+    background: #e68900;
     box-shadow: 0 0 10px rgba(255, 152, 0, 0.7);
 }
 
 .empty-btn {
-    background-color: #f44336;
+    background: #f44336;
     color: white;
 }
 
 .empty-btn:hover {
-    background-color: #d32f2f;
+    background: #d32f2f;
     box-shadow: 0 0 10px rgba(244, 67, 54, 0.7);
 }
 
@@ -125,14 +189,14 @@
 }
 
 input:checked + .slider {
-    background-color: #4da6ff;
+    background: #4da6ff;
 }
 
 input:checked + .slider:before {
     transform: translateX(26px);
 }
 
-.provisional-stock {
+.provisional-stock, .provisional-label {
     color: blue;
     font-weight: bold;
 }
@@ -140,29 +204,68 @@ input:checked + .slider:before {
     color: red;
     font-weight: bold;
 }
-.undo-button {
-    background-color: #ffa500;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
+
+
+.save-container {
+    position: fixed;
+    top: 350px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
-.undo-button:hover {
-    background-color: #ff7f00;
-}
+
+
 .save-changes-btn {
-    background-color: #28a745;
+    background: linear-gradient(90deg, #32CD32, #00FF7F);
     color: white;
-    padding: 10px 20px;
+    padding: 15px 30px;
+    font-size: 1.2rem;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     margin-top: 20px;
+    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 10px rgba(50,205,50,0.7);
 }
 .save-changes-btn:hover {
-    background-color: #218838;
+    background: linear-gradient(90deg, #00FF7F, #32CD32);
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(50,205,50,0.9);
 }
+
+
+.global-reset-button {
+    background: linear-gradient(90deg, #FF4500, #FFA500);
+    color: white;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 10px rgba(255,69,0,0.7);
+}
+.global-reset-button:hover {
+    background: linear-gradient(120deg, #FF0000, #FF4500);
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(255,69,0,0.9);
+}
+
+.undo-btn {
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 8px rgba(255,165,0,0.7);
+}
+.undo-btn:hover {
+    transform: scale(1.1);
+}
+
 
 
 button:disabled,
@@ -174,6 +277,56 @@ button:disabled:hover {
     box-shadow: none;
     transform: none;
 }
+
+
+.stock-action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 6px;
+}
+
+.stock-set-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+}
+
+.manual-stock-input {
+    width: 140px;
+    padding: 5px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.manual-stock-input:focus {
+    border-color: #2980b9;
+    outline: none;
+    box-shadow: 0 0 5px rgba(41, 128, 185, 0.5);
+}
+
+.set-btn {
+    width: 70px;
+    background: #2980b9;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+.set-btn:hover {
+    background-color: #2471a3;
+    box-shadow: 0 0 10px rgba(36, 113, 163, 0.7);
+}
+
+
+
+
 
 
 
