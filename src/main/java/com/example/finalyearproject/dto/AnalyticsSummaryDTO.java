@@ -8,13 +8,18 @@ public class AnalyticsSummaryDTO {
     private double totalSpent;
     private String mostActiveDay;
 
-    //constructors
-    public AnalyticsSummaryDTO() {}
+    private int uniqueItemsPurchased;
 
-    public AnalyticsSummaryDTO(int totalPurchases, double totalSpent, String mostActiveDay) {
+    //constructors
+    public AnalyticsSummaryDTO() {
+
+    }
+
+    public AnalyticsSummaryDTO(int totalPurchases, double totalSpent, String mostActiveDay, int uniqueItemsPurchased) {
         this.totalPurchases = totalPurchases;
         this.totalSpent = totalSpent;
         this.mostActiveDay = mostActiveDay;
+        this.uniqueItemsPurchased = uniqueItemsPurchased;
     }
 
     //getters and setters
@@ -32,4 +37,12 @@ public class AnalyticsSummaryDTO {
         return mostActiveDay; }
     public void setMostActiveDay(String mostActiveDay) {
         this.mostActiveDay = mostActiveDay; }
+
+    public int getUniqueItemsPurchased() {
+        return uniqueItemsPurchased;
+    }
+
+    public void setUniqueItemsPurchased(int uniqueItemsPurchased) {
+        this.uniqueItemsPurchased = uniqueItemsPurchased;
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.finalyearproject.service;
 
 import com.example.finalyearproject.dto.AnalyticsSummaryDTO;
+import com.example.finalyearproject.repository.TransactionProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.finalyearproject.repository.TransactionRepo;
@@ -11,13 +12,28 @@ public class AnalyticsService {
     @Autowired
     private TransactionRepo transactionRepo;
 
+    @Autowired
+    private TransactionProductRepo transactionProductRepo;
+
+
+
     public AnalyticsSummaryDTO getUserSummary(String username) {
+
+        //create new empty dto object
+        AnalyticsSummaryDTO dto = new AnalyticsSummaryDTO();
 
         //retrieve the summary data by calling the repository methods (queries)
         int totalPurchases = transactionRepo.countByUser(username);
-        double totalSpent = transactionRepo.sumTotalSpentByUser(username);
+        Double totalSpent = transactionRepo.sumTotalSpentByUser(username);
         String mostActiveDay = transactionRepo.findMostActiveDay(username);
+        int uniqueItemsPurchased = transactionProductRepo.countDistinctProductsPurchasedByUser(username);
 
-        return new AnalyticsSummaryDTO(totalPurchases, totalSpent, mostActiveDay); //returns a dto object containing the summary data
+        //set the attributes for the dto, using the retrieved summary data
+        dto.setTotalPurchases(totalPurchases);
+        dto.setTotalSpent(totalSpent != null ? totalSpent : 0.00); //validate to 0 if total spent is null
+        dto.setMostActiveDay(mostActiveDay != null ? mostActiveDay : "N/A");  //validate to N/A if no most active day
+        dto.setUniqueItemsPurchased(uniqueItemsPurchased);
+
+        return dto; //return the dto object containing the summary data
     }
 }

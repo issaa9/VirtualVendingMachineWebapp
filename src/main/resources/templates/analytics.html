@@ -9,46 +9,68 @@
 <body>
 
 <header>
+
     <h1 class="webapp-title">Virtual Vending Machine Webapp</h1>
-    <div class="user-info">Logged In As: <span id="user-role">user</span></div>
+
+    <!-- Display Logged-In User -->
+    <div class="user-info">
+        <p>Logged In As: <span th:text="${username}">Guest</span></p>
+    </div>
 </header>
 
 
 <main>
-<div class="analytics-container">
     <h2 class="page-heading">Your Analytics</h2>
 
-    <!-- Summary (Cards) Section -->
-    <section class="summary-section">
-        <h3 class="section-title">Purchase Summary</h3>
-        <div class="summary-card-container">
-            <div class="summary-card">
-                <div class="card-stat" id="totalPurchases">--</div>
-                <div class="card-label">Total Purchases</div>
-            </div>
-            <div class="summary-card">
-                <div class="card-stat" id="totalSpent">--</div>
-                <div class="card-label">Total Spent</div>
-            </div>
-            <div class="summary-card">
-                <div class="card-stat" id="activeDay">--</div>
-                <div class="card-label">Most Active Day</div>
-            </div>
-        </div>
-    </section>
+    <div class="analytics-container">
 
-    <!-- Other analytics sections to be added in here -->
-    <section>
-        <h3 class="section-title">Purchase Frequency</h3>
-        <div id="purchaseFrequencyGraph"></div>
-    </section>
+        <!-- Summary (Cards) Section -->
+        <section class="summary-section">
+            <h3 class="section-title">Purchase Summary</h3>
+            <div class="summary-card-container">
+                <div class="summary-card">
+                    <div class="card-stat" id="totalPurchases">--</div>
+                    <div class="card-label">Total Purchases</div>
+                </div>
+                <div class="summary-card">
+                    <div class="card-stat" id="totalSpent">--</div>
+                    <div class="card-label">Total Spent</div>
+                </div>
+                <div class="summary-card">
+                    <div class="card-stat" id="activeDay">--</div>
+                    <div class="card-label">Most Active Day</div>
+                </div>
+                <div class="summary-card">
+                    <div class="card-stat" id="uniqueItems">--</div>
+                    <div class="card-label">Unique Items Purchased</div>
+                </div>
+            </div>
+        </section>
 
-    <section>
-        <h3 class="section-title">Spending Trend</h3>
-        <div id="spendingTrendGraph"></div>
-    </section>
-</div>
+        <div class="section-divider"></div>
+
+        <!-- Other analytics sections to be added in here -->
+        <section>
+            <h3 class="section-title">Purchase Frequency</h3>
+            <div id="purchaseFrequencyGraph"></div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <section>
+            <h3 class="section-title">Spending Trend</h3>
+            <div id="spendingTrendGraph"></div>
+        </section>
+
+        <div class="section-divider"></div>
+
+    </div>
 </main>
+
+<!-- Home Button -->
+<a th:href="@{/home}" class="home-button-link">
+    <button class="home-button">Home</button>
+</a>
 
 <script th:src="@{/scripts/analytics_script.js}"></script>
 </body>

@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("totalPurchases").innerText = data.totalPurchases;
             document.getElementById("totalSpent").innerText = `£${data.totalSpent.toFixed(2)}`;
             document.getElementById("activeDay").innerText = data.mostActiveDay;
+            document.getElementById("uniqueItems").innerText = data.uniqueItemsPurchased;
         })
         .catch(err => {
             console.error("Error loading analytics summary:", err); //error handling

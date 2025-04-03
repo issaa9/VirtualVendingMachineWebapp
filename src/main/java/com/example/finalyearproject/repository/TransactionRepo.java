@@ -51,10 +51,11 @@ public interface TransactionRepo extends JpaRepository<Transaction, Long> {
 
     //query to calculate the total amount spent by the user
     @Query("SELECT SUM(t.totalCost) FROM Transaction t WHERE t.user = :username")
-    double sumTotalSpentByUser(@Param("username") String username);
+    Double sumTotalSpentByUser(@Param("username") String username);
 
     //query to work out the most active day (day with most purchases)
     @Query("SELECT FUNCTION('DAYNAME', t.transactionDate) FROM Transaction t WHERE t.user = :username GROUP BY FUNCTION('DAYNAME', t.transactionDate) ORDER BY COUNT(t) DESC LIMIT 1")
     String findMostActiveDay(@Param("username") String username);
+
 
 }
