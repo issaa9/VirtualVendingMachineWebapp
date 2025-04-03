@@ -1,0 +1,86 @@
+
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: transparent;
+}
+
+.webapp-title {
+    font-size: 1.8rem;
+    color: #00ffff;
+    font-weight: bold;
+    margin: 0;
+}
+
+.user-info {
+    font-size: 1rem;
+    color: #ff99cc;
+}
+
+
+.analytics-container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 60px 30px 40px;
+}
+
+
+.page-heading {
+    text-align: center;
+    font-size: 2.6rem;
+    color: #00ffff;
+    margin-bottom: 20px;
+}
+
+
+.section-title {
+    font-size: 1.4rem;
+    color: #00ffff;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #00ffff;
+    padding-bottom: 6px;
+}
+
+
+.summary-card-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 800px;
+    margin: 0 auto 40px;
+}
+
+
+
+.summary-card {
+    background-color: #0a0a0a;
+    border: 2px solid #00ffff;
+    border-radius: 12px;
+    width: 180px;
+    height: 120px;
+    padding: 15px 10px;
+    text-align: center;
+    box-shadow: 0 0 12px rgba(0, 255, 255, 0.1);
+    transition: transform 0.2s ease;
+}
+
+.summary-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+}
+
+.card-stat {
+    font-size: 2.6rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.card-label {
+    font-size: 0.85rem;
+    color: #00ffff;
+    margin-top: 10px;
+}
