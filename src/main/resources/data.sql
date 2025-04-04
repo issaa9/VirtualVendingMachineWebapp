@@ -62,3 +62,17 @@ VALUES ('admin', '$2b$10$rFzxvg4dckIixTQZQ7NPKufuomGwGCHTGTlJlaoR/a04Ofw7vpwgy',
 ON DUPLICATE KEY UPDATE username = username;
 
 UPDATE products SET auto_stock_enabled = FALSE WHERE auto_stock_enabled IS NULL;
+
+
+
+-- Transactions spread across months for 'new' user
+/* INSERT INTO transactions (user, total_cost, transaction_date, change_given, payment_received) VALUES
+('new', 3.75, '2025-09-18', 0.00, 5.00),
+('new', 5.10, '2025-09-01', 0.00, 5.00),
+('new', 6.90, '2025-09-20', 0.00, 5.00),
+('new', 4.80, '2025-10-07', 0.00, 5.00),
+('new', 5.30, '2025-11-10', 0.00, 5.00),
+('new', 4.10, '2025-11-22', 0.00, 5.00),
+('new', 7.00, '2025-12-03', 0.00, 5.00),
+('new', 6.25, '2025-01-14', 0.00, 5.00),
+('new', 8.90, '2025-08-25', 0.00, 5.00); */

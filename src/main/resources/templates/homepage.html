@@ -34,10 +34,10 @@
         <h2 class="welcome-heading">Home Page</h2>
 
         <!-- Display of Total Takings from the Vending Machine -->
-        <p class="total-takings">Vending Machine Total Takings: £<span th:text="${#numbers.formatDecimal(totalTakings, 1, 2)}">0.00</span></p>
+        <!-- <p class="total-takings">Vending Machine Total Takings: £<span th:text="${#numbers.formatDecimal(totalTakings, 1, 2)}">0.00</span></p> -->
 
 
-        <!-- Button Container -->
+         <!-- Button Container -->
         <div class="button-container">
 
             <!-- Start Button -->
@@ -46,14 +46,16 @@
             </a>
 
             <!-- Transactions Button -->
-            <a th:href="@{/transactions}">
+            <a th:if="${username != 'Guest'}" th:href="@{/transactions}">
                 <button>Transaction History</button>
             </a>
+            <button th:if="${username == 'Guest'}" disabled title="Login required">Transaction History</button>
 
             <!-- Analytics Button -->
-            <a th:href="@{/analytics}">
+            <a th:if="${username != 'Guest'}" th:href="@{/analytics}">
                 <button>Analytics</button>
             </a>
+            <button th:if="${username == 'Guest'}" disabled title="Login required">Analytics</button>
 
             <!-- About Button -->
             <a th:href="@{/about}">

@@ -5,6 +5,9 @@
     <title>User Analytics</title>
     <link rel="stylesheet" th:href="@{/css/general_styles.css}">
     <link rel="stylesheet" th:href="@{/css/analyticspage_styles.css}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Open Source Icon Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
@@ -26,40 +29,55 @@
 
         <!-- Summary (Cards) Section -->
         <section class="summary-section">
+
             <h3 class="section-title">Purchase Summary</h3>
             <div class="summary-card-container">
                 <div class="summary-card">
+                    <i class="fa-solid fa-bag-shopping card-icon"></i>
                     <div class="card-stat" id="totalPurchases">--</div>
                     <div class="card-label">Total Purchases</div>
                 </div>
                 <div class="summary-card">
+                    <i class="fa-solid fa-sterling-sign card-icon"></i>
                     <div class="card-stat" id="totalSpent">--</div>
                     <div class="card-label">Total Spent</div>
                 </div>
                 <div class="summary-card">
+                    <i class="fa-solid fa-calendar-check card-icon"></i>
                     <div class="card-stat" id="activeDay">--</div>
                     <div class="card-label">Most Active Day</div>
                 </div>
                 <div class="summary-card">
+                    <i class="fa-solid fa-boxes-stacked card-icon"></i>
                     <div class="card-stat" id="uniqueItems">--</div>
                     <div class="card-label">Unique Items Purchased</div>
                 </div>
             </div>
+
         </section>
 
         <div class="section-divider"></div>
 
-        <!-- Other analytics sections to be added in here -->
-        <section>
-            <h3 class="section-title">Purchase Frequency</h3>
-            <div id="purchaseFrequencyGraph"></div>
+        <!-- Purchase Frequency Section -->
+        <section class="analytics-section">
+
+            <h3 class="section-title">Purchase Frequency Over Time</h3>
+            <div class="chart-container">
+                <canvas id="purchaseFrequencyChart" class="purchase-frequency-chart"></canvas>
+            </div>
+
         </section>
 
         <div class="section-divider"></div>
 
-        <section>
+        <!-- Spending Trend Section -->
+        <section class="analytics-section">
+
             <h3 class="section-title">Spending Trend</h3>
-            <div id="spendingTrendGraph"></div>
+            <div class="chart-container">
+                <canvas id="spendingTrendChart" class="spending-trend-chart"></canvas>
+            </div>
+
         </section>
 
         <div class="section-divider"></div>

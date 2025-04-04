@@ -1,7 +1,10 @@
 package com.example.finalyearproject.repository;
 
+import com.example.finalyearproject.dto.PurchaseFrequencyDTO;
+import com.example.finalyearproject.dto.SpendingTrendDTO;
 import com.example.finalyearproject.model.Transaction;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,6 +16,7 @@ import java.util.List;
 
 
 public interface TransactionRepo extends JpaRepository<Transaction, Long> {
+
     @Query("SELECT SUM(t.totalCost) FROM Transaction t")
     Double sumAllTransactions();
 
@@ -47,15 +51,31 @@ public interface TransactionRepo extends JpaRepository<Transaction, Long> {
 
     //query to count the number of transactions made by the user
     @Query("SELECT COUNT(t) FROM Transaction t WHERE t.user = :username")
-    int countByUser(@Param("username") String username);
+    int countByUser(@Param("username") String username); //repository method
 
     //query to calculate the total amount spent by the user
     @Query("SELECT SUM(t.totalCost) FROM Transaction t WHERE t.user = :username")
-    Double sumTotalSpentByUser(@Param("username") String username);
+    Double sumTotalSpentByUser(@Param("username") String username); //repository method
 
     //query to work out the most active day (day with most purchases)
     @Query("SELECT FUNCTION('DAYNAME', t.transactionDate) FROM Transaction t WHERE t.user = :username GROUP BY FUNCTION('DAYNAME', t.transactionDate) ORDER BY COUNT(t) DESC LIMIT 1")
-    String findMostActiveDay(@Param("username") String username);
+    String findMostActiveDay(@Param("username") String username); //repository method
 
+
+
+    //query for purchase frequency analytics data which gets the number of transactions per month for a user
+    @Query("SELECT new com.example.finalyearproject.dto.PurchaseFrequencyDTO(FUNCTION('DATE_FORMAT', t.transactionDate, '%Y-%m'), COUNT(t)) " +
+            "FROM Transaction t WHERE t.user = :username " +
+            "GROUP BY FUNCTION('DATE_FORMAT', t.transactionDate, '%Y-%m') " +
+            "ORDER BY FUNCTION('DATE_FORMAT', t.transactionDate, '%Y-%m')")
+    List<PurchaseFrequencyDTO> findPurchaseFrequencyByUser(@Param("username") String username); //repository method
+
+
+    //query method for spending trend data which finds the total spend per month by username
+    @Query("SELECT new com.example.finalyearproject.dto.SpendingTrendDTO(FUNCTION('DATE_FORMAT', t.transactionDate, '%Y-%m'), SUM(t.totalCost)) " +
+            "FROM Transaction t WHERE t.user = :username " +
+            "GROUP BY FUNCTION('DATE_FORMAT', t.transactionDate, '%Y-%m') " +
+            "ORDER BY FUNCTION('DATE_FORMAT', t.transactionDate, '%Y-%m')")
+    List<SpendingTrendDTO> findSpendingTrendByUser(@Param("username") String username);  //repository method
 
 }
