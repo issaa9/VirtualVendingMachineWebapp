@@ -3,9 +3,12 @@ package com.example.finalyearproject.controller;
 
 import com.example.finalyearproject.model.Product;
 import com.example.finalyearproject.service.ProductService;
+import com.example.finalyearproject.service.TransactionService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +24,9 @@ public class MainController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private TransactionService transactionService;
 
     @GetMapping("/main")
     public String showMainPage(HttpSession session, Model model) {
@@ -55,6 +61,7 @@ public class MainController {
         }
     }
 
+    //controller method for checking a product's stock
     @GetMapping("/api/cart/checkStock/{id}") //define API endpoint to fetch an item's stock by its ID
     @ResponseBody  //allow JSON response
     public ResponseEntity<?> checkProductStock(@PathVariable String id) {
@@ -66,6 +73,14 @@ public class MainController {
         } else {
             return ResponseEntity.badRequest().body("Product not found"); //else return an error message
         }
+    }
+
+    //controller method to get product recommendations
+    @GetMapping("/api/recommendations") //api endpoint for recommendations
+    @ResponseBody //JSON response
+    public ResponseEntity<List<String>> getSmartRecommendations(@AuthenticationPrincipal UserDetails userDetails) {
+        List<String> recommendations = transactionService.getSmartRecommendedProductIds(userDetails.getUsername()); //call the service method and pass in username
+        return ResponseEntity.ok(recommendations); //return the recommendations list as a response to frontend (using AJAX)
     }
 
 }

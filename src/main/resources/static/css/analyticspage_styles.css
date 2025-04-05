@@ -101,5 +101,17 @@ header {
     margin-bottom: 10px;
 }
 
+.no-data-msg {
+    color: #0ff;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 20px;
+    background-color: rgba(0, 255, 255, 0.05);
+    border: 1px solid #0ff;
+    border-radius: 8px;
+}
+
+
 
 

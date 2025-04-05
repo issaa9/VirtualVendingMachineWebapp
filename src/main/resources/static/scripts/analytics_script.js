@@ -21,6 +21,12 @@ function renderPurchaseFrequencyChart(data) {
     const canvas = document.getElementById('purchaseFrequencyChart');
     const ctx = canvas.getContext('2d');
 
+    const msg = document.getElementById('noFrequencyDataMsg');
+    const chart = document.getElementById('purchaseFrequencyChart');
+
+    if (handleNoChartData(data, msg, chart)) return; //call to check and handle empty chart data and if returns true, stop rendering (no data)
+
+
     const labels = data.map(entry =>
         new Date(entry.month).toLocaleString('default', { year: 'numeric', month: 'short' })
     );
@@ -147,6 +153,13 @@ function loadPurchaseFrequency() {
 function renderSpendingTrendChart(data) {
     const ctx = document.getElementById('spendingTrendChart').getContext('2d');
 
+    const msg = document.getElementById('noSpendingDataMsg');
+    const chart = document.getElementById('spendingTrendChart');
+
+    if (handleNoChartData(data, msg, chart)) return; //call to check and handle empty chart data and if returns true, stop rendering (no data)
+
+
+
     const labels = data.map(entry => {
         const [year, month] = entry.month.split("-");
         return new Date(`${year}-${month}-01`).toLocaleString('default', {
@@ -227,6 +240,13 @@ function renderSpendingTrendChart(data) {
             },
             plugins: {
                 tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const label = context.dataset.label || '';
+                            const value = context.parsed.y;
+                            return `${label}: £${value.toFixed(2)}`;
+                        }
+                    },
                     backgroundColor: '#000',
                     borderColor: '#0ff',
                     borderWidth: 1,
@@ -268,6 +288,19 @@ function loadSpendingTrend() {
         .then(response => response.json())
         .then(data => renderSpendingTrendChart(data))
         .catch(err => console.error("Error loading spending trend:", err));
+}
+
+//helper function to check if there is no chart data and handle this by hiding the chart and displaying a message instead
+function handleNoChartData(data,msg,chart){
+    if (!data || data.length === 0) {
+        chart.style.display = 'none';
+        msg.style.display = 'block';
+        return true;
+    } else {
+        chart.style.display = 'block';
+        msg.style.display = 'none';
+        return false;
+    }
 }
 
 //event listener to validate user is logged in, before loading all data

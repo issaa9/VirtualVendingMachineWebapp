@@ -1177,3 +1177,80 @@
     transform: scale(1.05);
     box-shadow: 0 6px 15px rgba(255, 69, 0, 0.8);
 }
+
+
+/* Smart Recommendations Styles */
+
+.recommend-toggle-container {
+    position: fixed;
+    top: 90px;
+    right: 100px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 10;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: -5px;
+}
+
+.recommend-switch {
+    position: relative;
+    display: inline-block;
+    width: 55px;
+    height: 30px;
+}
+
+.recommend-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.recommend-switch .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #ccc;
+    border-radius: 34px;
+    transition: 0.4s;
+}
+
+.recommend-switch .slider:before {
+    position: absolute;
+    content: "";
+    height: 20px; width: 20px;
+    left: 5px;
+    bottom: 5px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.4s;
+}
+
+.recommend-switch input:checked + .slider {
+    background-color: #00ffcc;
+}
+
+.recommend-switch input:checked + .slider:before {
+    transform: translateX(25px);
+}
+
+.toggle-label {
+    color: gold;
+    font-weight: bold;
+    font-size: 1.6rem;
+    text-shadow: 0 0 8px gold, 0 0 15px gold;
+}
+
+.highlight-recommend {
+    animation: pulseGlow 1.5s infinite;
+    border: 3px solid gold !important;
+    box-shadow: 0 0 12px gold, 0 0 25px gold;
+}
+
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 10px gold; }
+    50% { box-shadow: 0 0 20px yellow; }
+    100% { box-shadow: 0 0 10px gold; }
+}
+

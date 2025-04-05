@@ -463,6 +463,45 @@ function addAllItemsToCart() {
 }
 
 
+//event listener to handle toggling Smart Recommendations on/off
+document.addEventListener("DOMContentLoaded", function () {
+    const toggle = document.getElementById("recommendToggle");
+
+    toggle.addEventListener("change", async function () {
+        if (this.checked) { //if recommendations turned on
+            try {
+                let response = await fetch("api/recommendations"); //await the fetch of recommendations
+                let recommended = await response.json();  //store the response list as JSON
+
+                highlightRecommendedItems(recommended); //apply the highlights
+            } catch (error) {
+                console.error("Recommendation fetch error:", error); //error handling
+            }
+        } else { //if recommendations turned off
+            removeHighlights(); //remove the highlights
+        }
+    });
+
+    //function to highlight the recommended items based on their tem codes
+    function highlightRecommendedItems(itemCodes) {
+        document.querySelectorAll(".item").forEach(item => { //select the item elements
+            let code = item.getAttribute("data-code"); //retrieve the code
+            if (itemCodes.includes(code)) { //for all item codes in the recommended list
+                item.classList.add("highlight-recommend"); //add the highlight style
+            }
+        });
+    }
+
+    //function to remove all highlights (when the switch is turned off)
+    function removeHighlights() {
+        document.querySelectorAll(".item.highlight-recommend").forEach(item => {
+            item.classList.remove("highlight-recommend");
+        });
+    }
+});
+
+
+
 
 
 

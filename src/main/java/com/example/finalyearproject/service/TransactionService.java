@@ -212,5 +212,11 @@ public class TransactionService {
         return filteredTransactions;   //return the list of filtered transactions
     }
 
+    //method to get retrieve the top products purchased by the user from the repository method
+    public List<String> getSmartRecommendedProductIds(String username) {
+        return transactionRepo.findTopProductsByUser(username);
+    }
+
+
 
 }

@@ -82,6 +82,7 @@
         </div>
     </div>
 
+
     <!-- Vending Machine -->
     <div class="vending-machine">
 
@@ -155,8 +156,19 @@
         </div>
     </div>
 
+
     <!-- Developer Button to Add All Items to Cart -->
     <button id="addAllItemsBtn" class="dev-button" onclick="addAllItemsToCart()">Add All Items to Cart</button>
+
+
+    <!-- Smart Recommendations Toggle Switch-->
+    <div class="recommend-toggle-container">
+        <label class="recommend-switch">
+            <input type="checkbox" id="recommendToggle">
+            <span class="slider round"></span>
+        </label>
+        <span class="toggle-label">Smart Recommendations</span>
+    </div>
 
     <!-- Cart (Outside Machine) -->
     <div class="cart-container">
@@ -168,6 +180,7 @@
             <button id="checkoutBtn" onclick="openModal()" disabled>Checkout</button>
         </div>
     </div>
+
 
     <!-- Payment Modal (Appears after pressing Checkout) -->
     <div id="paymentModal" class="modal">

@@ -78,4 +78,13 @@ public interface TransactionRepo extends JpaRepository<Transaction, Long> {
             "ORDER BY FUNCTION('DATE_FORMAT', t.transactionDate, '%Y-%m')")
     List<SpendingTrendDTO> findSpendingTrendByUser(@Param("username") String username);  //repository method
 
+
+    //query method to find the top 5 products purchased by the user, to be used for Smart Recommendations
+    @Query("SELECT tp.productId FROM TransactionProduct tp " +
+            "JOIN Transaction t ON t.id = tp.transactionId " +
+            "WHERE t.user = :username " +
+            "GROUP BY tp.productId " +
+            "ORDER BY SUM(tp.quantity) DESC LIMIT 5")
+    List<String> findTopProductsByUser(@Param("username") String username);
+
 }
