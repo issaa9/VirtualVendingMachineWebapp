@@ -190,13 +190,37 @@
             <p class="payment-info">Total Remaining: <strong id="remainingAmount" class="remaining-total">£3.00</strong></p>
 
             <!-- Coins Section -->
-            <div class="coins">
-                <div class="coin" onclick="insertCoin(0.05)">5p</div>
-                <div class="coin" onclick="insertCoin(0.10)">10p</div>
-                <div class="coin" onclick="insertCoin(0.20)">20p</div>
-                <div class="coin" onclick="insertCoin(0.50)">50p</div>
-                <div class="coin" onclick="insertCoin(1.00)">£1</div>
-                <div class="coin" onclick="insertCoin(2.00)">£2</div>
+            <div class="coins-container">
+
+                <div class="coin-button" onclick="insertCoin(0.05)">
+                    <img src="/images/coin_5p.png" alt="5p Coin">
+                    <label>5p</label>
+                </div>
+
+                <div class="coin-button" onclick="insertCoin(0.10)">
+                    <img src="/images/coin_10p.png" alt="10p Coin">
+                    <label>10p</label>
+                </div>
+
+                <div class="coin-button" onclick="insertCoin(0.20)">
+                    <img src="/images/coin_20p.png" alt="20p Coin">
+                    <label>20p</label>
+                </div>
+
+                <div class="coin-button" onclick="insertCoin(0.50)">
+                    <img src="/images/coin_50p.png" alt="50p Coin">
+                    <label>50p</label>
+                </div>
+
+                <div class="coin-button" onclick="insertCoin(1.00)">
+                    <img src="/images/coin_£1.png" alt="£1 Coin">
+                    <label>£1</label>
+                </div>
+
+                <div class="coin-button" onclick="insertCoin(2.00)">
+                    <img src="/images/coin_£2.png" alt="£2 Coin">
+                    <label>£2</label>
+                </div>
             </div>
 
             <p class="payment-info">Inserted: <span id="insertedAmount" class="inserted-amount">£0.00</span></p>

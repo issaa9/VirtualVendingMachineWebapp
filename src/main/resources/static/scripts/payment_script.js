@@ -30,8 +30,8 @@ function openModal() {
 //function to insert coins into machine for payment
 function insertCoin(amount) {
     if (remainingAmount > 0) {      //only work if remaining amount exceeds 0
-        insertedAmount += amount;  //increment inserted amount
-        remainingAmount -= amount;  //decrement remaining amount
+        insertedAmount = +(insertedAmount + amount).toFixed(2);  //increment inserted amount by the coin value and round to prevent Floating Point Error
+        remainingAmount = +(remainingAmount - amount).toFixed(2);  //decrement remaining amount by the coin value and round to prevent Floating Point Error
 
         //checking if payment can be completed
         if (remainingAmount < 0) {  //if overpaid

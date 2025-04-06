@@ -612,38 +612,34 @@
     text-shadow: 0 0 12px lime;
 }
 
+.coins-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    justify-items: center;
+    margin: 15px auto;
+    max-width: 340px;
+}
 
-.coin {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: gold;
-    border: 3px solid black;
-    font-size: 16px;
-    font-weight: bold;
-    color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.coin-button {
+    background: none;
+    border: none;
     cursor: pointer;
-    margin: 5px;
-    box-shadow: 0 0 10px yellow;
-    transition: transform 0.2s ease, background-color 0.3s ease;
+    padding: 5px;
+    transition: transform 0.2s ease;
 }
 
+.coin-button img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
 
-.coin:hover {
-    background-color: orange;
+.coin-button:hover img {
     transform: scale(1.1);
+    filter: brightness(1.2);
 }
 
-
-.coins {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin: 15px 0;
-}
 
 
 .close-btn {
@@ -1253,4 +1249,7 @@
     50% { box-shadow: 0 0 20px yellow; }
     100% { box-shadow: 0 0 10px gold; }
 }
+
+
+
 
