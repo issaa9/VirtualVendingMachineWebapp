@@ -1,7 +1,7 @@
 /* Login/Register container */
 .auth-container {
     width: 570px;
-    padding: 40px;
+    padding: 10px 40px 20px 40px;
     background: rgba(0, 0, 0, 0.9);
     border-radius: 12px;
     box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
@@ -136,6 +136,45 @@
     background-color: cyan;
     box-shadow: 0 0 10px cyan;
 }
+
+
+/* Google Login Button Styling */
+.google-login-wrapper {
+    margin-top: 25px;
+}
+
+
+.google-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    background-color: #000;
+    color: #00ffff;
+    font-size: 2rem;
+    font-weight: bold;
+    padding: 18px 24px;
+    border: 2px solid #00ffff;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    text-decoration: none;
+    box-shadow: 0 0 12px rgba(0, 255, 255, 0.5);
+}
+
+.google-button:hover {
+    background-color: #111;
+    transform: scale(1.05);
+    box-shadow: 0 0 18px rgba(0, 255, 255, 0.8);
+}
+
+
+.google-logo {
+    height: 45px;
+    width: 50px;
+}
+
+
 
 
 

@@ -38,9 +38,14 @@ public class SecurityConfig {
                         .loginPage("/login") //use custom login page
                         .loginProcessingUrl("/login")
                         .successHandler(customLoginSuccessHandler)  //use the custom success handler class to handle a successful login
-                        //.defaultSuccessUrl("/home", true) //redirect to home page after login
+                        //.defaultSuccessUrl("/home", false) //redirect to home page after login
                         .permitAll()
                 )
+                .oauth2Login(oauth -> oauth
+                        .loginPage("/login") //reuse custom login page
+                        .successHandler(customLoginSuccessHandler)
+                )
+
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login")

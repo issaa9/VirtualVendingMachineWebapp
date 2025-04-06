@@ -26,6 +26,10 @@ dependencies {
     //BCrypt password encoder
     implementation 'org.springframework.security:spring-security-crypto'
 
+    //OAuth 2 Login
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
+
     runtimeOnly 'com.mysql:mysql-connector-j'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'

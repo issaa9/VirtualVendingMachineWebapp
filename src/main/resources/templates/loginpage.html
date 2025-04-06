@@ -40,6 +40,14 @@
     <p th:if="${param.error}" class="error-message">Invalid username or password.</p>
 
     <p>Don't have an account? <a href="/register">Register here</a></p>
+
+    <div class="google-login-wrapper">
+        <a href="/oauth2/authorization/google" class="google-button">
+            <img src="/images/google-logo.jpg" alt="Google Logo" class="google-logo">
+            Login with Google
+        </a>
+    </div>
+
 </div>
 
 </body>

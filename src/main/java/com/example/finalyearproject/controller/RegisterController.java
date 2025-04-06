@@ -29,11 +29,18 @@ public class RegisterController {
     public String registerUser(@RequestParam String username,
                                @RequestParam String email,
                                @RequestParam String password,
+                               @RequestParam String confirmPassword,
                                Model model) {
         if (userRepository.findByEmail(email).isPresent() || userRepository.findByUsername(username).isPresent()) { // check if username or email already exists
             model.addAttribute("error", "Username or email already exists."); //display error message
             return "registerpage";  //redisplay register page
         }
+
+        if (!password.equals(confirmPassword)) {  //checking password matches confirm password
+            model.addAttribute("error", "Passwords do not match."); //display message
+            return "registerpage";  //redisplay page
+        }
+
 
         String hashedPassword = passwordEncoder.encode(password);  //encrypt password
         User newUser = new User(username, email, hashedPassword, "USER");  //create user entry
