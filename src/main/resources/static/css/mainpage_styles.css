@@ -1251,5 +1251,40 @@
 }
 
 
+.coin-fly {
+    position: fixed;
+    transition: transform 0.8s ease;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+.glow-pink {
+    box-shadow: 0 0 15px 5px #ff00ff;
+    border-color: #ff00ff !important;
+}
+
+
+
+.coin-slot {
+    position: absolute;
+    top: 30px;
+    left: 12px;
+    width: 10px;
+    height: 90px;
+    background: linear-gradient(to right, #333, #111);
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow:
+            inset 0 0 5px #000,
+            0 0 8px rgba(255, 255, 255, 0.2),
+            0 0 10px rgba(255, 255, 255, 0.2);
+    z-index: 10;
+}
+
+
+
+
+
+
 
 

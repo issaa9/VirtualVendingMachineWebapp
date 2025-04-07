@@ -27,8 +27,59 @@ function openModal() {
     document.getElementById("paymentInstructions").style.display = "block";
 }
 
-//function to insert coins into machine for payment
-function insertCoin(amount) {
+//function to simulate inserting a coin into the machine, using animations
+function insertCoin(value, event) {
+    const coinElement = event.target;  //get the coin element
+    const animatedCoin = coinElement.cloneNode(true);  //clone the coin
+    animatedCoin.classList.add("coin-fly");  //add the fly class to the clone
+    animatedCoin.style.opacity = "1"; //ensure full visibility
+
+    document.body.appendChild(animatedCoin);  //add the coin clone to page
+
+    const coinRect = coinElement.getBoundingClientRect();
+
+    //set the dimensions of the cloned coin based on the original coin's size
+    animatedCoin.style.width = `${coinRect.width}px`;
+    animatedCoin.style.height = `${coinRect.height}px`;
+
+    //position the clone at the same position as the original
+    animatedCoin.style.left = `${coinRect.left}px`;
+    animatedCoin.style.top = `${coinRect.top}px`;
+
+    //get the vending machine position
+    const vendingMachine = document.querySelector(".vending-machine");
+    const vendingRect = vendingMachine.getBoundingClientRect();
+
+    //calculate x and y distance to the vending machine (add on small margins for error)
+    const offsetX = vendingRect.left - coinRect.left + 10;
+    const offsetY = vendingRect.top - coinRect.top + 20;
+
+    //animate the coin movement by translating to the offset position
+    setTimeout(() => {
+        animatedCoin.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+    }, 10);
+
+    //when the coin reaches the desired position: make it disappear and trigger the machine glow
+    setTimeout(() => {
+        animatedCoin.remove(); //remove the coin
+        vendingMachine.classList.add("glow-pink");  //add the glow
+        setTimeout(() => vendingMachine.classList.remove("glow-pink"), 400);  //remove the glow after the timeout
+    }, 800);
+
+    //play the sound
+    const sound = new Audio('/sounds/coin-sound.mp3');
+    setTimeout(() => {
+        sound.play();
+    }, 1000);  //play after 2 seconds
+
+
+    updateInsertedAmount(value); //update the payment values
+}
+
+
+
+//function to update the amounts after a coin is inserted for payment
+function updateInsertedAmount(amount) {
     if (remainingAmount > 0) {      //only work if remaining amount exceeds 0
         insertedAmount = +(insertedAmount + amount).toFixed(2);  //increment inserted amount by the coin value and round to prevent Floating Point Error
         remainingAmount = +(remainingAmount - amount).toFixed(2);  //decrement remaining amount by the coin value and round to prevent Floating Point Error

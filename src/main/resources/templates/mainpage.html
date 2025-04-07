@@ -86,6 +86,9 @@
     <!-- Vending Machine -->
     <div class="vending-machine">
 
+        <!-- Visible Coin Slot -->
+        <div class="coin-slot"></div>
+
         <!-- Items Grid -->
         <div class="items-grid">
             <th:block th:each="rowStart : ${#numbers.sequence(0, products.size()-1, 4)}">
@@ -192,32 +195,32 @@
             <!-- Coins Section -->
             <div class="coins-container">
 
-                <div class="coin-button" onclick="insertCoin(0.05)">
+                <div class="coin-button" onclick="insertCoin(0.05, event)">
                     <img src="/images/coin_5p.png" alt="5p Coin">
                     <label>5p</label>
                 </div>
 
-                <div class="coin-button" onclick="insertCoin(0.10)">
+                <div class="coin-button" onclick="insertCoin(0.10, event)">
                     <img src="/images/coin_10p.png" alt="10p Coin">
                     <label>10p</label>
                 </div>
 
-                <div class="coin-button" onclick="insertCoin(0.20)">
+                <div class="coin-button" onclick="insertCoin(0.20, event)">
                     <img src="/images/coin_20p.png" alt="20p Coin">
                     <label>20p</label>
                 </div>
 
-                <div class="coin-button" onclick="insertCoin(0.50)">
+                <div class="coin-button" onclick="insertCoin(0.50, event)">
                     <img src="/images/coin_50p.png" alt="50p Coin">
                     <label>50p</label>
                 </div>
 
-                <div class="coin-button" onclick="insertCoin(1.00)">
+                <div class="coin-button" onclick="insertCoin(1.00, event)">
                     <img src="/images/coin_£1.png" alt="£1 Coin">
                     <label>£1</label>
                 </div>
 
-                <div class="coin-button" onclick="insertCoin(2.00)">
+                <div class="coin-button" onclick="insertCoin(2.00, event)">
                     <img src="/images/coin_£2.png" alt="£2 Coin">
                     <label>£2</label>
                 </div>
