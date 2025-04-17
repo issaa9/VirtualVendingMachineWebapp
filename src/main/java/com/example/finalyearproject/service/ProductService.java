@@ -49,6 +49,7 @@ public class ProductService {        //service class for Product
         }
     }
 
+    //method for admins to update stock and auto-update settings for products
     public void updateProductStockAndSettings(String id, int stock, boolean auto, Integer threshold, Integer updateAmt) {
         Optional<Product> optionalProduct = productRepository.findById(id);
         if (optionalProduct.isPresent()) {

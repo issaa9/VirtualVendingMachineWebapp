@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/general_styles.css}">
     <link rel="stylesheet" th:href="@{/css/admindashboard_styles.css}">
+    <script th:src="@{/scripts/global_alert_modal.js}"></script>
     <title>Admin Dashboard</title>
 </head>
 
@@ -58,6 +59,9 @@
     </div>
 
 </main>
+
+<!-- Reusable HTML Fragment for the Alert Modal -->
+<div th:replace="fragments/global_modal_fragment :: alertModal"></div>
 
 <script th:src="@{/scripts/admindashboard_script.js}"></script>
 </body>

@@ -56,7 +56,7 @@ async function submitCode() {
     let enteredCode = display.innerText.trim();  //extract entered code from display
 
     if (!/^[A-F][1-4]$/.test(enteredCode)) {  //validation of entered code
-        alert("Invalid item code detected :(  Please try again.");
+        showAlert("Invalid item code detected :(  Please try again.");
         return;
     }
 
@@ -72,7 +72,7 @@ async function submitCode() {
 
     } catch (error) {
         console.error("Error:", error);  //log error in console
-        alert("Error fetching product. Please try again."); //error handling alert
+        showAlert("Error fetching product. Please try again."); //error handling alert
     }
 
     clearDisplay(); //always clear keypad display after submitting a code
@@ -99,7 +99,7 @@ async function addItemToCart(product, allItems) {
     }
 
     if (!skipAlerts) {
-        alert(`${product.id} - ${product.name} added to cart successfully!`); //successful alert
+        showAlert(`${product.id} - ${product.name} added to cart successfully!`); //successful alert
     }
 
     updateCartDisplay();  //calling function to update the cart display after adding an item
@@ -121,7 +121,7 @@ async function checkStock(product) {
     let productName = cartItems[product.id] ? cartItems[product.id].name : "this item";
 
     if (currentQuantity + 1 > stock) {  //check if there's not enough stock
-        alert(`Not enough stock available for ${productName}. Only ${stock} left.`); //alert message
+        showAlert(`Not enough stock available for ${productName}. Only ${stock} left.`); //alert message
         return false;  //if not enough return false to prevent item being added to cart
     }
 
@@ -253,12 +253,13 @@ function checkClearCart() {
         return;
     }
 
-    //confirm with user that they want to clear the cart
-    let confirmClear = window.confirm("Are you sure you want to clear the cart?");
-
-    if (confirmClear) {  //if they confirm then clear the cart
-        clearCart();
-    }
+    //now use custom modal instead of confirm() to confirm user wants to clear the cart
+    showConfirm("Are you sure you want to clear the cart?", () => {
+        clearCart(); // if confirmed
+    }, () => {
+        //cancel logic
+        console.log("User cancelled clearing the cart"); //logging
+    });
 }
 
 //function to clear the cart

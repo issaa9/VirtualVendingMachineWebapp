@@ -6,6 +6,7 @@
     <title>Transaction History</title>
     <link rel="stylesheet" th:href="@{/css/general_styles.css}">
     <link rel="stylesheet" th:href="@{/css/transactionspage_styles.css}">
+    <script th:src="@{/scripts/global_alert_modal.js}"></script>
     <script th:src="@{/scripts/transactionspage_script.js}" defer></script>
 </head>
 <body>
@@ -138,6 +139,9 @@
 <a th:href="@{/home}" class="home-button-link">
     <button class="home-button">Home</button>
 </a>
+
+<!-- Reusable HTML Fragment for the Alert Modal -->
+<div th:replace="fragments/global_modal_fragment :: alertModal"></div>
 
 </body>
 </html>

@@ -35,7 +35,7 @@ async function fetchUserTransactions(username) {
         let response = await fetch(`/api/transactions/user?username=${encodeURIComponent(username)}`); //AJAX request
 
         if (!response.ok) {
-            alert("Failed to fetch transactions."); //handle bad response
+            showAlert("Failed to fetch transactions."); //handle bad response
         }
 
         let transactions = await response.json();
@@ -130,14 +130,14 @@ function validateFilters() {
 
     //Transaction ID validation: must be a positive integer
     if (transactionId && (!/^\d+$/.test(transactionId) || parseInt(transactionId) <= 0)) {
-        alert("Transaction ID must be a Positive Integer.");
+        showAlert("Transaction ID must be a Positive Integer.");
         document.getElementById("transactionId").value = ""; //clear the box
         return false;
     }
 
     //Date range validation: start date must be before end date
     if (startDate && endDate && new Date(startDate) > new Date(endDate)) {
-        alert("Date From cannot be later than Date To.");
+        showAlert("Date From cannot be later than Date To.");
 
         //clear the boxes
         document.getElementById("startDate").value = "";
@@ -151,7 +151,7 @@ function validateFilters() {
     for (const id of moneyInputs) {
         const value = document.getElementById(id).value;
         if (value && parseFloat(value) < 0) {
-            alert(`Value for ${id.replace(/([A-Z])/g, ' $1')} cannot be negative.`);
+            showAlert(`Value for ${id.replace(/([A-Z])/g, ' $1')} cannot be negative.`);
             document.getElementById(id).value = "";
             return false;
         }

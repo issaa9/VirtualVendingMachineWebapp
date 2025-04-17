@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/general_styles.css}">
     <link rel="stylesheet" th:href="@{/css/mainpage_styles.css}">
+    <script th:src="@{/scripts/global_alert_modal.js}"></script>
     <script th:src="@{/scripts/mainpage_script.js}"></script>
     <link rel="icon" type="image/png" th:href="@{/images/vending_machine.png}">
     <title>Main Page</title>
@@ -287,7 +288,12 @@
 
 </main>
 
-<script th:src="@{/scripts/payment_script.js}"></script>
 
+<!-- Reusable HTML Fragment for the Alert Modal -->
+<div th:replace="fragments/global_modal_fragment :: alertModal"></div>
+
+
+
+<script th:src="@{/scripts/payment_script.js}"></script>
 </body>
 </html>

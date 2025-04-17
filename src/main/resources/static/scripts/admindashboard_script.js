@@ -238,14 +238,14 @@ function adjustStock(productId, change) {
 
     //block stock from going negative
     if (newStock < 0) {
-        alert("Stock cannot go below 0.");
+        showAlert("Stock cannot go below 0.");
         return;
     }
     const autoSettings = getAutoSettings(row, product);  //get the auto stock settings for the product
 
     //if auto stock is enabled, and the new stock is lower than the threshold: alert and return
     if (autoSettings.autoCheckbox.checked && !isNaN(autoSettings.threshold) && newStock < autoSettings.threshold) {
-        alert("Stock cannot be set below threshold while auto-stock is enabled.");
+        showAlert("Stock cannot be set below threshold while auto-stock is enabled.");
         return;
     }
     updateProvisional(productId, newStock, autoSettings);  //update the provisional changes
@@ -281,7 +281,7 @@ function setManualStock(productId, stockValue) {
 
     //if auto stock enabled and stock value is below threshold: alert and return
     if (autoCheckbox.checked && !isNaN(threshold) && stockValue < threshold) {
-        alert("Stock cannot be set below threshold while auto-stock is enabled.");  //don't allow stock to be set below threshold
+        showAlert("Stock cannot be set below threshold while auto-stock is enabled.");  //don't allow stock to be set below threshold
         return;
     }
     //retrieve the entry in provisionalChanges or create a new one (if doesn't exist) for the product
@@ -335,7 +335,7 @@ function resetAllChanges() {
 //function to save all changes
 async function saveChanges() {
     if (Object.keys(provisionalChanges).length === 0) {  //check if there are no current provisional changes
-        alert("No changes to save.");  //alert
+        showAlert("No changes to save.");  //alert
         return; //and return
     }
     //validation for auto stock settings
@@ -351,15 +351,15 @@ async function saveChanges() {
         //if auto stock is enabled
         if (auto) {
             if (threshold === null || isNaN(threshold)) {  //validation in case threshold is missing
-                alert(`Cannot save: Stock Threshold is missing for product ${productId}.`);
+                showAlert(`Cannot save: Stock Threshold is missing for product ${productId}.`);
                 return;
             }
             if (updateAmount === null || isNaN(updateAmount)) {  //validation in case update amount is missing
-                alert(`Cannot save: Update Amount is missing for product ${productId}.`);
+                showAlert(`Cannot save: Update Amount is missing for product ${productId}.`);
                 return;
             }
             if (stock < threshold) {  //validation in case stock is set below the threshold
-                alert(`Cannot save: Stock for product ${productId} is below its Threshold (${stock} < ${threshold}). Update the Stock or set a higher Threshold.`);
+                showAlert(`Cannot save: Stock for product ${productId} is below its Threshold (${stock} < ${threshold}). Update the Stock or set a higher Threshold.`);
                 return;
             }
         }
@@ -385,7 +385,7 @@ async function saveChanges() {
             body: JSON.stringify(updates)
         });
         const message = await response.text();  //retrieve the message response
-        alert(message); //display the message as an alert
+        showAlert(message); //display the message as an alert
         provisionalChanges = {};  //clear all provisional changes
         await fetchProducts();  //await a new products fetch
         updateSaveButtonState();  //update the save button

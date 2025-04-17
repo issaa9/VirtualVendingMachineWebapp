@@ -109,11 +109,12 @@ function updateInsertedAmount(amount) {
 function confirmPayment() {
     if (remainingAmount <= 0) {
         //confirmation popup before proceeding
-        let paymentConfirmed = window.confirm(`Confirm payment? Total Paid: £${insertedAmount.toFixed(2)} Your change: £${changeAmount.toFixed(2)}.`);
+        showConfirm(`Confirm payment? Total Paid: £${insertedAmount.toFixed(2)} Your change: £${changeAmount.toFixed(2)}.`, () => {
+            processTransaction(); //on confirm process the transaction
+        }, () => {
+            console.log("User cancelled payment"); //on cancel, log the cancellation
+        });
 
-        if (paymentConfirmed) {
-            processTransaction(); //process the transaction when payment is confirmed
-        }
     }
 }
 
@@ -158,16 +159,16 @@ async function processTransaction() {
 
             //if restock alert exists, display it
             if (result.hasOwnProperty("restockAlert")) {
-                alert(result.restockAlert);
+                showAlert(result.restockAlert);
             }
         } else {
             let errorResponse = await response.json();
             console.error("Transaction Error:", errorResponse);
-            alert(`Transaction Failed: ${errorResponse.error || "An unknown error occurred."}`);    //error message
+            showAlert(`Transaction Failed: ${errorResponse.error || "An unknown error occurred."}`);    //error message
         }
     } catch (error) {
         console.error("Error:", error);
-        alert("Payment error. Please try again.");  //error handling
+        showAlert("Payment error. Please try again.");  //error handling
     }
 }
 
@@ -273,7 +274,7 @@ function displayPurchasedItems() {
 //function to move to receipt page to view the receipt after payment
 function viewReceipt() {
     if (!latestTransactionId) {
-        alert("No recent transaction found!");
+        showAlert("No recent transaction found!");
         return;
     }
     window.location.href = `/receipts/${latestTransactionId}`;
@@ -290,7 +291,7 @@ async function downloadReceipt() {
     const receiptElement = document.getElementById('receiptBox'); //retrieve receipt box element
 
     if (!receiptElement) {
-        alert("Receipt content not found.");  //in case of an error trying to retrieve the receipt box
+        showAlert("Receipt content not found.");  //in case of an error trying to retrieve the receipt box
         return;
     }
 
