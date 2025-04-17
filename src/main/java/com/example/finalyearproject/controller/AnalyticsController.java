@@ -53,6 +53,9 @@ public class AnalyticsController {
     @GetMapping("/summary")  //endpoint for fetching summary data
     public AnalyticsSummaryDTO getSummaryData() {
         String username = getLoggedInUsername();
+        if (username == null || username.equalsIgnoreCase("Guest")) {
+            return new AnalyticsSummaryDTO(); //return an empty DTO in guest cases
+        }
         return analyticsService.getUserSummary(username);  //call the service method to get the user's summary data
     }
 
@@ -61,6 +64,9 @@ public class AnalyticsController {
     @GetMapping("/frequency") //endpoint for fetching purchase frequency data
     public List<PurchaseFrequencyDTO> getPurchaseFrequency() {
         String username = getLoggedInUsername();
+        if (username == null || username.equalsIgnoreCase("Guest")) {
+            return List.of(); //returns an empty list of DTOs in guest cases
+        }
         return analyticsService.getUserPurchaseFrequency(username); //call the service method (passing in username) to fetch the dto data and return it to frontend
     }
 
@@ -69,6 +75,9 @@ public class AnalyticsController {
     @GetMapping("/spending")  //endpoint for fetching spending trend data
     public List<SpendingTrendDTO> getSpendingTrend() {
         String username = getLoggedInUsername();
+        if (username == null || username.equalsIgnoreCase("Guest")) {
+            return List.of(); //returns an empty list of DTOs in guest cases
+        }
         return analyticsService.getMonthlySpendingTrend(username);
     }
 

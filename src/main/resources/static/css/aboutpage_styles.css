@@ -1,0 +1,56 @@
+.about-section {
+    background-color: #0b1d3a;
+    color: #e6f7ff;
+    padding: 40px;
+    margin: 40px auto;
+    max-width: 900px;
+    border-radius: 12px;
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.2);
+    font-family: 'Segoe UI', sans-serif;
+    line-height: 1.8;
+    font-size: 1.4rem;
+}
+
+.about-section h2 {
+    color: #00ffff;
+    font-size: 2.7rem;
+    text-align: center;
+    text-shadow: 0 0 10px #00ffff;
+    margin-bottom: 30px;
+}
+
+.about-section h3 {
+    color: #00cccc;
+    font-size: 1.8rem;
+    margin-top: 30px;
+    text-shadow: 0 0 6px #00cccc;
+}
+
+.about-section ul {
+    list-style-type: disc;
+    padding-left: 25px;
+}
+
+.about-section li {
+    margin-bottom: 10px;
+    font-size: 1.4rem;
+}
+
+.about-footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 1rem;
+    color: #aaa;
+}
+
+.about-email {
+    display: inline-block;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #00ccff;
+    text-decoration: none;
+}
+
+.about-email:hover {
+    text-decoration: underline;
+}

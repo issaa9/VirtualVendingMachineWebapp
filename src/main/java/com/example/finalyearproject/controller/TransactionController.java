@@ -4,6 +4,7 @@ import com.example.finalyearproject.model.Transaction;
 import com.example.finalyearproject.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -75,6 +76,12 @@ public class TransactionController {
 
     @GetMapping("/user")   //api endpoint to fetch all transactions for the user
     public ResponseEntity<List<Transaction>> getUserTransactions(@ModelAttribute("username") String username) { //model attribute used to retrieve the username of the user currently logged in
+
+        //block guests from trying to fetch transactions (blocked on frontend but failsafe for extra security)
+        if ("Guest".equalsIgnoreCase(username)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(List.of());
+        }
+
         List<Transaction> transactions = transactionService.getTransactionsByUsername(username); //call service method to retrieve transactions
         return ResponseEntity.ok(transactions);  //return transaction list
     }
@@ -93,6 +100,11 @@ public class TransactionController {
             @RequestParam(required = false) Double maxChange,
             @RequestParam String username) {
             //request all possible parameters, they aren't all required because we allow null values, only username is required
+
+        //block guests from trying to fetch transactions (blocked on frontend but failsafe for extra security)
+        if ("Guest".equalsIgnoreCase(username)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(List.of());
+        }
 
         List<Transaction> filteredTransactions = transactionService.getFilteredTransactions(   //call service method and pass in the parameters, if some have no value NULL will be sent for them
                 transactionId, startDate, endDate, minTotalCost, maxTotalCost, minPayment, maxPayment, minChange, maxChange, username

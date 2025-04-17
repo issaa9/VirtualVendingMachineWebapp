@@ -30,6 +30,7 @@ public class RegisterController {
                                @RequestParam String email,
                                @RequestParam String password,
                                @RequestParam String confirmPassword,
+                               @RequestParam(required = false) String analyticsConsent,
                                Model model) {
         if (userRepository.findByEmail(email).isPresent() || userRepository.findByUsername(username).isPresent()) { // check if username or email already exists
             model.addAttribute("error", "Username or email already exists."); //display error message
@@ -39,6 +40,11 @@ public class RegisterController {
         if (!password.equals(confirmPassword)) {  //checking password matches confirm password
             model.addAttribute("error", "Passwords do not match."); //display message
             return "registerpage";  //redisplay page
+        }
+
+        if (analyticsConsent == null) { //checking the user has consented before registering
+            model.addAttribute("error", "You must agree to data collection for use of app features.");
+            return "registerpage";
         }
 
 

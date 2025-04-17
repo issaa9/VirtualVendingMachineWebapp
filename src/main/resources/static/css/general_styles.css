@@ -288,6 +288,19 @@ body.modal-lock *:not(#customModal):not(#customModal *) {
 }
 
 
+.guest-banner {
+    display: inline-block;
+    background-color: rgba(255, 215, 0, 0.1);
+    color: #FFD700;
+    font-weight: bold;
+    padding: 8px 14px;
+    margin: 10px auto;
+    border: 1px solid #FFD700;
+    border-radius: 10px;
+    font-size: 1.3rem;
+    text-shadow: 0 0 6px #FFD700;
+    box-shadow: 0 0 12px rgba(255, 215, 0, 0.2);
+}
 
 
 

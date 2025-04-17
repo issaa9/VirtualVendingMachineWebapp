@@ -468,6 +468,15 @@ function addAllItemsToCart() {
 document.addEventListener("DOMContentLoaded", function () {
     const toggle = document.getElementById("recommendToggle");
 
+    //disable Smart Recommendations toggle if user is not logged in
+    const userDisplay = document.querySelector(".user-info span");
+    if (userDisplay && userDisplay.innerText.trim() === "Guest") {
+        toggle.disabled = true;
+        toggle.title = "Login to use Smart Recommendations";
+        toggle.parentElement.style.cursor = "not-allowed";
+    }
+
+
     toggle.addEventListener("change", async function () {
         if (this.checked) { //if recommendations turned on
             try {

@@ -25,6 +25,14 @@ public class LoginController {
 
         return "loginpage"; //show login page
     }
+
+    //handle guest logins
+    @PostMapping("/guest-login")
+    public String loginAsGuest(HttpSession session) {
+        session.setAttribute("username", "Guest"); // manually set session attribute
+        return "redirect:/home"; // redirect to home page as guest
+    }
+
 //
 //    @PostMapping("/login")
 //    public String loginUser(@RequestParam String identifier, @RequestParam String password, HttpSession session, Model model) {

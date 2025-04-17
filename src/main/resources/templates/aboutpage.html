@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/general_styles.css}">
+    <link rel="stylesheet" th:href="@{/css/aboutpage_styles.css}">
     <title>About Page</title>
 </head>
 
@@ -23,6 +24,49 @@
     <main>
 
         <h2>About</h2>
+
+        <section class="about-section">
+            <h2>About the Virtual Vending Machine</h2>
+
+            <p>
+                The Virtual Vending Machine Webapp simulates a real-world vending experience entirely online.
+                Users can browse, select and purchase snacks through a sleek and interactive interface — complete with a keypad,
+                dynamic cart and personalised product recommendations.
+            </p>
+
+            <h3>Key Features</h3>
+            <ul>
+                <li><strong>Smart Cart:</strong> Add, remove and modify items with real-time total updates.</li>
+                <li><strong>Smart Recommendations:</strong> Personalized suggestions based on user preferences.</li>
+                <li><strong>Authentication System:</strong> Guest and user accounts with different privileges.</li>
+                <li><strong>Receipt Generator:</strong> View detailed receipts after successful transactions.</li>
+                <li><strong>Keyboard & Virtual Input:</strong> Use either method to interact with the vending machine.</li>
+                <li><strong>Transaction History:</strong> Easy viewing of all of your previous purchases, with filtering and sort-by settings.</li>
+                <li><strong>Analytics Page:</strong> Interactive visual diagrams for analysing your purchase data</li>
+            </ul>
+
+            <h3>User Access</h3>
+            <p>
+                Guests can explore the vending machine and simulate purchases, but only registered users have access
+                to proper features such as: Smart Recommendations, Saved Transaction History and User Analytics.
+            </p>
+
+            <h3>Technology Stack</h3>
+            <ul>
+                <li>Spring Boot (Java)</li>
+                <li>Thymeleaf Templating</li>
+                <li>HTML, CSS, JavaScript</li>
+                <li>REST APIs</li>
+                <li>MySQL</li>
+            </ul>
+
+            <p class="about-footer">
+                Version 1.0 | Developed by Issa Aboobaker (ia252), 2025<br>
+                Final Year Project – University of Leicester<br>
+                <a href="mailto:ia252@student.le.ac.uk" class="about-email">Contact Me</a>
+            </p>
+        </section>
+
 
         <!-- Home Button -->
         <a th:href="@{/home}" class="home-button-link">

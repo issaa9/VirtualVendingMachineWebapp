@@ -29,8 +29,10 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable) //disable CSRF for development (enable later in production)
                 .authorizeHttpRequests(auth -> auth
                                 .anyRequest().permitAll()  //allow access to all pages for development
+//                                .requestMatchers("/guest-login").permitAll()
 //                        .requestMatchers("/register", "/login").permitAll() //allow login & register pages for everyone
 //                        .requestMatchers("/css/**", "/scripts/**", "/images/**", "/pdf/**").permitAll() //allow all static resources
+//                                .requestMatchers("/home").permitAll()
 //                        .requestMatchers("/admin/**").hasRole("ADMIN") //restrict admin pages for later
 //                        .anyRequest().authenticated() //all other pages require to be logged in first to access
                 )

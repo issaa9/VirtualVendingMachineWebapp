@@ -1231,6 +1231,17 @@
     transform: translateX(25px);
 }
 
+.recommend-switch input:disabled + .slider {
+    background-color: #999 !important;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.recommend-switch input:disabled + .slider:before {
+    background-color: #ddd;
+}
+
+
 .toggle-label {
     color: gold;
     font-weight: bold;
@@ -1244,6 +1255,7 @@
     box-shadow: 0 0 12px gold, 0 0 25px gold;
 }
 
+
 @keyframes pulseGlow {
     0% { box-shadow: 0 0 10px gold; }
     50% { box-shadow: 0 0 20px yellow; }
@@ -1251,6 +1263,7 @@
 }
 
 
+/* Coin Animation Styles */
 .coin-fly {
     position: fixed;
     transition: transform 0.8s ease;
