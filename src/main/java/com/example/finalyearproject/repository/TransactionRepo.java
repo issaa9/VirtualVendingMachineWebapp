@@ -2,6 +2,7 @@ package com.example.finalyearproject.repository;
 
 import com.example.finalyearproject.dto.PurchaseFrequencyDTO;
 import com.example.finalyearproject.dto.SpendingTrendDTO;
+import com.example.finalyearproject.dto.TopProductQuantityDTO;
 import com.example.finalyearproject.model.Transaction;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,9 @@ public interface TransactionRepo extends JpaRepository<Transaction, Long> {
             @Param("maxChange") Double maxChange
     );
 
+    //ANALYTICS QUERIES
+
+
     //queries for the summary data
 
     //query to count the number of transactions made by the user
@@ -77,6 +81,20 @@ public interface TransactionRepo extends JpaRepository<Transaction, Long> {
             "GROUP BY FUNCTION('DATE_FORMAT', t.transactionDate, '%Y-%m') " +
             "ORDER BY FUNCTION('DATE_FORMAT', t.transactionDate, '%Y-%m')")
     List<SpendingTrendDTO> findSpendingTrendByUser(@Param("username") String username);  //repository method
+
+
+    //query method for product quantities bought to be used in analytics (item breakdown pie chart)
+    @Query("SELECT new com.example.finalyearproject.dto.TopProductQuantityDTO(p.id, p.name, SUM(tp.quantity)) " +
+            "FROM TransactionProduct tp " +
+            "JOIN Transaction t ON t.id = tp.transactionId " +
+            "JOIN Product p ON tp.productId = p.id " +
+            "WHERE t.user = :username " +
+            "GROUP BY p.id, p.name " +
+            "ORDER BY SUM(tp.quantity) DESC")
+    List<TopProductQuantityDTO> findProductQuantitiesByUser(@Param("username") String username);
+
+
+
 
 
     //query method to find the top 5 products purchased by the user, to be used for Smart Recommendations

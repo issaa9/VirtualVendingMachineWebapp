@@ -3,6 +3,7 @@ package com.example.finalyearproject.controller;
 import com.example.finalyearproject.dto.AnalyticsSummaryDTO;
 import com.example.finalyearproject.dto.PurchaseFrequencyDTO;
 import com.example.finalyearproject.dto.SpendingTrendDTO;
+import com.example.finalyearproject.dto.TopProductQuantityDTO;
 import com.example.finalyearproject.service.AnalyticsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -80,6 +81,18 @@ public class AnalyticsController {
         }
         return analyticsService.getMonthlySpendingTrend(username);
     }
+
+    //controller method for item breakdown
+    @GetMapping("/item-breakdown") //create endpoint
+    @ResponseBody
+    public List<TopProductQuantityDTO> getItemBreakdown() {
+        String username = getLoggedInUsername();
+        if (username == null || username.equalsIgnoreCase("Guest")) {
+            return List.of(); //for guest cases, return empty list
+        }
+        return analyticsService.getTopProductQuantities(username); //call service method
+    }
+
 
 
 }

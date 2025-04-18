@@ -3,6 +3,7 @@ package com.example.finalyearproject.service;
 import com.example.finalyearproject.dto.AnalyticsSummaryDTO;
 import com.example.finalyearproject.dto.PurchaseFrequencyDTO;
 import com.example.finalyearproject.dto.SpendingTrendDTO;
+import com.example.finalyearproject.dto.TopProductQuantityDTO;
 import com.example.finalyearproject.repository.TransactionProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,6 +54,12 @@ public class AnalyticsService {
     public List<SpendingTrendDTO> getMonthlySpendingTrend(String username) {
         return transactionRepo.findSpendingTrendByUser(username);
     }
+
+    //method to retrieve item breakdown data from repository
+    public List<TopProductQuantityDTO> getTopProductQuantities(String username) {
+        return transactionRepo.findProductQuantitiesByUser(username);
+    }
+
 
 
 }

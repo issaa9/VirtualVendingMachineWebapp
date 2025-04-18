@@ -290,6 +290,105 @@ function loadSpendingTrend() {
         .catch(err => console.error("Error loading spending trend:", err));
 }
 
+//function to load the item breakdown data
+function loadItemBreakdown() {
+    fetch('/analytics/item-breakdown')
+        .then(response => response.json())
+        .then(data => {
+            if (!Array.isArray(data)) {
+                console.error("Unexpected response format for item breakdown:", data);
+                return;
+            }
+            renderItemBreakdownChart(data);
+        })
+        .catch(error => {
+            console.error("Error loading item breakdown:", error);
+        });
+}
+
+//function to render the purchase item breakdown pie chart
+function renderItemBreakdownChart(data) {
+    const ctx = document.getElementById("itemBreakdownChart").getContext("2d");
+
+    //sort the data by productId
+    data.sort((a, b) => a.productId.localeCompare(b.productId, undefined, { numeric: true }));
+
+    //prepare chart data
+    const productIDs = data.map(item => item.productId);
+    const quantities = data.map(item => item.quantity);
+    const fullNames = data.map(item => item.productName);
+
+    //colour palette (24 unique colors, 1 for each unique item)
+    const backgroundColors = [
+        "rgba(0,255,255,0.4)",   "rgba(0,255,127,0.4)", "rgba(255,255,0,0.4)",   "rgba(255,0,255,0.4)",
+        "rgba(0,191,255,0.4)",   "rgba(255,105,180,0.4)","rgba(173,255,47,0.4)",  "rgba(255,165,0,0.4)",
+        "rgba(138,43,226,0.4)",  "rgba(0,250,154,0.4)", "rgba(70,130,180,0.4)",  "rgba(255,20,147,0.4)",
+        "rgba(124,252,0,0.4)",   "rgba(64,224,208,0.4)","rgba(255,215,0,0.4)",   "rgba(0,206,209,0.4)",
+        "rgba(255,140,0,0.4)",   "rgba(147,112,219,0.4)","rgba(0,128,128,0.4)",   "rgba(152,251,152,0.4)",
+        "rgba(255,99,71,0.4)",   "rgba(0,255,255,0.4)", "rgba(50,205,50,0.4)",   "rgba(199,21,133,0.4)"
+    ];
+    const borderColors = backgroundColors.map(c => c.replace('0.4', '1'));
+
+    //destroy previous chart if exists to avoid stacking
+    if (window.itemBreakdownChartInstance) {
+        window.itemBreakdownChartInstance.destroy();
+    }
+
+    //create the chart
+    window.itemBreakdownChartInstance = new Chart(ctx, {
+        type: "pie",
+        data: {
+            labels: productIDs,
+            datasets: [{
+                data: quantities,
+                backgroundColor: backgroundColors,
+                borderColor: borderColors,
+                borderWidth: 3,
+                hoverBorderWidth: 6,
+                hoverBorderColor: "#0ff"
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: "top",
+                    labels: {
+                        color: "#0ff",
+                        boxWidth: 18,
+                        font: { size: 15, weight: "bold", family: "Arial" },
+                        padding: 16
+                    }
+                },
+                tooltip: {
+                    enabled: true,
+                    backgroundColor: "#0a0a23",
+                    titleColor: "#0ff",
+                    bodyColor: "#fff",
+                    borderColor: "#0ff",
+                    borderWidth: 2,
+                    callbacks: {
+                        //show product name and quantity on hover
+                        label: function(context) {
+                            const idx = context.dataIndex;
+                            return `${fullNames[idx]}: ${quantities[idx]}`;
+                        }
+                    }
+                }
+            },
+            layout: {
+                padding: { top: 40, bottom: 10, left: 10, right: 10 }
+            }
+        }
+    });
+}
+
+
+
+
+
 //helper function to check if there is no chart data and handle this by hiding the chart and displaying a message instead
 function handleNoChartData(data,msg,chart){
     if (!data || data.length === 0) {
@@ -314,11 +413,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-//function to load all required data
+//function to load all required data (each load function will call their own render function)
 function loadAllAnalytics() {
     loadAnalyticsSummary();
     loadPurchaseFrequency();
     loadSpendingTrend();
+    loadItemBreakdown()
 }
 
 
