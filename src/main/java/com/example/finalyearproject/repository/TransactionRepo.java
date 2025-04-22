@@ -96,13 +96,23 @@ public interface TransactionRepo extends JpaRepository<Transaction, Long> {
 
 
 
+    //SMART RECOMMENDATIONS QUERIES
 
-    //query method to find the top 5 products purchased by the user, to be used for Smart Recommendations
+    //query method to find the top 5 products purchased by the user
     @Query("SELECT tp.productId FROM TransactionProduct tp " +
             "JOIN Transaction t ON t.id = tp.transactionId " +
             "WHERE t.user = :username " +
             "GROUP BY tp.productId " +
             "ORDER BY SUM(tp.quantity) DESC LIMIT 5")
     List<String> findTopProductsByUser(@Param("username") String username);
+
+    //query method to find popular products purchased by other users (excludes the current user with the username parameter), for collaborative scoring
+    @Query("SELECT DISTINCT tp.productId FROM TransactionProduct tp " +
+            "JOIN Transaction t ON t.id = tp.transactionId " +
+            "WHERE t.user <> :username AND tp.productId NOT IN :excluded " +
+            "GROUP BY tp.productId ORDER BY SUM(tp.quantity) DESC")
+    List<String> findPopularProductsNotInUser(@Param("username") String username,
+                                              @Param("excluded") List<String> excluded);
+
 
 }

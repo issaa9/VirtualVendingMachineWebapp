@@ -3,6 +3,7 @@ package com.example.finalyearproject.controller;
 
 import com.example.finalyearproject.model.Product;
 import com.example.finalyearproject.service.ProductService;
+import com.example.finalyearproject.service.RecommendationService;
 import com.example.finalyearproject.service.TransactionService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class MainController {
 
     @Autowired
     private TransactionService transactionService;
+
+    @Autowired
+    private RecommendationService recommendationService;
 
     @GetMapping("/main")
     public String showMainPage(HttpSession session, Model model) {
@@ -79,7 +83,7 @@ public class MainController {
     @GetMapping("/api/recommendations") //api endpoint for recommendations
     @ResponseBody //JSON response
     public ResponseEntity<List<String>> getSmartRecommendations(@AuthenticationPrincipal UserDetails userDetails) {
-        List<String> recommendations = transactionService.getSmartRecommendedProductIds(userDetails.getUsername()); //call the service method and pass in username
+        List<String> recommendations = recommendationService.generateRecommendations(userDetails.getUsername()); //call the service method and pass in username
         return ResponseEntity.ok(recommendations); //return the recommendations list as a response to frontend (using AJAX)
     }
 
