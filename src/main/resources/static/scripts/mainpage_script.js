@@ -492,20 +492,41 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    //function to highlight the recommended items based on their tem codes
-    function highlightRecommendedItems(itemCodes) {
-        document.querySelectorAll(".item").forEach(item => { //select the item elements
-            let code = item.getAttribute("data-code"); //retrieve the code
-            if (itemCodes.includes(code)) { //for all item codes in the recommended list
+    //function to highlight the recommended items based on their tem codes and set tooltips
+    function highlightRecommendedItems(recommendationList) {
+        document.querySelectorAll(".item").forEach(item => {
+            const code = item.getAttribute("data-code");  //get the code
+            const match = recommendationList.find(r => r.id === code); //find the recommended item with the code
+
+            if (match) {
                 item.classList.add("highlight-recommend"); //add the highlight style
+
+                let reasonText = "👍 Smart Recommendation"; //default/fallback message
+
+                //creating custom tooltip messages based on the recommendation reason
+                switch (match.reason) {
+                    case "collab": //if the reason is collaborative based
+                        reasonText = "🔥 Popular with other users";
+                        break;
+                    case "category":  //if the reason is category based
+                        reasonText = "⭐ Based on your favorite categories";
+                        break;
+                    case "price":  //if the reason is spending based
+                        reasonText = "💸 Matches your spending habits";
+                        break;
+                }
+
+                item.setAttribute("data-tooltip", reasonText); //set the tooltip with the reason
             }
         });
     }
 
+
     //function to remove all highlights (when the switch is turned off)
     function removeHighlights() {
         document.querySelectorAll(".item.highlight-recommend").forEach(item => {
-            item.classList.remove("highlight-recommend");
+            item.classList.remove("highlight-recommend"); //remove highlights
+            item.removeAttribute("data-tooltip"); //remove tooltip
         });
     }
 });

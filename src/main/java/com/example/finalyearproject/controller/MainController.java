@@ -1,6 +1,7 @@
 package com.example.finalyearproject.controller;
 
 
+import com.example.finalyearproject.dto.RecommendationDTO;
 import com.example.finalyearproject.model.Product;
 import com.example.finalyearproject.service.ProductService;
 import com.example.finalyearproject.service.RecommendationService;
@@ -82,8 +83,9 @@ public class MainController {
     //controller method to get product recommendations
     @GetMapping("/api/recommendations") //api endpoint for recommendations
     @ResponseBody //JSON response
-    public ResponseEntity<List<String>> getSmartRecommendations(@AuthenticationPrincipal UserDetails userDetails) {
-        List<String> recommendations = recommendationService.generateRecommendations(userDetails.getUsername()); //call the service method and pass in username
+    public ResponseEntity<List<RecommendationDTO>> getSmartRecommendations(@AuthenticationPrincipal UserDetails userDetails) {
+        String username = userDetails != null ? userDetails.getUsername() : "Guest";  //extra validate in case of guest users
+        List<RecommendationDTO> recommendations = recommendationService.generateRecommendations(username);
         return ResponseEntity.ok(recommendations); //return the recommendations list as a response to frontend (using AJAX)
     }
 

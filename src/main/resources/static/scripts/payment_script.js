@@ -157,6 +157,16 @@ async function processTransaction() {
             closeModal();  //close the modal
             clearCart();   //clear the cart
 
+            //reset smart recommendations toggle, highlights and tooltips after purchase
+            const recommendToggle = document.getElementById("recommendToggle");
+            if (recommendToggle && recommendToggle.checked) {
+                recommendToggle.checked = false; //uncheck the toggle switch
+                document.querySelectorAll(".item.highlight-recommend").forEach(item => { //for each recommended item
+                    item.classList.remove("highlight-recommend"); //remove highlight
+                    item.removeAttribute("data-tooltip"); //remove tooltip
+                });
+            }
+
             //if restock alert exists, display it
             if (result.hasOwnProperty("restockAlert")) {
                 showAlert(result.restockAlert);
