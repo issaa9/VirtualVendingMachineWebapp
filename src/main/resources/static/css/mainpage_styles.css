@@ -1319,6 +1319,27 @@
 }
 
 
+.card-payment-button {
+    background: #ffd700;
+    color: black;
+    font-weight: bold;
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    margin-top: 20px;
+    cursor: pointer;
+    box-shadow: 0 0 10px gold;
+    transition: all 0.3s ease;
+}
+
+.card-payment-button:hover {
+    background: #ffe135;
+    box-shadow: 0 0 20px gold;
+}
+
+
+
 
 
 

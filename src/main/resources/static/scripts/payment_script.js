@@ -25,6 +25,12 @@ function openModal() {
     //hide general instructions and show payment instructions
     document.getElementById("generalInstructions").style.display = "none";
     document.getElementById("paymentInstructions").style.display = "block";
+
+    //ensure the card button is shown
+    const cardSection = document.getElementById("cardPaymentSection");
+    if (cardSection) {
+        cardSection.style.display = "block";
+    }
 }
 
 //function to simulate inserting a coin into the machine, using animations
@@ -72,6 +78,11 @@ function insertCoin(value, event) {
         sound.play();
     }, 1000);  //play after 2 seconds
 
+    //hide the card button after coin insertion (don't allow coins and card combined for payments)
+    const cardSection = document.getElementById("cardPaymentSection");
+    if (cardSection) {
+        cardSection.style.display = "none";
+    }
 
     updateInsertedAmount(value); //update the payment values
 }
@@ -333,6 +344,101 @@ function goBack() {
         window.location.href = '/home'; //else fallback to homepage
     }
 }
+
+
+//All Card Payment Functionality
+
+const cardPaymentBtn = document.getElementById("payByCardButton"); //retrieve the card payment button element
+
+if (cardPaymentBtn) {
+    cardPaymentBtn.addEventListener("click", () => {
+        initiateCardPayment();
+    });
+}
+
+//function to process the Stripe card payment functionality
+function initiateCardPayment() {
+    const totalText = document.getElementById("remainingAmount"); //retrieve the amount to pay from the element
+    const amount = parseFloat(totalText.textContent.replace(/[£,]/g, "")); //format it as a pure number (float)
+
+    //save the cart and required amount into storage, so they aren't lost when the page reloads
+    localStorage.setItem("cartItemsBackup", JSON.stringify(cartItems));
+    localStorage.setItem("requiredAmountBackup", amount);
+
+    const username = document.querySelector(".user-info span")?.textContent?.trim(); //get the username from the page
+
+    //fetch request to backend
+    fetch("/api/payment/create-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            amount: amount,
+            username: username
+        })
+        // use actual required amount
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (data.url) {
+                window.location.href = data.url;
+            } else {
+                showAlert("Payment initiation failed."); //error handling
+            }
+        })
+        .catch(err => {
+            console.error("Stripe payment error:", err);
+            showAlert("An error occurred starting card payment."); //error handling
+        });
+}
+
+const urlParams = new URLSearchParams(window.location.search); //search for URL parameters (success/cancel)
+
+if (urlParams.get("payment") === "success") { //if success is in the URL, indicating a successful payment
+
+    //restore cart items to allow existing transaction processing logic to happen
+    const savedCart = localStorage.getItem("cartItemsBackup"); //retrieve from local storage
+    if (savedCart) {
+        cartItems = JSON.parse(savedCart); //repopulate cartItems using savedCart
+    }
+
+    //restore actual amount paid to allow it to be stored in the database for transaction data
+    const savedAmount = localStorage.getItem("requiredAmountBackup"); //retrieve from local storage
+    if (savedAmount) {
+        insertedAmount = parseFloat(savedAmount); //set insertedAmount
+    }
+
+    changeAmount = 0; //change is 0 (no change when paying by card)
+    remainingAmount = 0;  //remaining amount is 0 (full total has been paid)
+    processTransaction();  //call existing function to properly process the transaction
+
+    //clear local storage
+    localStorage.removeItem("cartItemsBackup");
+    localStorage.removeItem("requiredAmountBackup");
+
+
+    resetUrl(); //reset the URL to remove the success parameter and go back to default
+}
+
+
+if (urlParams.get("payment") === "cancel") { //if payment has been cancelled or failed
+
+    //restore the cart because the user hasn't paid yet and might want to retry immediately
+    const savedCart = localStorage.getItem("cartItemsBackup");
+    if (savedCart) {
+        cartItems = JSON.parse(savedCart);
+    }
+
+    showAlert("Card payment was cancelled."); //show alert
+    resetUrl();  //reset the URL to remove the cancel parameter and go back to default
+}
+
+//helper function to reset the URL back to normal by removing the payment param
+function resetUrl () {
+    const url = new URL(window.location); //get the current URL
+    url.searchParams.delete("payment"); //remove the payment parameter
+    window.history.replaceState({}, document.title, url.toString());
+}
+
 
 
 

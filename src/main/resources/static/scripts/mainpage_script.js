@@ -531,6 +531,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+//display the cart upon load/reload (in case of locally stored cart for card payments)
+document.addEventListener("DOMContentLoaded", function () {
+    updateCartDisplay();
+})
+
 
 
 

@@ -191,7 +191,7 @@
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal()">&times;</button>
             <h2>Payment</h2>
-            <p class="payment-info">Total Remaining: <strong id="remainingAmount" class="remaining-total">£3.00</strong></p>
+            <p class="payment-info">Total Remaining: <strong id="remainingAmount" class="remaining-total">£0.00</strong></p>
 
             <!-- Coins Section -->
             <div class="coins-container">
@@ -236,6 +236,12 @@
 
             <!-- Confirm Payment Button (Initially Hidden) -->
             <button id="confirmPayment" class="confirm-btn" onclick="confirmPayment()" style="display: none;">Confirm Payment</button>
+
+            <!-- Card Payment Button -->
+            <div id="cardPaymentSection">
+                <button id="payByCardButton" class="card-payment-button">Pay by Card</button>
+            </div>
+
         </div>
     </div>
 

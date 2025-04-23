@@ -29,6 +29,9 @@ dependencies {
     //OAuth 2 Login
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
+    //Stripe Card Payments
+    implementation 'com.stripe:stripe-java:22.10.0'
+
 
     runtimeOnly 'com.mysql:mysql-connector-j'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
