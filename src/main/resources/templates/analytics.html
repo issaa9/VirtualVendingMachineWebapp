@@ -99,6 +99,62 @@
 
         <div class="section-divider"></div>
 
+        <section class="analytics-section">
+            <h3 class="section-title smart-heading">Smart Recommendation Insights</h3>
+
+            <div class="smart-cards-container">
+
+                <!-- Top Category Card -->
+                <div class="smart-card" data-tooltip="Click to Flip">
+                    <div class="smart-card-inner">
+                        <div class="smart-card-front">
+                            <h4 class="smart-title">Top Category</h4>
+                            <p class="smart-value" id="topCategoryValue">--</p>
+                        </div>
+                        <div class="smart-card-back">
+                            <h4 class="smart-title">Category-Based Picks</h4>
+                            <ul id="topCategoryItems" class="smart-item-list"></ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Price Range Card -->
+                <div class="smart-card" data-tooltip="Click to Flip">
+                    <div class="smart-card-inner">
+                        <div class="smart-card-front">
+                            <h4 class="smart-title">Average Spend</h4>
+                            <p class="smart-value" id="avgSpendValue">--</p>
+                        </div>
+                        <div class="smart-card-back">
+                            <h4 class="smart-title">Price-Based Picks</h4>
+                            <ul id="priceBasedItems" class="smart-item-list"></ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Collaborative Card -->
+                <div class="smart-card" data-tooltip="Click to Flip">
+                    <div class="smart-card-inner">
+                        <div class="smart-card-front">
+                            <h4 class="smart-title">Collaborative Trends</h4>
+                            <p class="smart-value" id="collabStrength">--</p>
+                        </div>
+                        <div class="smart-card-back">
+                            <h4 class="smart-title">Popular Among Similar Users</h4>
+                            <ul id="collabBasedItems" class="smart-item-list"></ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <p class="flip-instruction">(Click the cards to see the most likely Recommended Items)</p>
+        </section>
+
+        <div class="section-divider"></div>
+
+
+
     </div>
 </main>
 

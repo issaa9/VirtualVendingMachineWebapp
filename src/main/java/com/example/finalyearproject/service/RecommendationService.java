@@ -52,6 +52,7 @@ public class RecommendationService {
         double avgSpend = avgSpent(transactions); //get the user's average spend
         boolean isNewUser = transactions.isEmpty(); //check if user is new (has no transactions)
 
+        int totalCategoryQuantity = categoryScore.values().stream().mapToInt(Integer::intValue).sum(); //get total number of categories
         for (Product p : allProducts) { //iterate for all products
             if (alreadyPurchased.contains(p.getId())) continue; //if user has already purchased the product, skip it
 
@@ -64,17 +65,17 @@ public class RecommendationService {
             //category-based scoring
             int catScore = categoryScore.getOrDefault(p.getCategory(), 0); //get existing value or default to 0
             if (catScore > 0) {
-                catBoost = catScore; //set the category score boost
-                score += catBoost; //increment the total score by the category score boost
+                double raw = (double) catScore / totalCategoryQuantity; //get a raw category score between 0-1
+                catBoost = Math.log1p(catScore) * raw; //scale category boost down using log function
+                score += catBoost; //increment total score with category boost
             }
+
 
             //price range similarity
             if (!isNewUser) { //only consider price match for experienced users
                 double priceDiff = Math.abs(avgSpend - p.getPrice()); //calculate difference between product price and user average spend
-                if (priceDiff < 2.0) { //if the difference is not too big
-                    priceBoost = 1.0 / (1 + priceDiff); //set the price score boost based on closeness to average price
+                    priceBoost = 1.0 / (1 + priceDiff) * 1.4; //set the price score boost based on closeness to average price (now with a 1.4 multiplier to give it more chance)
                     score += priceBoost;  //increment the total score with the price score boost
-                }
             }
 
             //store individual contributions for comparison later
@@ -151,7 +152,7 @@ public class RecommendationService {
 
         if (productCount < 3) return 3.0;       //for poor transaction history set boost high (ensure collab is more important)
         if (productCount < 6) return 2.0;       //for mid transaction history set mid boost
-        return 1.0;                             //rich transaction history so low boost (depend more on user based features rather than collab)
+        return 0.9;                             //rich transaction history so low boost (depend more on user based features rather than collab)
     }
 
 }

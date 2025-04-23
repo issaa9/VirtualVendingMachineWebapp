@@ -6,6 +6,7 @@ import com.example.finalyearproject.dto.SpendingTrendDTO;
 import com.example.finalyearproject.dto.TopProductQuantityDTO;
 import com.example.finalyearproject.service.AnalyticsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Map;
 
 
 //controller for the analytics page
@@ -90,8 +92,18 @@ public class AnalyticsController {
         if (username == null || username.equalsIgnoreCase("Guest")) {
             return List.of(); //for guest cases, return empty list
         }
-        return analyticsService.getTopProductQuantities(username); //call service method
+        return analyticsService.getTopProductQuantities(username); //call service method and return to frontend
     }
+
+    //controller method for smart recommendation insights
+    @GetMapping("/smart-insights")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getSmartInsights(@AuthenticationPrincipal UserDetails userDetails) {
+        String username = userDetails != null ? userDetails.getUsername() : "Guest"; //extra validation for guest users
+        Map<String, Object> insights = analyticsService.generateSmartInsights(username); //call the service method
+        return ResponseEntity.ok(insights);  //return the response to frontend
+    }
+
 
 
 

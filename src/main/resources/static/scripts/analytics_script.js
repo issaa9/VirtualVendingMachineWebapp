@@ -385,8 +385,38 @@ function renderItemBreakdownChart(data) {
     });
 }
 
+//function to load smart recommendation insight data
+function loadSmartInsights() {
+    fetch("analytics/smart-insights")
+        .then(res => res.json())
+        .then(data => renderSmartInsights(data)) //render insight data
+        .catch(err => console.error("Smart Insights Error:", err));
+}
 
+//function to render smart insight data
+function renderSmartInsights(data) {
 
+    //select the elements and add the values in (include fallbacks in case no values)
+    document.getElementById("topCategoryValue").textContent = data.topCategory || "N/A";
+    document.getElementById("avgSpendValue").textContent = `£${(data.avgSpend || 0).toFixed(2)}`;
+    document.getElementById("collabStrength").textContent = data.collabStrength || "Unknown";
+
+    //call function to insert the product data in
+    insertSmartItems("topCategoryItems", data.categoryItems);
+    insertSmartItems("priceBasedItems", data.priceItems);
+    insertSmartItems("collabBasedItems", data.collabItems);
+}
+
+//function to insert the product data into the cards
+function insertSmartItems(containerId, items) {
+    const container = document.getElementById(containerId); //select the container
+    container.innerHTML = ""; //clear old data (if any)
+    items.forEach(id => { //for each item create a list element and add the items in
+        const li = document.createElement("li"); //create list entry
+        li.textContent = `${id}`;  //insert the data
+        container.appendChild(li); //append the li element to the container
+    });
+}
 
 
 //helper function to check if there is no chart data and handle this by hiding the chart and displaying a message instead
@@ -418,8 +448,17 @@ function loadAllAnalytics() {
     loadAnalyticsSummary();
     loadPurchaseFrequency();
     loadSpendingTrend();
-    loadItemBreakdown()
+    loadItemBreakdown();
+    loadSmartInsights()
 }
+
+//event listener to enable flipping smart cards on click
+document.querySelectorAll(".smart-card").forEach(card => {
+    card.addEventListener("click", () => {
+        card.classList.toggle("flipped");
+    });
+});
+
 
 
 

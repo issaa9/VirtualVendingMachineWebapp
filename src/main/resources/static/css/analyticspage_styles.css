@@ -8,7 +8,7 @@ header {
 
 
 .analytics-container {
-    max-width: 1300px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 50px 40px 80px;
     text-align: center;
@@ -31,11 +31,12 @@ header {
     opacity: 0.4;
 }
 
+/* Summary Cards Section Styling */
 .summary-card-container {
     display: flex;
     justify-content: center;
     flex-wrap: nowrap;
-    gap: 35px;
+    gap: 30px;
     overflow-x: auto;
     padding: 15px 0;
     max-width: 1400px;
@@ -46,7 +47,7 @@ header {
     background-color: #0a0a0a;
     border: 2px solid #00ffff;
     border-radius: 16px;
-    width: 250px;
+    width: 255px;
     height: 300px;
     padding: 50px 20px;
     text-align: center;
@@ -63,7 +64,7 @@ header {
 }
 
 .card-stat {
-    font-size: 3rem;
+    font-size: 2.6rem;
     font-weight: bold;
     color: #ffffff;
     margin-bottom: 20px;
@@ -171,6 +172,142 @@ header {
     border: 1px solid #0ff;
     border-radius: 8px;
 }
+
+
+/* Smart Recommendation Insights Section Styling */
+.smart-cards-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+    max-width: 1200px;
+}
+
+.smart-card {
+    width: 300px;
+    height: 320px;
+    perspective: 1000px;
+}
+
+.smart-card-inner {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+.smart-card.flipped .smart-card-inner {
+    transform: rotateY(180deg);
+}
+
+.smart-card {
+    cursor: pointer;
+    position: relative;
+}
+
+.smart-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px 5px gold;
+}
+
+
+.smart-card-front,
+.smart-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
+    backface-visibility: hidden;
+    background-color: #1a1a1a;
+    border: 2px solid gold;
+    box-shadow: 0 0 20px gold;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #ffd700;
+}
+
+.smart-card-front {
+    z-index: 2;
+}
+
+.smart-card-back {
+    transform: rotateY(180deg);
+}
+
+.smart-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: gold;
+    text-shadow: 0 0 10px gold;
+}
+
+.smart-value {
+    font-size: 2.6rem;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 0 3px white;
+}
+
+.smart-item-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    color: #fff;
+    font-size: 1rem;
+    text-align: left;
+}
+
+.smart-item-list li {
+    margin: 8px 0;
+    border-bottom: 1px dashed #ffd700;
+    padding-bottom: 6px;
+}
+
+.smart-heading {
+    color: yellow;
+    text-shadow: 0 0 5px gold, 0 0 2px yellow;
+}
+
+.flip-instruction {
+    color: #ffd700;
+    font-size: 1.4rem;
+    margin-top: 40px;
+    text-shadow: 0 0 10px gold;
+}
+
+.smart-card[data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: -28px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: #ffff66;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    white-space: nowrap;
+    box-shadow: 0 0 10px #ffff66;
+    z-index: 100;
+    opacity: 1;
+}
+
+@keyframes pulseGold {
+    0% { box-shadow: 0 0 10px gold; }
+    50% { box-shadow: 0 0 20px yellow; }
+    100% { box-shadow: 0 0 10px gold; }
+}
+
+.smart-card {
+    animation: pulseGold 1.5s infinite;
+    box-shadow: 0 0 15px gold;
+}
+
 
 
 
