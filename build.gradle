@@ -38,6 +38,11 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
+test {
+    jvmArgs '-Xshare:off'
+}
+
+
 tasks.named('test') {
     useJUnitPlatform()
 }

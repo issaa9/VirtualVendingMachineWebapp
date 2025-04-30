@@ -51,20 +51,25 @@ public class ProductService {        //service class for Product
 
     //method for admins to update stock and auto-update settings for products
     public void updateProductStockAndSettings(String id, int stock, boolean auto, Integer threshold, Integer updateAmt) {
+        //find the product
         Optional<Product> optionalProduct = productRepository.findById(id);
         if (optionalProduct.isPresent()) {
             Product product = optionalProduct.get();
 
+            //validate in case product stock is 0
             if (stock < 0) {
                 throw new IllegalArgumentException("Invalid stock level: cannot be negative.");
             }
 
-            product.setStock(stock);
-            product.setAutoStockEnabled(auto);
-            product.setStockThreshold(threshold);
-            product.setUpdateAmount(updateAmt);
+            //update stock settings
+            product.setStock(stock); //set the new stock value
+            product.setAutoStockEnabled(auto);  //set new auto stock value
+            product.setStockThreshold(threshold);  //set the new threshold
+            product.setUpdateAmount(updateAmt);  //set the new update amount
 
-            productRepository.save(product);
+            productRepository.save(product);  //save the product to database
+
+            //log the update
             System.out.println("Updated product " + id + " with stock: " + stock +
                     ", auto: " + auto + ", threshold: " + threshold + ", updateAmount: " + updateAmt);
         }

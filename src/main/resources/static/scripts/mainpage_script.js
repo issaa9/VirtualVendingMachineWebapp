@@ -94,7 +94,7 @@ async function addItemToCart(product, allItems) {
             name: product.name,
             price: parseFloat(product.price), //parse the price as a float
             quantity: 1,
-            imageUrl: product.imageUrl  //now also store image url
+            imageUrl: product.imageUrl  //also store image url
         };
     }
 

@@ -310,6 +310,11 @@ function loadItemBreakdown() {
 function renderItemBreakdownChart(data) {
     const ctx = document.getElementById("itemBreakdownChart").getContext("2d");
 
+    const msg = document.getElementById('noItemDataMsg');
+    const chart = document.getElementById('itemBreakdownChart');
+
+    if (handleNoChartData(data, msg, chart)) return; //call to check and handle empty chart data and if returns true, stop rendering (no data)
+
     //sort the data by productId
     data.sort((a, b) => a.productId.localeCompare(b.productId, undefined, { numeric: true }));
 
