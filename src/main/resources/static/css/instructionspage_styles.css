@@ -1,6 +1,6 @@
 .pdf-container {
-    width: 90%;
-    height: 75vh;
+    width: 95%;
+    height: 85vh;
     margin: 10px auto;
     background-color: #1c2833;
     border-radius: 10px;
@@ -48,5 +48,27 @@ main h2 {
     text-align: center;
     color: #00d4ff;
     text-shadow: 0 0 10px rgba(0, 212, 255, 0.8);
+}
+
+.pdf-controls {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.pdf-controls button {
+    padding: 8px 16px;
+    font-size: 16px;
+    background-color: #00d4ff;
+    border: none;
+    border-radius: 8px;
+    color: black;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: 0.3s;
+    box-shadow: 0 0 6px #00d4ff;
+}
+
+.pdf-controls button:hover {
+    background-color: #00aacc;
 }
 

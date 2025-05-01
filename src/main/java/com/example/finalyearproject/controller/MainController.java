@@ -35,9 +35,13 @@ public class MainController {
 
     @GetMapping("/main")
     public String showMainPage(HttpSession session, Model model) {
-//        if (session.getAttribute("user") == null) {
-//            return "redirect:/"; //redirect to login page if not logged in
-//        }
+
+        //if not logged in or browsing as guest, don't allow access and redirect back to login
+        Object username = session.getAttribute("username");
+        if (username == null) {
+            return "redirect:/login";
+        }
+
         List<Product> products = productService.getAllProducts();  //fetch all products from DB
         model.addAttribute("products", products);  //add products to model attribute
 

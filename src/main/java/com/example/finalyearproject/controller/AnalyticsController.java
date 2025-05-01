@@ -5,6 +5,7 @@ import com.example.finalyearproject.dto.PurchaseFrequencyDTO;
 import com.example.finalyearproject.dto.SpendingTrendDTO;
 import com.example.finalyearproject.dto.TopProductQuantityDTO;
 import com.example.finalyearproject.service.AnalyticsService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -32,7 +33,13 @@ public class AnalyticsController {
 
     //controller method for showing the page
     @GetMapping
-    public String showAnalyticsPage() {
+    public String showAnalyticsPage(HttpSession session) {
+
+        //if not logged in, don't allow access and redirect back to login (restricted from guests too)
+        Object username = session.getAttribute("username");
+        if (username == null || "Guest".equals(username)) {
+            return "redirect:/login";
+        }
 
         return "analytics"; //render the page
     }

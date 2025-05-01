@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -29,14 +30,16 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable) //disable CSRF for development (enable later in production)
+                .headers(headers -> headers
+                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin)
+                )
                 .authorizeHttpRequests(auth -> auth
-                                .anyRequest().permitAll()  //allow access to all pages for development
-//                                .requestMatchers("/guest-login").permitAll()
-//                        .requestMatchers("/register", "/login").permitAll() //allow login & register pages for everyone
-//                        .requestMatchers("/css/**", "/scripts/**", "/images/**", "/pdf/**").permitAll() //allow all static resources
-//                                .requestMatchers("/home").permitAll()
-//                        .requestMatchers("/admin/**").hasRole("ADMIN") //restrict admin pages for later
-//                        .anyRequest().authenticated() //all other pages require to be logged in first to access
+                        //.anyRequest().permitAll()  //allow access to all pages for development
+                        .requestMatchers("/guest-login").permitAll() //allow guest login for everyone
+                        .requestMatchers("/register", "/login").permitAll() //allow login & register pages for everyone
+                        .requestMatchers("/css/**", "/scripts/**", "/images/**", "/pdf/**").permitAll() //allow all static resources
+                        .requestMatchers("/admin/**").hasRole("ADMIN") //restrict admin pages for later
+                        .anyRequest().permitAll() //all other pages are accessible, restrictions are enforced in controllers
                 )
                 .formLogin(login -> login
                         .loginPage("/login") //use custom login page
@@ -45,6 +48,11 @@ public class SecurityConfig {
                         //.defaultSuccessUrl("/home", false) //redirect to home page after login
                         .permitAll()
                 )
+                .exceptionHandling(ex -> ex
+                        .accessDeniedHandler((request, response, accessDeniedException) -> {
+                            response.sendRedirect("/home"); //if non-admins try to access admin dashboard, redirect to home
+                        })
+                )
                 .oauth2Login(oauth -> oauth
                         .loginPage("/login") //reuse custom login page
                         .successHandler(customLoginSuccessHandler)
@@ -52,7 +60,7 @@ public class SecurityConfig {
 
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login")
+                        .logoutSuccessUrl("/log-out")
                         .permitAll()
                 )
                 .rememberMe(remember -> remember

@@ -30,6 +30,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
             String name = oauthUser.getAttribute("name");
 
             Optional<User> existingUser = userRepo.findByEmail(email); //attempt to find the user by email
+            String finalUsername;
 
             if (existingUser.isEmpty()) {  //if the user doesn't already exist, they need to be registered
                 //generate a new unique username based on their display name
@@ -47,9 +48,16 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
                 User newUser = new User(username, email, "", "USER");
 
                 userRepo.save(newUser);  //save the user to the database
+
+                finalUsername = username;  //set the final username
+
+            } else {
+
+                finalUsername = existingUser.get().getUsername(); //use existing username for finl username
             }
 
             //if the user does already exist, then log them in
+            request.getSession().setAttribute("username", finalUsername); //set the username in the session, using final username
             response.sendRedirect("/home");  //redirect to homepage
             return;  //return from the method to stop further processing, OAuth2 users cant be admins (yet)
         }
@@ -58,6 +66,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
         boolean isAdmin = authentication.getAuthorities().stream()
                 .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));  //check if the user logging in is an admin
 
+        request.getSession().setAttribute("username", authentication.getName());
         if (isAdmin) {
             response.sendRedirect("/admin/dashboard");  //if the user is an admin, redirect to the admin dashboard
         } else {

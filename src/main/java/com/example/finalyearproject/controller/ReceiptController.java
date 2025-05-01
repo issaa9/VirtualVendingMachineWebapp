@@ -4,6 +4,7 @@ import com.example.finalyearproject.model.Transaction;
 import com.example.finalyearproject.model.TransactionProduct;
 import com.example.finalyearproject.repository.ProductRepo;
 import com.example.finalyearproject.service.TransactionService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +28,25 @@ public class ReceiptController {
 
 
     @GetMapping("/{transactionId}")
-    public String showReceiptPage(@PathVariable Long transactionId, Model model) {
+    public String showReceiptPage(@PathVariable Long transactionId, Model model, HttpSession session) {
+
+        //if not logged in, don't allow access and redirect back to login (restricted from guests too)
+        Object usernameObj = session.getAttribute("username");
+        if (usernameObj == null || "Guest".equals(usernameObj)) {
+            return "redirect:/login";
+        }
+
+
+        String username = usernameObj.toString();
+
+        //get the transaction attempting to be accessed
+        Transaction receiptTransaction = transactionService.getTransactionById(transactionId);
+
+        //if the transaction trying to be accessed wasn't made by the user, redirect to home
+        if (!receiptTransaction.getUser().equals(username)) {
+            return "redirect:/home"; //deny access and redirect
+        }
+
         try {
 
             System.out.println("Fetching Transaction ID: " + transactionId);  //logging

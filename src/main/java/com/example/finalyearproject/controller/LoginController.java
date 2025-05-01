@@ -2,6 +2,8 @@ package com.example.finalyearproject.controller;
 
 import com.example.finalyearproject.model.User;
 import com.example.finalyearproject.repository.UserRepo;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,8 +23,8 @@ public class LoginController {
     private UserRepo userRepository;
 
     @GetMapping("/login")
-    public String showLoginPage() {
-
+    public String showLoginPage(HttpSession session, HttpServletResponse response) {
+        session.invalidate(); //always clear session to enforce fresh entry everytime login page is accessed
         return "loginpage"; //show login page
     }
 
@@ -47,9 +49,10 @@ public class LoginController {
 //        return "loginpage";  //redisplay login page with error message
 //    }
 //
-//    @GetMapping("/logout")
-//    public String logout(HttpSession session) {
-//        session.invalidate();  //clear session
-//        return "redirect:/login";  //redisplay login page
-//    }
+    //controller logout method
+    @GetMapping("/log-out")
+    public String logout(HttpSession session) {
+        session.invalidate();  //clear session
+        return "redirect:/login";  //redisplay login page
+    }
 }
