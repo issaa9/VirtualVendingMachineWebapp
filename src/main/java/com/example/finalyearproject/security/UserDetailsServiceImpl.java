@@ -2,14 +2,12 @@ package com.example.finalyearproject.security;
 
 import com.example.finalyearproject.model.User;
 import com.example.finalyearproject.repository.UserRepo;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import java.util.Collections;
+
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -18,6 +16,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UserRepo userRepository;
 
+    //method to load the user by their username/email
     @Override
     public UserDetails loadUserByUsername(String identifier) throws UsernameNotFoundException {
         User user = userRepository.findByEmailOrUsername(identifier, identifier)  //find by email OR username
@@ -30,15 +29,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .build();
     }
 
-    public String getCurrentUsername() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        if (principal instanceof UserDetails) {
-            return ((UserDetails) principal).getUsername();
-        } else {
-            return principal.toString(); //in case the user is stored as a string
-        }
-    }
 }
 
 

@@ -29,15 +29,14 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable) //disable CSRF for development (enable later in production)
+                .csrf(AbstractHttpConfigurer::disable) //disabled CSRF for development
                 .headers(headers -> headers
-                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin)
+                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin) //allow iframe for instructions page
                 )
                 .authorizeHttpRequests(auth -> auth
-                        //.anyRequest().permitAll()  //allow access to all pages for development
                         .requestMatchers("/guest-login").permitAll() //allow guest login for everyone
                         .requestMatchers("/register", "/login").permitAll() //allow login & register pages for everyone
-                        .requestMatchers("/css/**", "/scripts/**", "/images/**", "/pdf/**").permitAll() //allow all static resources
+                        .requestMatchers("/css/**", "/scripts/**", "/images/**", "/pdf/**", "/sounds/**").permitAll() //allow all static resources
                         .requestMatchers("/admin/**").hasRole("ADMIN") //restrict admin pages for later
                         .anyRequest().permitAll() //all other pages are accessible, restrictions are enforced in controllers
                 )
@@ -45,7 +44,6 @@ public class SecurityConfig {
                         .loginPage("/login") //use custom login page
                         .loginProcessingUrl("/login")
                         .successHandler(customLoginSuccessHandler)  //use the custom success handler class to handle a successful login
-                        //.defaultSuccessUrl("/home", false) //redirect to home page after login
                         .permitAll()
                 )
                 .exceptionHandling(ex -> ex
@@ -65,7 +63,7 @@ public class SecurityConfig {
                 )
                 .rememberMe(remember -> remember
                         .key("uniqueAndSecretKey") //secret key for hashing cookies
-                        .tokenValiditySeconds(86400) //lasts for 1 day (86400 seconds)
+                        .tokenValiditySeconds(86400) //cookie lasts for 1 day (86400 seconds)
                         .userDetailsService(userDetailsService)
                 );
 

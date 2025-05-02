@@ -1,8 +1,6 @@
 package com.example.finalyearproject.advice;
 
-import com.example.finalyearproject.controller.MainController;
-import com.example.finalyearproject.controller.NavigationController;
-import com.example.finalyearproject.controller.ReceiptController;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -41,7 +39,7 @@ public class UserControllerAdvice {
             //otherwise try retrieving the email
             String email = oauthUser.getAttribute("email");
             if (email != null) {  //only return if email is not null
-                return email.split("@")[0]; //extract only the email prefix
+                return email.split("@")[0]; //extract only the email prefix (part before the '@')
             }
 
             return "GoogleUser";  //fallback in case any issues

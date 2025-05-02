@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -99,7 +97,7 @@ public class TransactionController {
             @RequestParam(required = false) Double minChange,
             @RequestParam(required = false) Double maxChange,
             @RequestParam String username) {
-            //request all possible parameters, they aren't all required because we allow null values, only username is required
+            //request all possible parameters, they aren't all required because it allows null values, only username is required
 
         //block guests from trying to fetch transactions (blocked on frontend but failsafe for extra security)
         if ("Guest".equalsIgnoreCase(username)) {

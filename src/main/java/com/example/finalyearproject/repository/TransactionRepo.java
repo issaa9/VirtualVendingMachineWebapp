@@ -5,7 +5,7 @@ import com.example.finalyearproject.dto.SpendingTrendDTO;
 import com.example.finalyearproject.dto.TopProductQuantityDTO;
 import com.example.finalyearproject.model.Transaction;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -75,7 +75,7 @@ public interface TransactionRepo extends JpaRepository<Transaction, Long> {
     List<PurchaseFrequencyDTO> findPurchaseFrequencyByUser(@Param("username") String username); //repository method
 
 
-    //query method for spending trend data which finds the total spend per month by username
+    //query method for spending trend data analytics which finds the total spend per month by username
     @Query("SELECT new com.example.finalyearproject.dto.SpendingTrendDTO(FUNCTION('DATE_FORMAT', t.transactionDate, '%Y-%m'), SUM(t.totalCost)) " +
             "FROM Transaction t WHERE t.user = :username " +
             "GROUP BY FUNCTION('DATE_FORMAT', t.transactionDate, '%Y-%m') " +

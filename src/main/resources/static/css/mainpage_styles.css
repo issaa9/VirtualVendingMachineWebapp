@@ -621,6 +621,10 @@
     max-width: 340px;
 }
 
+.coins-container label{
+    font-size: 1.2rem;
+}
+
 .coin-button {
     background: none;
     border: none;

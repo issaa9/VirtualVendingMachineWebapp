@@ -31,6 +31,9 @@ function openModal() {
     if (cardSection) {
         cardSection.style.display = "block";
     }
+
+    //ensure the coin buttons are enabled
+    enableCoinButtons()
 }
 
 //function to simulate inserting a coin into the machine, using animations
@@ -104,9 +107,12 @@ function updateInsertedAmount(amount) {
             document.getElementById("changeAmount").innerText = `£${changeAmount.toFixed(2)}`;
             document.getElementById("changeContainer").style.display = "block";
             document.getElementById("confirmPayment").style.display = "block";
+
+            disableCoinButtons(); //disable the coin buttons
         }
         else if (remainingAmount === 0) {  //if paid exactly display only the confirm button (no change)
             document.getElementById("confirmPayment").style.display = "block";
+            disableCoinButtons(); //disable the coin buttons too
         }
 
         //dynamically updates inserted and remaining amounts in the UI
@@ -115,6 +121,26 @@ function updateInsertedAmount(amount) {
 
     }
 }
+
+//function to disable the coin buttons
+function disableCoinButtons() {
+    const coinButtons = document.querySelectorAll(".coin-button");
+    coinButtons.forEach(btn => {
+        btn.style.pointerEvents = "none";
+        btn.style.opacity = "0.5";
+    });
+}
+
+//function to enable the coin buttons
+function enableCoinButtons() {
+    const coinButtons = document.querySelectorAll(".coin-button");
+    coinButtons.forEach(btn => {
+        btn.style.pointerEvents = "auto";
+        btn.style.opacity = "1";
+    });
+}
+
+
 
 //function to process the payment
 function confirmPayment() {

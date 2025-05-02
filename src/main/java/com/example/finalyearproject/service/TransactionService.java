@@ -8,10 +8,10 @@ import com.example.finalyearproject.repository.TransactionProductRepo;
 import com.example.finalyearproject.repository.TransactionRepo;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
+
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
+
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.*;
@@ -46,9 +46,6 @@ public class TransactionService {
 
 
         validatePayment(totalCost, paymentReceived);  //validate payment first
-
-        //deductStock(productQuantities);   //deduct stock using the quantities of each product purchased
-        //no longer need to call deductStock from here as it is now called from in TransactionController
 
         return saveTransaction(products, totalCost, paymentReceived, productQuantities, username); //save transaction into DB
     }
@@ -195,12 +192,6 @@ public class TransactionService {
                                                      Double minTotalCost, Double maxTotalCost,
                                                      Double minPayment, Double maxPayment,
                                                      Double minChange, Double maxChange, String username) {
-
-
-
-//        System.out.println("Filtering transactions with: ID=" + transactionId +
-//                ", StartDate=" + startDate + ", EndDate=" + endDate + ", minTotalCost=" + minTotalCost +
-//                ", maxTotalCost=" + maxTotalCost);      //logging
 
 
         List<Transaction> filteredTransactions = transactionRepo.filterTransactions(  //call the repository method to execute the SQL query
