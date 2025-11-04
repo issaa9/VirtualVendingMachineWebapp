@@ -18,11 +18,13 @@ import java.util.List;
 
 public interface TransactionRepo extends JpaRepository<Transaction, Long> {
 
+    //query method to sum the total cost of all transactions
     @Query("SELECT SUM(t.totalCost) FROM Transaction t")
     Double sumAllTransactions();
 
     List<Transaction> findByUser(String username);  //allow filtering transactions by username
 
+    //transaction filtering query
     @Query(value = "SELECT * FROM transactions t " +    //defining a custom SQL query for filtering transactions in the DB
             "WHERE (:transactionId IS NULL OR t.id = :transactionId) " +
             "AND (:username IS NULL OR t.user = :username) " +
@@ -47,6 +49,7 @@ public interface TransactionRepo extends JpaRepository<Transaction, Long> {
             @Param("minChange") Double minChange,
             @Param("maxChange") Double maxChange
     );
+
 
     //ANALYTICS QUERIES
 

@@ -168,9 +168,95 @@ Full user documentation
 
  Contact
 Developer: Issa Aboobaker
-Email: ia252@student.le.ac.uk
-Institution: University of Leicester
+Email: issasecond@outlook.com
+Institution: University of Leicester (Graduate,2025)
+
+
+## Folder Structure
+
+VirtualVendingMachineWebapp/
+│
+├── src/                        → Java source code, Thymeleaf templates, CSS, JS, resources (includes data.sql)
+├── docs/                       → Full documentation and deliverables
+│   ├── Dissertation/            → Final written report (full dissertation)
+│   ├── Interim_Report/          → Early project report (before development)
+│   ├── Presentations/           → Interview slides (prototype stage) + Mini Viva slides (final presentation)
+│   ├── User_Manual/             → User guide (PDF and DOCX versions)
+│   ├── Project_Log/             → Final project log tracking progress
+│   └── Project_Log.pdf
+├── design/                     → UI design wireframes (Pencil .epgz files)
+│   └── Project UI Wireframes/
+│       ├── Project_Wireframes.epgz
+│       └── Project_Wireframes_Annotated.epgz
+├── build.gradle, settings.gradle → Gradle configuration files
+├── gradlew / gradlew.bat / gradle/ → Gradle wrapper scripts
+├── .gitignore / .gitattributes  → Git configuration
+└── README.md                    → (This file)
+
+
+## Environment Variables
+
+| Variable | Purpose | Required | Notes |
+|-----------|----------|-----------|--------|
+| **DB_PASSWORD** | MySQL database password | ✅ | Used to authenticate the local database connection |
+| **GOOGLE_CLIENT_ID** | OAuth2 client ID | Optional | Enables Google login |
+| **GOOGLE_CLIENT_SECRET** | OAuth2 secret | Optional | Must match the Google client above |
+| **STRIPE_TEST_KEY** *(recommended)* | Stripe test API key | Optional | Currently test key is hardcoded but can be moved here for flexibility |
+
+*Sensitive credentials were intentionally kept as environment variables for security. The only visible key in `application.properties` is a **Stripe test key**, which cannot process real transactions.*
 
 
 
+## Security and Data Handling Notes
 
+-No sensitive credentials are committed — only placeholders or environment variable references.
+
+-The database connection uses a local-only MySQL instance; no remote or cloud endpoints are exposed.
+
+-Stripe integration operates strictly in test mode, ensuring that no real payments can occur.
+
+-All user passwords (for registered accounts) are securely hashed within the database.
+
+-Google OAuth2 login uses client credentials stored locally in your environment.
+
+
+## Known Limitations
+
+-The project requires a local MySQL instance for testing (not yet configured for H2 or hosted DBs).
+
+-Google OAuth2 login only functions if valid credentials are supplied.
+
+-Admin account is pre-seeded (see data.sql) for demonstration purposes.
+
+-Stripe integration is limited to test-mode transactions (no live keys included).
+
+-Frontend styling optimised for desktop; mobile responsiveness not yet implemented.
+
+-No automated deployment pipeline — system is intended for local execution and academic demonstration.
+
+
+
+## Project Timeline Context
+
+This repository contains all phases of development and documentation in chronological order:
+
+| Deliverable | Project Stage | Description |
+|--------------|---------------|-------------|
+| **Interim Report** | Before Development | Early analysis and design outlining objectives and proposed architecture |
+| **Interview Slides** | Early Prototype Stage | Presentation showcasing the first working version and system overview |
+| **Dissertation** | Final Report | Full 180+ page academic dissertation detailing design, implementation, testing, and evaluation |
+| **Mini Viva Slides** | After Completion | Presentation summarising the final implemented system and dissertation outcomes |
+| **User Manual** | Post-Development | Detailed guide for users on running and navigating the full system |
+| **Project Log** | Throughout | Chronological record of milestones, updates, and reflections |
+
+Together, these materials document the **complete lifecycle** of the Virtual Vending Machine system — from initial concept and design to final implementation, testing, and presentation.
+
+
+## Contact
+
+**README Author:** *Issa Aboobaker*  
+Email: issaaboobaker@gmail.com  
+LinkedIn: [linkedin.com/in/issa-aboobaker](https://linkedin.com/in/issa-aboobaker)  
+Institution: *University of Leicester (Graduate, 2025)*  
+
+*This README was written and compiled personally by Issa Aboobaker to provide complete setup and documentation for the Virtual Vending Machine web application and has been altered since creation ready for upload to a personal GitHub repository.*

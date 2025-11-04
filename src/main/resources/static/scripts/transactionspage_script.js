@@ -152,7 +152,7 @@ function validateFilters() {
         const value = document.getElementById(id).value;
         if (value && parseFloat(value) < 0) {
             showAlert(`Value for ${id.replace(/([A-Z])/g, ' $1')} cannot be negative.`);
-            document.getElementById(id).value = "";
+            document.getElementById(id).value = ""; //clear box
             return false;
         }
     }
@@ -282,7 +282,7 @@ function resetVisuals(header) {
 const headers = Object.values(headersMap).map(header => header.id);
 
 
-//event listener to reset all sorting functionality when clicking outside the headers
+//event listener to reset all sorting functionality when double clicking outside the headers
 document.addEventListener('dblclick', function(event) {
 
 

@@ -21,13 +21,13 @@ function updateDisplay(value) {
     else if (currentValue.length === 1 && /^[1-4]$/.test(value)) {
         display.innerText += value;
     }
-    enterBtn.disabled = !/^[A-F][1-4]$/.test(display.innerText);  //enable the CLR button if there is a valid code
+    enterBtn.disabled = !/^[A-F][1-4]$/.test(display.innerText);  //enable the ENT button if there is a valid code
 }
 
 //function to clear the keypad display
 function clearDisplay() {
     document.getElementById("keypadDisplay").innerText = "_";  //clear display back to default value
-    document.getElementById("enterBtn").disabled = true; //always ensure the CLR button is disabled when clearing the display
+    document.getElementById("enterBtn").disabled = true; //always ensure the ENT button is disabled when clearing the display
 }
 
 
@@ -290,7 +290,7 @@ document.addEventListener("keydown", function(event) {
         if (event.key === "Enter" && !enterButton.disabled) {
             enterButton.click(); //if ENTER key is pressed and the ENT button is enabled, trigger an ENT button click
         } else if (event.key === "Backspace") {
-            deleteButton.click(); //if BACKSPACE or DELETE key is pressed, trigger a DEL button click
+            deleteButton.click(); //if BACKSPACE key is pressed, trigger a DEL button click
         } else if (event.key === "Delete") {
             clearButton.click(); // if DELETE key is pressed, trigger a CLR button click
     }

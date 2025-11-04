@@ -465,5 +465,3 @@ document.querySelectorAll(".smart-card").forEach(card => {
 });
 
 
-
-

@@ -37,7 +37,7 @@ public class SecurityConfig {
                         .requestMatchers("/guest-login").permitAll() //allow guest login for everyone
                         .requestMatchers("/register", "/login").permitAll() //allow login & register pages for everyone
                         .requestMatchers("/css/**", "/scripts/**", "/images/**", "/pdf/**", "/sounds/**").permitAll() //allow all static resources
-                        .requestMatchers("/admin/**").hasRole("ADMIN") //restrict admin pages for later
+                        .requestMatchers("/admin/**").hasRole("ADMIN") //restrict admin pages
                         .anyRequest().permitAll() //all other pages are accessible, restrictions are enforced in controllers
                 )
                 .formLogin(login -> login

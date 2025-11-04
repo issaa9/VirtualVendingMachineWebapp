@@ -45,7 +45,7 @@ function insertCoin(value, event) {
 
     document.body.appendChild(animatedCoin);  //add the coin clone to page
 
-    const coinRect = coinElement.getBoundingClientRect();
+    const coinRect = coinElement.getBoundingClientRect(); //get the position of the coin
 
     //set the dimensions of the cloned coin based on the original coin's size
     animatedCoin.style.width = `${coinRect.width}px`;
@@ -79,7 +79,7 @@ function insertCoin(value, event) {
     const sound = new Audio('/sounds/coin-sound.mp3');
     setTimeout(() => {
         sound.play();
-    }, 1000);  //play after 2 seconds
+    }, 1000);  //play after 1 second
 
     //hide the card button after coin insertion (don't allow coins and card combined for payments)
     const cardSection = document.getElementById("cardPaymentSection");
@@ -168,7 +168,7 @@ async function processTransaction() {
 
     //ensure paymentReceived is separate and formatted correctly
     let transactionData = {
-        productQuantities: productQuantities,  //nested under a separate key
+        productQuantities: productQuantities,
         paymentReceived: insertedAmount,
         username: username  //now adding username to the transaction data request
     };
@@ -464,7 +464,6 @@ function resetUrl () {
     url.searchParams.delete("payment"); //remove the payment parameter
     window.history.replaceState({}, document.title, url.toString());
 }
-
 
 
 

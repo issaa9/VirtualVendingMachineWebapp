@@ -53,7 +53,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 
             } else {
 
-                finalUsername = existingUser.get().getUsername(); //use existing username for finl username
+                finalUsername = existingUser.get().getUsername(); //use existing username for final username
             }
 
             //if the user does already exist, then log them in
@@ -62,7 +62,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
             return;  //return from the method to stop further processing, OAuth2 users cant be admins (yet)
         }
 
-
+        //standard login logic (non OAuth2)
         boolean isAdmin = authentication.getAuthorities().stream()
                 .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));  //check if the user logging in is an admin
 

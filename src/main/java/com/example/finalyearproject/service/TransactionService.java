@@ -115,12 +115,13 @@ public class TransactionService {
 
             Product product = productService.getProductById(productId); //retrieve product object
 
+            //auto restock logic
             if (product.isAutoStockEnabled()
                     && product.getStockThreshold() != null
                     && product.getUpdateAmount() != null
                     && product.getStock() < product.getStockThreshold()) {
 
-                productService.updateStock(productId, product.getUpdateAmount());
+                productService.updateStock(productId, product.getUpdateAmount()); //auto update by the update amount
 
                 System.out.println("Auto-restocked " + product.getName() + " by "
                         + product.getUpdateAmount() + " units. New stock: " + product.getStock());
@@ -176,6 +177,7 @@ public class TransactionService {
         return transaction;
     }
 
+    //helper method to round to two DP
     public double roundTwoDP(double value) {
         DecimalFormat df = new DecimalFormat("#.##"); //ensures only 2 decimal places
         return Double.parseDouble(df.format(value));  //formats and converts back to double

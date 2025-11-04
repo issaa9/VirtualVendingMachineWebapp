@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 //controller advice allows applying of common behaviour to multiple controllers at the same time
-@ControllerAdvice //applies only to these controller classes
+@ControllerAdvice //applies to all controller classes
 public class UserControllerAdvice {
 
     //method to make controller methods add the username attribute in to their models to display the user info on their respective pages

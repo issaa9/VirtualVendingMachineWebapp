@@ -145,7 +145,7 @@ function attachSetButtonListener(row, product) {
     const inputField = row.querySelector('.manual-stock-input');  //select the input field
     const setBtn = row.querySelector('.set-btn');  //select the set button
     inputField.addEventListener('input', () => {  //add event listener to input field
-        const val = inputField.value.trim();  //retrive the input value
+        const val = inputField.value.trim();  //retrieve the input value
         setBtn.disabled = val === '' || isNaN(val) || parseInt(val) < 0;  //enable the set button for valid inputs, disable it for invalid/no inputs
     });
 }
@@ -200,7 +200,7 @@ function createRow(product, provisional) {
         thresholdInput.style.display = 'inline-block';
         updateAmountInput.style.display = 'inline-block';
 
-        //clear the input fields (in case theres anything from before)
+        //set or clear the input fields (in case theres anything from before)
         thresholdInput.value = product.stockThreshold ?? '';
         updateAmountInput.value = product.updateAmount ?? '';
     }
@@ -365,7 +365,7 @@ async function saveChanges() {
         }
     }
     const updates = [];  //create array of updates to be sent to backend
-    for (const productId in provisionalChanges) { //terate through provisionalChanges
+    for (const productId in provisionalChanges) { //iterate through provisionalChanges
 
         const change = provisionalChanges[productId]; //retrieve the change object
         const product = productList.find(p => String(p.id) === productId);  //find the product
@@ -373,7 +373,7 @@ async function saveChanges() {
         updates.push({ //append to updates array
             id: productId, //the product id
             stock: change.stock !== undefined ? change.stock : fallbackStock, //use fallback stock if no provisional stock
-            autoStockEnabled: change.autoStockEnabled === true, //set the auto sock enable value
+            autoStockEnabled: change.autoStockEnabled === true, //set the auto stock enable value
             stockThreshold: change.stockThreshold ?? null,  //set the threshold or fallback to null
             updateAmount: change.updateAmount ?? null  //set the update value or fallback to null
         });
@@ -442,7 +442,7 @@ document.getElementById('productRows').addEventListener('input', function(event)
     if (target.classList.contains('manual-stock-input')) {  //if the target is the manual stock input
         const setBtn = row.querySelector('.set-btn'); //select the set button
         const val = target.value.trim(); //get the input value
-        setBtn.disabled = val === '' || isNaN(val) || parseInt(val) < 0; //disable the set button if the input value is: empty, an invalid number or a negative number
+        setBtn.disabled = val === '' || isNaN(val) || parseInt(val) < 0; //disable the set button if the input value is: empty, an invalid number or a negative number, otherwise enable it
 
     } else if (target.classList.contains('threshold-input')) {  //if the target is the threshold input
         const value = parseInt(target.value);  //parse the value as an integer
@@ -461,7 +461,7 @@ document.getElementById('productRows').addEventListener('input', function(event)
         }
         provisionalChanges[productId] = change; //save the provisional change
 
-        //if new threshold value matches the existing one (and updateamount does too), delete the entry (no change)
+        //if new threshold value matches the existing one (and update amount does too), delete the entry (no change)
         if ((change.stockThreshold ?? 0) === (product.stockThreshold ?? 0) &&
             (change.updateAmount ?? 0) === (product.updateAmount ?? 0)) {
             delete provisionalChanges[productId];
