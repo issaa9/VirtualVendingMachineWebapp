@@ -41,110 +41,104 @@ Optional:
 
  1. Download the Project zip File
 
-Extract the provided `.zip` or clone via Git:
+    Extract the provided `.zip` or clone via Git:
  
  2. Open in a suitable IDE 
 
- e.g. IntelliJ IDEA, Eclipse 
+    e.g. IntelliJ IDEA, Eclipse 
 
  3. Setup MySQL connection
 
- Create a new local connection in MySQL and ensure it is connected to the IDE
+    Create a new local connection in MySQL and ensure it is connected to the IDE
 
  4. Check credentials
 
- If using 'root' as the username for the connection no action is needed. 
- If using a different username then update in 'application.properties': spring.datasource.username={yourusername}
+    If using 'root' as the username for the connection no action is needed. 
+    If using a different username then update in 'application.properties': spring.datasource.username={yourusername}
 
  5. Initialise Environment Variables (I had to omit key passwords/keys/IDs for security)
 
- In the IDE set environment variables:
+    In the IDE set environment variables:
 
- DB_PASSWORD = (yourpassword)  [Required]
+    DB_PASSWORD = (yourpassword)  [Required]
 
- GOOGLE_CLIENT_ID = (yourgoogleclientid)
- GOOGLE_CLIENT_SECRET=( yourgoogleclientsecret)
- [Optional, only needed to use Google OAuth2 login feature]
+    GOOGLE_CLIENT_ID = (yourgoogleclientid)
+    GOOGLE_CLIENT_SECRET=( yourgoogleclientsecret)
+    [Optional, only needed to use Google OAuth2 login feature]
 
 
  6. Create the database 'vending_machine'
 
-SQL Statement: "CREATE DATABASE vending_machine;"
+    SQL Statement: "CREATE DATABASE vending_machine;"
 
-OR if you want to use a database with a different name then modify 'application.properties':
-spring.datasource.url=jdbc:mysql://localhost:3306/(yourdatabasename) [Not Recommended]
+    OR if you want to use a database with a different name then modify 'application.properties':
+    spring.datasource.url=jdbc:mysql://localhost:3306/(yourdatabasename) [Not Recommended]
 
 
  7. Build and Run
 
- Build using gradle and run the main application ('FinalYearProjectApplication') locally
+    Build using gradle and run the main application ('FinalYearProjectApplication') locally
 
 
  8. Visit http://localhost:8080/login to get started
 
 
-##  Project Details
+## Project Details
 
- Login Options
-Guest Mode (limited features): "Continue as Guest"
-
-User Mode: Register with username/email/password
-
-Google OAuth2: Available with your own Google client credentials set up in Environment Variables
-
-Admin Credentials: 
-Username: admin
-Password: admins
+**Login Options:**  
+- Guest Mode (limited features): *Continue as Guest*  
+- User Mode: Register with username/email/password  
+- Google OAuth2: Available with your own Google client credentials (set in Environment Variables)  
 
 
- Key Features
--Full vending machine simulation
+**Admin Credentials:**  
+- Username: `admin`  
+- Password: `admins`  
 
--Dynamic cart, checkout, real-time stock tracking
+---
 
--Coin-based payment (with animations) and Stripe checkout (test mode) card payments
+### Key Features
+- Full vending machine simulation  
+- Dynamic cart, checkout, and real-time stock tracking  
+- Coin-based payment (with animations) and Stripe checkout *(test mode)* card payments  
+- Smart Recommendations (using a smart algorithm) with visual effects and hover-based explanations  
+- Visual analytics dashboard *(charts, graphs, summaries)*  
+- Admin-only stock management and auto-restocking controls  
+- View, filter/query, and sort full transaction history  
+- Receipt viewing and PDF download  
 
--Smart Recommendations (from a smart algorithm) with visual effects and hover-based explanations  
+---
 
--Visual analytics dashboard (charts, graphs, summaries)
-
--Admin-only stock and auto-restocking controls
-
--View, filter/query, and sort full transaction history
-
--Receipt viewing and download as PDF
-
- Stripe Test Mode Notes
--Card Number: 4242 4242 4242 4242
-
--Any Name, CVC, Postcode, and Future Expiry Date are accepted
-
--Stripe test mode key (sk_test_...) is hardcoded into 'application.properties' for test transactions (no security concern as its test mode only)
-
+### Stripe Test Mode Notes
+- **Card Number:** `4242 4242 4242 4242`  
+- **Any Name, CVC, Postcode, and Future Expiry Date** are accepted  
+- **Stripe Test Key:** Hardcoded into `application.properties` for demo purposes *(test mode only, no security risk)*  
 
 
-File Overview
-**Folder  -->  Folder Description**
+## File Overview
 
-src/ -->  Java, HTML, CSS, JS code
-data.sql  -->  Populates DB with default products and admin account
-application.properties  -->	 Configurations for DB, OAuth2, Stripe and other project things
-build.gradle  -->  Gradle project definition
-Virtual_Vending_Machine_User_Manual.pdf/ --> Step-by-step instructions/UI walkthrough
-README.md  -->  (This) setup and execution guide
+| Folder / File | Description |
+|----------------|-------------|
+| `src/` | Java, HTML, CSS, and JS source code |
+| `data.sql` | Populates the database with default products and admin account |
+| `application.properties` | Configuration file for DB, OAuth2, Stripe, and other project settings |
+| `build.gradle` | Gradle project build definition |
+| `Virtual_Vending_Machine_User_Manual.pdf` | Step-by-step instructions and UI walkthrough |
+| `README.md` | This setup and execution guide |
 
 
 
-  Important Notes
--data.sql is used to insert default product data into the DB when the app starts and also the admin credentials.
 
--The application is configured to use ddl-auto=update, so schema changes are applied automatically.
+## Important Notes
 
--Avoided pushing sensitive data environment variables to any public repository.
+- `data.sql` is used to insert default product data and the admin credentials into the database when the app starts.  
+- The application uses `spring.jpa.hibernate.ddl-auto=update`, so schema changes are applied automatically.  
+- Sensitive data and environment variables were intentionally not pushed to this public repository.  
 
 
 
- Troubleshooting
+
+## Troubleshooting
 -Ensure the MySQL service is running and the vending_machine DB exists
 
 -If login fails, ensure GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET are correctly set or use other login methods
@@ -152,46 +146,53 @@ README.md  -->  (This) setup and execution guide
 -Use the guest option to bypass authentication for quick runthroughs and tests (remember not all features are accessible to Guests)
 
 
- Final Notes for Submission
+
+## Final Notes for Submission
 This project contains:
 
-All source code
+  -All source code
 
-Executable JAR
+  -Executable JAR
 
-Configuration (build.gradle)
+  -Configuration (build.gradle)
 
-Database automatic populating via data.sql
+  -Database automatic populating via data.sql
 
-Full user documentation
+  -Full user documentation    
 
 
- Contact
-Developer: Issa Aboobaker
-Email: issasecond@outlook.com
-Institution: University of Leicester (Graduate,2025)
+
+Contact:
+
+  Developer: Issa Aboobaker
+
+  Email: issasecond@outlook.com
+
+  Institution: University of Leicester (Graduate,2025)
 
 
 ## Folder Structure
 
+```
 VirtualVendingMachineWebapp/
 │
-├── src/                        → Java source code, Thymeleaf templates, CSS, JS, resources (includes data.sql)
-├── docs/                       → Full documentation and deliverables
-│   ├── Dissertation/            → Final written report (full dissertation)
-│   ├── Interim_Report/          → Early project report (before development)
-│   ├── Presentations/           → Interview slides (prototype stage) + Mini Viva slides (final presentation)
-│   ├── User_Manual/             → User guide (PDF and DOCX versions)
-│   ├── Project_Log/             → Final project log tracking progress
+├── src/ → Java source code, Thymeleaf templates, CSS, JS, resources (includes `data.sql`)
+├── docs/ → Full documentation and deliverables
+│   ├── Dissertation/ → Final written report (full dissertation)
+│   ├── Interim_Report/ → Early project report (before development)
+│   ├── Presentations/ → Interview slides (prototype stage) + Mini Viva slides (final presentation)
+│   ├── User_Manual/ → User guide (PDF and DOCX versions)
+│   ├── Project_Log/ → Final project log tracking progress
 │   └── Project_Log.pdf
-├── design/                     → UI design wireframes (Pencil .epgz files)
-│   └── Project UI Wireframes/
+├── design/ → UI design wireframes (Pencil `.epgz` files)
+│   └── Project_UI_Wireframes/
 │       ├── Project_Wireframes.epgz
 │       └── Project_Wireframes_Annotated.epgz
 ├── build.gradle, settings.gradle → Gradle configuration files
 ├── gradlew / gradlew.bat / gradle/ → Gradle wrapper scripts
-├── .gitignore / .gitattributes  → Git configuration
-└── README.md                    → (This file)
+├── .gitignore / .gitattributes → Git configuration
+└── README.md → (This file)
+```
 
 
 ## Environment Variables
@@ -255,7 +256,7 @@ Together, these materials document the **complete lifecycle** of the Virtual Ven
 ## Contact
 
 **README Author:** *Issa Aboobaker*  
-Email: issaaboobaker@gmail.com  
+Email: issasecond@outlook.com  
 LinkedIn: [linkedin.com/in/issa-aboobaker](https://linkedin.com/in/issa-aboobaker)  
 Institution: *University of Leicester (Graduate, 2025)*  
 
